@@ -10,30 +10,51 @@ const VideoLightbox = ({
   setLightboxOpen,
 }) => {
   return (
-    <Lightbox>
-      <Flex>
-        <YtLite
-          key={youtubeVideos[selectedVideoIndex].id}
-          title={youtubeVideos[selectedVideoIndex].title}
-          videoId={youtubeVideos[selectedVideoIndex].videoId}
-        />
-        <Description>
-          <Button onClick={() => setLightboxOpen(false)}>Close Lightbox</Button>
-          <h1>{youtubeVideos[selectedVideoIndex].title}</h1>
-          <PortableText
-            content={youtubeVideos[selectedVideoIndex].description}
+    <>
+      <CloseButton onClick={() => setLightboxOpen(false)}>Close</CloseButton>
+      <Lightbox>
+        <Flex>
+          <YtLite
+            key={youtubeVideos[selectedVideoIndex].id}
+            title={youtubeVideos[selectedVideoIndex].title}
+            videoId={youtubeVideos[selectedVideoIndex].videoId}
           />
-        </Description>
-      </Flex>
-      <LightboxFilmStrip
-        youtubeVideos={youtubeVideos}
-        setSelectedVideoIndex={setSelectedVideoIndex}
-      />
-    </Lightbox>
+          <Description>
+            {/* <Button onClick={() => setLightboxOpen(false)}>
+              Close Lightbox
+            </Button> */}
+            <h1>{youtubeVideos[selectedVideoIndex].title}</h1>
+            <PortableText
+              content={youtubeVideos[selectedVideoIndex].description}
+            />
+          </Description>
+        </Flex>
+        <LightboxFilmStrip
+          youtubeVideos={youtubeVideos}
+          setSelectedVideoIndex={setSelectedVideoIndex}
+        />
+      </Lightbox>
+    </>
   );
 };
 
 export default VideoLightbox;
+
+const CloseButton = styled.button`
+  color: white;
+  position: fixed;
+  top: 0;
+  right: 0;
+  mix-blend-mode: exclusion;
+  z-index: 6;
+  text-align: right;
+  cursor: pointer;
+  padding: var(--header-padding-right);
+
+  & * {
+    color: white;
+  }
+`;
 
 const Lightbox = styled.div`
   width: 100%;
@@ -43,7 +64,7 @@ const Lightbox = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9;
+  z-index: 5;
 
   margin: auto;
 
@@ -66,6 +87,10 @@ const Description = styled.div`
   background-color: #f4f4f4;
   padding: var(--gap-xs);
   border-radius: var(--gap-xs);
+
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
 `;
 
 const Flex = styled.div`

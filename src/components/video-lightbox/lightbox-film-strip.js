@@ -26,7 +26,6 @@ const FilmStripWrapper = styled.div`
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
-  background-color: lightgoldenrodyellow;
   padding: var(--gap-xs) 0;
 
   & > div {

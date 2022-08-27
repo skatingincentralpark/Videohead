@@ -40,6 +40,8 @@ const cssVariables = css`
     --gap-4xl: 5rem;
     --gap-5xl: 6rem;
     --gap-6xl: 7rem;
+    --header-padding-left: var(--gap-l) var(--gap-s) var(--gap-l) var(--gap-l);
+    --header-padding-right: var(--gap-l) var(--gap-l) var(--gap-l) var(--gap-s);
     // Stuff
     --button-height: 3rem;
     --header-height: 6rem;

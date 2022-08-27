@@ -1,4 +1,3 @@
-import { default as NextLink } from "next/link";
 import styled from "@emotion/styled";
 import Logo from "../logo";
 import SocialLogo from "../social-logo";
@@ -7,7 +6,9 @@ import Link from "../link";
 const MobileNav = ({ closeNav }) => {
   return (
     <StyledMobileNav>
-      <Logo />
+      <Link href="/" onClick={closeNav}>
+        <Logo />
+      </Link>
       <Nav>
         <Link href="/music-video" onClick={closeNav}>
           Music Video
@@ -59,7 +60,7 @@ const StyledMobileNav = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 4;
 
   color: white;
 

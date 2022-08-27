@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { default as NextLink } from "next/link";
 import styled from "@emotion/styled";
 import Logo from "../logo";
 import MobileNav from "./mobile-nav";
@@ -13,32 +12,33 @@ const Header = () => {
 
   return (
     <>
-      <HeaderWrapper>
-        <HeaderInner>
-          <NextLink href="/">
-            <a onClick={closeNav}>
-              <Logo />
-            </a>
-          </NextLink>
-          <nav>
-            <Link href="/music-video" onClick={closeNav}>
-              Music Video
-            </Link>
-            <Link href="/commercial" onClick={closeNav}>
-              Commercial
-            </Link>
-            <Link href="/film" onClick={closeNav}>
-              Film
-            </Link>
-            <Link href="/contact" onClick={closeNav}>
-              Contact
-            </Link>
-          </nav>
-          <MobileToggle onClick={toggleNav}>
-            {mobNavOpen ? "Close" : "Menu"}
-          </MobileToggle>
-        </HeaderInner>
-      </HeaderWrapper>
+      {/* If nav open, hide logo, because it's large one is in nav */}
+      {!mobNavOpen && (
+        <HeaderLeft>
+          <Link href="/" onClick={closeNav}>
+            <Logo />
+          </Link>
+        </HeaderLeft>
+      )}
+      <HeaderRight>
+        <nav>
+          <Link href="/music-video" onClick={closeNav}>
+            Music Video
+          </Link>
+          <Link href="/commercial" onClick={closeNav}>
+            Commercial
+          </Link>
+          <Link href="/film" onClick={closeNav}>
+            Film
+          </Link>
+          <Link href="/contact" onClick={closeNav}>
+            Contact
+          </Link>
+        </nav>
+        <MobileToggle onClick={toggleNav}>
+          {mobNavOpen ? "Close" : "Menu"}
+        </MobileToggle>
+      </HeaderRight>
       {mobNavOpen && <MobileNav closeNav={closeNav} />}
     </>
   );
@@ -46,42 +46,22 @@ const Header = () => {
 
 export default Header;
 
-const HeaderWrapper = styled.div`
-  padding: var(--gap-l);
-  width: 100%;
+const StyledHeader = styled.header`
   position: fixed;
-  mix-blend-mode: exclusion;
-  z-index: 3;
   top: 0;
-  left: 0;
-`;
+  mix-blend-mode: exclusion;
 
-const HeaderInner = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  & > * {
+  & * {
     color: white;
   }
+`;
 
-  & > nav {
-    flex-shrink: 0;
-
-    @media screen and (max-width: 700px) {
-      display: none;
-    }
-
-    & > * {
-      margin-left: var(--gap-l);
-      display: inline;
-    }
-  }
+const HeaderLeft = styled(StyledHeader)`
+  left: 0;
+  z-index: 6;
 
   & > a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: var(--header-padding-left);
   }
 
   & svg {
@@ -91,10 +71,38 @@ const HeaderInner = styled.div`
   }
 `;
 
+const HeaderRight = styled(StyledHeader)`
+  right: 0;
+  z-index: 5;
+  text-align: right;
+
+  & a {
+    padding: var(--gap-l) var(--gap-m);
+  }
+
+  & a:last-of-type {
+    padding-right: var(--gap-l);
+  }
+
+  & > nav {
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (max-width: 700px) {
+      display: none;
+    }
+
+    & > * {
+      width: fit-content;
+    }
+  }
+`;
+
 const MobileToggle = styled.div`
   display: none;
   cursor: pointer;
   user-select: none;
+  padding: var(--header-padding-right);
 
   @media screen and (max-width: 700px) {
     display: block;
