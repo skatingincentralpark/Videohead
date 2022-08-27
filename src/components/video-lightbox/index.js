@@ -3,7 +3,11 @@ import PortableText from "react-portable-text";
 import YtLite from "../yt-lite";
 import LightboxFilmStrip from "./lightbox-film-strip";
 
-const VideoLightbox = ({ youtubeVideos, selectedVideoIndex }) => {
+const VideoLightbox = ({
+  youtubeVideos,
+  selectedVideoIndex,
+  setSelectedVideoIndex,
+}) => {
   return (
     <Lightbox>
       <Flex>
@@ -18,7 +22,10 @@ const VideoLightbox = ({ youtubeVideos, selectedVideoIndex }) => {
           />
         </Description>
       </Flex>
-      <LightboxFilmStrip youtubeVideos={youtubeVideos} />
+      <LightboxFilmStrip
+        youtubeVideos={youtubeVideos}
+        setSelectedVideoIndex={setSelectedVideoIndex}
+      />
     </Lightbox>
   );
 };
@@ -39,6 +46,15 @@ const Lightbox = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  & > *:first-of-type {
+    flex-grow: 1;
+    height: 50%;
+  }
+  & > *:nth-of-type(2) {
+    flex-shrink: 0;
+    height: 15%;
+  }
 `;
 
 const Description = styled.div`
@@ -54,17 +70,17 @@ const Flex = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 70%;
 
   border: 3px solid purple;
 
   & > *:first-of-type {
-    flex-shrink: 0;
-    width: 50%;
     height: 100%;
+    width: 100%;
   }
+
   & > *:nth-of-type(2) {
+    width: 500px;
     flex-grow: 1;
-    height: calc(100% - var(--gap-l) * 2);
+    height: calc(80% - var(--gap-l) * 2);
   }
 `;

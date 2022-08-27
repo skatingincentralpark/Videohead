@@ -19,6 +19,7 @@ const MusicVideoPage = ({ youtubeVideos }) => {
       <VideoLightbox
         youtubeVideos={youtubeVideos}
         selectedVideoIndex={selectedVideoIndex}
+        setSelectedVideoIndex={setSelectedVideoIndex}
       />
       <VideoWrapper>
         {youtubeVideos.map(({ description, id, title, videoId }, i) => (

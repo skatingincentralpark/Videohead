@@ -1,14 +1,13 @@
 import React from "react";
 import YtLite from "../yt-lite";
-import PortableText from "react-portable-text";
 import styled from "@emotion/styled";
 
-const LightboxFilmStrip = ({ youtubeVideos }) => {
+const LightboxFilmStrip = ({ setSelectedVideoIndex, youtubeVideos }) => {
   return (
     <FilmStripWrapper>
-      {youtubeVideos.map(({ description, id, title, videoId }, i) => (
+      {youtubeVideos.map(({ id, title, videoId }, i) => (
         <Thumbnail key={id}>
-          {/* <Button onClick={() => setSelectedVideo(i)}>Select</Button> */}
+          {/* <Button onClick={() => setSelectedVideoIndex(i)}>Select</Button> */}
           <YtLite key={id} title={title} videoId={videoId} />
         </Thumbnail>
       ))}
@@ -22,8 +21,17 @@ const FilmStripWrapper = styled.div`
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
-  flex-grow: 1;
-  background-color: red;
+  background-color: lightgoldenrodyellow;
+  border: 3px solid red;
+  padding: var(--gap-xs) 0;
+
+  & > div {
+    padding-right: var(--gap-xs);
+  }
+
+  & > div:first-of-type {
+    margin-left: var(--gap-xs);
+  }
 `;
 
 const Button = styled.button`
@@ -35,5 +43,6 @@ const Button = styled.button`
 `;
 
 const Thumbnail = styled.div`
-  /* min-width: 200px; */
+  height: 100%;
+  aspect-ratio: 16 / 9;
 `;
