@@ -8,6 +8,12 @@ import { useState } from "react";
 
 const MusicVideoPage = ({ youtubeVideos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const openLightbox = (index) => {
+    setSelectedVideoIndex(index);
+    setLightboxOpen(true);
+  };
 
   return (
     <PageWrapper>
@@ -16,16 +22,24 @@ const MusicVideoPage = ({ youtubeVideos }) => {
         <meta name="description" content="Music Videos page of Videohead" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <VideoLightbox
-        youtubeVideos={youtubeVideos}
-        selectedVideoIndex={selectedVideoIndex}
-        setSelectedVideoIndex={setSelectedVideoIndex}
-      />
+      {lightboxOpen && (
+        <VideoLightbox
+          youtubeVideos={youtubeVideos}
+          selectedVideoIndex={selectedVideoIndex}
+          setSelectedVideoIndex={setSelectedVideoIndex}
+          setLightboxOpen={setLightboxOpen}
+        />
+      )}
       <VideoWrapper>
         {youtubeVideos.map(({ description, id, title, videoId }, i) => (
           <div key={id}>
-            <Button onClick={() => setSelectedVideo(i)}>Select</Button>
-            <YtLite key={id} title={title} videoId={videoId} />
+            <YtLite
+              key={id}
+              title={title}
+              videoId={videoId}
+              isThumbnail
+              onClick={() => openLightbox(i)}
+            />
             <PortableText content={description} />
           </div>
         ))}

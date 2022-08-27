@@ -34,7 +34,7 @@ const GlobalStyles = () => {
       html {
         /* font-family: var(--font-family-primary), "Courier New", Courier,
           monospace; */
-        /* background-color: #000000; */
+        background-color: #fff;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
         font-size: clamp(12px, 0.8vw, 18px);
@@ -87,6 +87,13 @@ const GlobalStyles = () => {
         font-weight: inherit;
         text-decoration: inherit;
         overflow-wrap: break-word;
+      }
+
+      h1 {
+        font-size: 2rem;
+        line-height: 1.4em;
+        margin-bottom: var(--gap-s);
+        font-weight: 600;
       }
 
       p {

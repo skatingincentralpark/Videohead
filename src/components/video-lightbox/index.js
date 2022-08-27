@@ -7,6 +7,7 @@ const VideoLightbox = ({
   youtubeVideos,
   selectedVideoIndex,
   setSelectedVideoIndex,
+  setLightboxOpen,
 }) => {
   return (
     <Lightbox>
@@ -17,6 +18,8 @@ const VideoLightbox = ({
           videoId={youtubeVideos[selectedVideoIndex].videoId}
         />
         <Description>
+          <Button onClick={() => setLightboxOpen(false)}>Close Lightbox</Button>
+          <h1>{youtubeVideos[selectedVideoIndex].title}</h1>
           <PortableText
             content={youtubeVideos[selectedVideoIndex].description}
           />
@@ -83,4 +86,13 @@ const Flex = styled.div`
     flex-grow: 1;
     height: calc(80% - var(--gap-l) * 2);
   }
+`;
+
+const Button = styled.button`
+  background-color: gray;
+  color: white;
+  padding: 0.3rem 1.5rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  width: 100%;
 `;

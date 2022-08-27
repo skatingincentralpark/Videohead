@@ -7,8 +7,13 @@ const LightboxFilmStrip = ({ setSelectedVideoIndex, youtubeVideos }) => {
     <FilmStripWrapper>
       {youtubeVideos.map(({ id, title, videoId }, i) => (
         <Thumbnail key={id}>
-          {/* <Button onClick={() => setSelectedVideoIndex(i)}>Select</Button> */}
-          <YtLite key={id} title={title} videoId={videoId} />
+          <YtLite
+            key={id}
+            title={title}
+            videoId={videoId}
+            isThumbnail
+            onClick={() => setSelectedVideoIndex(i)}
+          />
         </Thumbnail>
       ))}
     </FilmStripWrapper>
@@ -22,11 +27,10 @@ const FilmStripWrapper = styled.div`
   overflow-x: auto;
   white-space: nowrap;
   background-color: lightgoldenrodyellow;
-  border: 3px solid red;
   padding: var(--gap-xs) 0;
 
   & > div {
-    padding-right: var(--gap-xs);
+    margin-right: var(--gap-xs);
   }
 
   & > div:first-of-type {
@@ -34,15 +38,6 @@ const FilmStripWrapper = styled.div`
   }
 `;
 
-const Button = styled.button`
-  background-color: gray;
-  color: white;
-  padding: 0.3rem 1.5rem;
-  margin-bottom: 2rem;
-  cursor: pointer;
-`;
-
 const Thumbnail = styled.div`
-  height: 100%;
   aspect-ratio: 16 / 9;
 `;

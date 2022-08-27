@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 
-const YtLite = ({ videoId, title }) => {
+const YtLite = ({ videoId, title, isThumbnail, onClick = null }) => {
   return (
-    <YtLiteWrapper>
+    <YtLiteWrapper onClick={onClick} isThumbnail={isThumbnail}>
+      {isThumbnail && <ClickBlocker />}
       <LiteYouTubeEmbed id={videoId} title={title} />
     </YtLiteWrapper>
   );
@@ -15,6 +16,8 @@ const YtLiteWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  cursor: pointer;
 
   .yt-lite {
     background-color: #000;
@@ -43,6 +46,7 @@ const YtLiteWrapper = styled.div`
     opacity: 0.8;
     border-radius: 14%; /* TODO: Consider replacing this with YT's actual svg. Eh. */
     transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+    display: ${({ isThumbnail }) => isThumbnail && "none"};
   }
   .yt-lite:hover > .lty-playbtn {
     background-color: #f00;
@@ -73,4 +77,14 @@ const YtLiteWrapper = styled.div`
     opacity: 0;
     pointer-events: none;
   }
+`;
+
+// To prevent triggering iFrame opening
+const ClickBlocker = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 `;

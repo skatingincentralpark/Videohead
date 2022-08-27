@@ -15,9 +15,9 @@ export default Header;
 const StyledHeader = styled.div`
   padding: var(--gap-l);
   width: 100%;
-  mix-blend-mode: exclusion;
 
   & > * {
+    mix-blend-mode: exclusion;
     color: white;
     margin-right: var(--gap-l);
   }
