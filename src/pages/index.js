@@ -10,13 +10,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <FeaturedVideo>
-        <video
-          //  autoPlay
-          playsInline
-          muted
-          loop
-          type="video/mp4"
-        >
+        <video autoPlay playsInline muted loop type="video/mp4">
           <source src="/test-video.mp4" />
         </video>
       </FeaturedVideo>

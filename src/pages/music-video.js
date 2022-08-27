@@ -31,17 +31,14 @@ const MusicVideoPage = ({ youtubeVideos }) => {
         />
       )}
       <VideoWrapper>
-        {youtubeVideos.map(({ description, id, title, videoId }, i) => (
-          <div key={id}>
-            <YtLite
-              key={id}
-              title={title}
-              videoId={videoId}
-              isThumbnail
-              onClick={() => openLightbox(i)}
-            />
-            <PortableText content={description} />
-          </div>
+        {youtubeVideos.map(({ id, title, videoId }, i) => (
+          <YtLite
+            key={id}
+            title={title}
+            videoId={videoId}
+            isThumbnail
+            onClick={() => openLightbox(i)}
+          />
         ))}
       </VideoWrapper>
     </PageWrapper>
@@ -51,27 +48,20 @@ const MusicVideoPage = ({ youtubeVideos }) => {
 export default MusicVideoPage;
 
 const PageWrapper = styled.div`
-  padding: var(--gap-3xl);
+  padding: var(--gap-6xl) var(--gap-l) var(--gap-l) var(--gap-l);
 `;
 
 const VideoWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-gap: 1rem;
+  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-s);
 
-  & > * {
-    flex-grow: 1;
-    width: calc(100% / 3);
-    margin-bottom: var(--gap-s);
+  @media screen and (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
   }
-`;
-
-const Button = styled.button`
-  background-color: gray;
-  color: white;
-  padding: 0.3rem 1.5rem;
-  margin-bottom: 2rem;
-  cursor: pointer;
 `;
 
 export async function getStaticProps() {

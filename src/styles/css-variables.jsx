@@ -17,6 +17,8 @@ const cssVariables = css`
     --olive-1: #564f0a;
     --text-primary: #ffffff;
     --text-secondary: #a4a6a9;
+    --border-color: #fff;
+    --ghost-white: #ffffff25;
     // Font Size
     --font-size-xs: 0.7rem;
     --font-size-s: 0.8rem;
@@ -42,6 +44,7 @@ const cssVariables = css`
     --button-height: 3rem;
     --header-height: 6rem;
     --gap-page-top: calc(var(--header-height) + var(--gap-m));
+    --border: 0.5px solid #fff;
 
     @media screen and (min-width: 650px) {
       --button-height: 2.5rem;

@@ -74,8 +74,6 @@ const Flex = styled.div`
   align-items: center;
   width: 100%;
 
-  border: 3px solid purple;
-
   & > *:first-of-type {
     height: 100%;
     width: 100%;
