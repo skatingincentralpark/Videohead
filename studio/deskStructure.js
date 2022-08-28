@@ -2,7 +2,7 @@ import S from "@sanity/desk-tool/structure-builder";
 import { getDocumentNodeWithViews } from "./plugins/views-in-schema/documentNodeWithViews";
 import { CogIcon, EditIcon, EyeOpenIcon, DocumentIcon } from "@sanity/icons";
 import { JsonView } from "./components/views/JsonView";
-// import { SocialMediaView } from "./components/views/SocialMediaView";
+import { SocialMediaView } from "./components/views/SocialMediaView";
 
 export const getDefaultDocumentNode = getDocumentNodeWithViews;
 
@@ -30,7 +30,19 @@ export default () =>
           S.documentTypeList("commercialVideo").title("Commercial Videos")
         ),
       S.listItem()
-        .title("Site Settings")
-        .schemaType("siteSettings")
-        .child(S.documentTypeList("siteSettings").title("Site Settings")),
+        .title("Settings")
+        .icon(CogIcon)
+        .child(
+          S.document()
+            .schemaType("siteSettings")
+            .documentId("siteSettings")
+            .views([
+              S.view.form().title("Edit").icon(EditIcon),
+              S.view
+                .component(SocialMediaView)
+                .title("Preview")
+                .icon(EyeOpenIcon),
+              S.view.component(JsonView).title("JSON").icon(DocumentIcon),
+            ])
+        ),
     ]);
