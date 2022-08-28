@@ -36,16 +36,16 @@ const Header = () => {
             Contact
           </Link>
           <Socials>
-            <a href="/">
+            <a>
               <SocialLogo size="small" type="fb" onClick={closeNav} />
             </a>
-            <a href="/">
+            <a>
               <SocialLogo size="small" type="ig" onClick={closeNav} />
             </a>
-            <a href="/">
+            <a>
               <SocialLogo size="small" type="yt" onClick={closeNav} />
             </a>
-            <a href="/">
+            <a>
               <SocialLogo size="small" type="vimeo" onClick={closeNav} />
             </a>
           </Socials>

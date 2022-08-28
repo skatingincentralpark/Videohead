@@ -33,7 +33,7 @@ const MobileNav = ({ closeNav }) => {
         About
         <br />
         Videohead is a video production company based in Sydney, Australia. We
-        tell stories of some of Australia's most exciting creatives
+        tell stories of some of Australia&apos;s most exciting creatives
       </p>
       <p>
         Contact

@@ -14,10 +14,10 @@ const ContactPage = () => {
         </div>
         <div>
           Videohead is a video production company based in Sydney, Australia. We
-          tell stories of some of Australia's most exciting creatives
+          tell stories of some of Australia&apos;s most exciting creatives
         </div>
       </Bio>
-      <ContactFormWrapper>
+      {/* <ContactFormWrapper>
         <ContactForm>
           <input type="text" placeholder="Name" />
           <input type="email" placeholder="Email" />
@@ -25,7 +25,7 @@ const ContactPage = () => {
           <textarea placeholder="Type your message here" />
           <button>Submit</button>
         </ContactForm>
-      </ContactFormWrapper>
+      </ContactFormWrapper> */}
     </ContactPageWrapper>
   );
 };
