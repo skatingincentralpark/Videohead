@@ -26,7 +26,7 @@ const cssVariables = css`
     --font-size-l: 1.2rem;
     --font-size-xl: 1.4rem;
     // Font Family
-    --font-family-primary: "Courier New";
+    --font-family-primary: "Poppins";
     // Gap
     --gap-3xs: 0.25rem;
     --gap-xxs: 0.5rem;

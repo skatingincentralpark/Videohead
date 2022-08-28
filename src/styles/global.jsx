@@ -5,39 +5,45 @@ const GlobalStyles = () => {
   const styles = [
     cssVariables,
     css`
-      /* @font-face {
-        font-family: "IBM Plex Mono";
-        src: url(/fonts/IBMPlexMono-Regular.ttf) format("truetype");
+      @font-face {
+        font-family: "Poppins";
+        src: url(/fonts/Poppins-Bold.ttf) format("truetype");
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Poppins";
+        src: url(/fonts/Poppins-Regular.ttf) format("truetype");
         font-style: normal;
         font-weight: 400;
         font-display: swap;
       }
       @font-face {
-        font-family: "IBM Plex Mono";
-        src: url(/fonts/IBMPlexMono-ExtraLight.ttf) format("truetype");
+        font-family: "Poppins";
+        src: url(/fonts/Poppins-Light.ttf) format("truetype");
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Poppins";
+        src: url(/fonts/Poppins-ExtraLight.ttf) format("truetype");
         font-style: normal;
         font-weight: 200;
         font-display: swap;
       }
-      @font-face {
-        font-family: "IBM Plex Mono";
-        src: url(/fonts/IBMPlexMono-Light.ttf) format("truetype");
-        font-style: normal;
-        font-weight: 300;
-        font-display: swap;
-      } */
 
       html,
       body {
         height: 100%;
       }
       html {
-        /* font-family: var(--font-family-primary), "Courier New", Courier,
-          monospace; */
         background-color: #000000;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        font-size: clamp(12px, 0.8vw, 18px);
+        font-family: var(--font-family-primary), -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+          "Open Sans", "Helvetica Neue", sans-serif;
+        font-size: 12px;
         line-height: clamp(1.3em, 1.4em, 2em);
         font-weight: 300;
         color: var(--font-family-primary);
@@ -99,6 +105,12 @@ const GlobalStyles = () => {
       p {
         margin-bottom: var(--gap-s);
         color: var(--font-family-primary);
+      }
+
+      @media screen and (min-width: 1600px) {
+        html {
+          font-size: 14px;
+        }
       }
     `,
   ];

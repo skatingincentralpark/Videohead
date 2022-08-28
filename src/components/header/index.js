@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Logo from "../logo";
 import MobileNav from "./mobile-nav";
 import Link from "../link";
+import SocialLogo from "../social-logo";
 
 const Header = () => {
   const [mobNavOpen, setMobNavOpen] = useState(false);
@@ -34,6 +35,20 @@ const Header = () => {
           <Link href="/contact" onClick={closeNav}>
             Contact
           </Link>
+          <Socials>
+            <a href="/">
+              <SocialLogo size="small" type="fb" onClick={closeNav} />
+            </a>
+            <a href="/">
+              <SocialLogo size="small" type="ig" onClick={closeNav} />
+            </a>
+            <a href="/">
+              <SocialLogo size="small" type="yt" onClick={closeNav} />
+            </a>
+            <a href="/">
+              <SocialLogo size="small" type="vimeo" onClick={closeNav} />
+            </a>
+          </Socials>
         </nav>
         <MobileToggle onClick={toggleNav}>
           {mobNavOpen ? "Close" : "Menu"}
@@ -50,6 +65,7 @@ const StyledHeader = styled.header`
   position: fixed;
   top: 0;
   mix-blend-mode: exclusion;
+  font-size: 1rem;
 
   & * {
     color: white;
@@ -76,14 +92,6 @@ const HeaderRight = styled(StyledHeader)`
   z-index: 5;
   text-align: right;
 
-  & a {
-    padding: var(--gap-l) var(--gap-m);
-  }
-
-  & a:last-of-type {
-    padding-right: var(--gap-l);
-  }
-
   & > nav {
     display: flex;
     flex-direction: row;
@@ -95,6 +103,28 @@ const HeaderRight = styled(StyledHeader)`
     & > * {
       width: fit-content;
     }
+
+    & > a {
+      padding: var(--gap-l) var(--gap-s);
+    }
+  }
+`;
+
+const Socials = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  & > a {
+    padding: var(--gap-xs) var(--gap-xxs);
+    margin: 0 var(--gap-3xs);
+    display: flex;
+    flex-direction: row;
+    width: 2.2rem;
+    cursor: pointer;
+  }
+
+  & > a:last-of-type {
+    margin-right: calc(var(--gap-l) - var(--gap-xxs));
   }
 `;
 

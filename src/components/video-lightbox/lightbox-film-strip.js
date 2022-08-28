@@ -39,4 +39,5 @@ const FilmStripWrapper = styled.div`
 
 const Thumbnail = styled.div`
   aspect-ratio: 16 / 9;
+  height: 100%;
 `;

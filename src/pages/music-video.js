@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import YtLite from "../components/yt-lite";
 import VideoLightbox from "../components/video-lightbox";
 import client from "../../client";
-import PortableText from "react-portable-text";
 import { useState } from "react";
 
 const MusicVideoPage = ({ youtubeVideos }) => {

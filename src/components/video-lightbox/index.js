@@ -20,9 +20,6 @@ const VideoLightbox = ({
             videoId={youtubeVideos[selectedVideoIndex].videoId}
           />
           <Description>
-            {/* <Button onClick={() => setLightboxOpen(false)}>
-              Close Lightbox
-            </Button> */}
             <h1>{youtubeVideos[selectedVideoIndex].title}</h1>
             <PortableText
               content={youtubeVideos[selectedVideoIndex].description}
@@ -74,6 +71,7 @@ const Lightbox = styled.div`
   & > *:first-of-type {
     flex-grow: 1;
     height: 50%;
+    padding: 0 var(--gap-l);
   }
   & > *:nth-of-type(2) {
     flex-shrink: 0;
@@ -84,9 +82,9 @@ const Lightbox = styled.div`
 const Description = styled.div`
   overflow-y: auto;
   margin: var(--gap-l);
-  background-color: #f4f4f4;
   padding: var(--gap-xs);
   border-radius: var(--gap-xs);
+  color: white;
 
   @media screen and (max-width: 800px) {
     display: none;
@@ -109,13 +107,4 @@ const Flex = styled.div`
     flex-grow: 1;
     height: calc(80% - var(--gap-l) * 2);
   }
-`;
-
-const Button = styled.button`
-  background-color: gray;
-  color: white;
-  padding: 0.3rem 1.5rem;
-  margin-bottom: 2rem;
-  cursor: pointer;
-  width: 100%;
 `;

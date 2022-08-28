@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styled from "@emotion/styled";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <PageWrapper>
       <Head>
@@ -18,7 +18,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
 
 const PageWrapper = styled.div`
   padding: var(--gap-3xl);
