@@ -37,6 +37,7 @@ const MusicVideoPage = ({ youtubeVideos }) => {
             videoId={videoId}
             isThumbnail
             onClick={() => openLightbox(i)}
+            poster="maxresdefault"
           />
         ))}
       </VideoWrapper>
