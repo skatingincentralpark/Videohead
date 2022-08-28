@@ -34,3 +34,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# backup SVG icons
+/public/svg/social-icons
+
+# compiled sanity studio
+studio/dist/
+
+# test-video
+public/dummy-media/
