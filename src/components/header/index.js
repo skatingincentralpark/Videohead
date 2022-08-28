@@ -66,6 +66,16 @@ const StyledHeader = styled.header`
   top: 0;
   mix-blend-mode: exclusion;
   font-size: 1rem;
+  animation: fadeIn 2s linear;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
   & * {
     color: white;

@@ -45,7 +45,7 @@ const GlobalStyles = () => {
         font-family: var(--font-family-primary), -apple-system,
           BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
           "Open Sans", "Helvetica Neue", sans-serif;
-        font-size: 12px;
+        font-size: 13px;
         line-height: clamp(1.3em, 1.4em, 2em);
         font-weight: 300;
         color: var(--text-primary);

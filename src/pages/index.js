@@ -11,7 +11,7 @@ const HomePage = () => {
       </Head>
       <FeaturedVideo>
         <video autoPlay playsInline muted loop type="video/mp4">
-          <source src="/test-video.mp4" />
+          <source src="/dummy-media/test-video.mp4" />
         </video>
       </FeaturedVideo>
     </PageWrapper>
