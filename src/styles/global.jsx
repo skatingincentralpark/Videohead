@@ -1,9 +1,11 @@
 import { Global, css } from "@emotion/react";
 import cssVariables from "./css-variables";
+import cssReset from "./css-reset";
 
 const GlobalStyles = () => {
   const styles = [
     cssVariables,
+    cssReset,
     css`
       @font-face {
         font-family: "Poppins";
@@ -46,7 +48,7 @@ const GlobalStyles = () => {
         font-size: 12px;
         line-height: clamp(1.3em, 1.4em, 2em);
         font-weight: 300;
-        color: var(--font-family-primary);
+        color: var(--text-primary);
         overflow-y: scroll;
         min-height: fit-content;
       }
@@ -104,7 +106,7 @@ const GlobalStyles = () => {
 
       p {
         margin-bottom: var(--gap-s);
-        color: var(--font-family-primary);
+        color: var(--text-primary);
       }
 
       @media screen and (min-width: 1600px) {
