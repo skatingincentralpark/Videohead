@@ -1,12 +1,12 @@
-import { DocumentIcon, RobotIcon } from "@sanity/icons";
+import { DocumentIcon, RocketIcon } from "@sanity/icons";
 import { JsonView } from "../components/views/JsonView";
 import S from "@sanity/desk-tool/structure-builder";
 
 export default {
-  name: "youtubeVideo",
-  title: "Youtube Video",
+  name: "musicVideo",
+  title: "Music Video",
   type: "document",
-  icon: RobotIcon,
+  icon: RocketIcon,
   views: [S.view.component(JsonView).title("JSON").icon(DocumentIcon)],
   fields: [
     {
@@ -16,7 +16,7 @@ export default {
     },
     {
       name: "videoId",
-      title: "Video ID",
+      title: "Youtube Video ID",
       type: "string",
       description:
         "When you click share, it is the ID at the end of the URL.  E.g. https://youtu.be/98yFlEQ6reQ",
