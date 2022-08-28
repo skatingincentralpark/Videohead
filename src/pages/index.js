@@ -1,7 +1,9 @@
 import Head from "next/head";
 import styled from "@emotion/styled";
+import client from "../../client";
 
-const HomePage = () => {
+const HomePage = ({ landingVideo }) => {
+  const { url } = landingVideo;
   return (
     <PageWrapper>
       <Head>
@@ -11,7 +13,7 @@ const HomePage = () => {
       </Head>
       <FeaturedVideo>
         <video autoPlay playsInline muted loop type="video/mp4">
-          <source src="/dummy-media/test-video.mp4" />
+          <source src={url} />
         </video>
       </FeaturedVideo>
     </PageWrapper>
@@ -46,3 +48,19 @@ const FeaturedVideo = styled.div`
     box-sizing: border-box;
   }
 `;
+
+export async function getStaticProps() {
+  const query = await client.fetch(`
+    *[_type == "siteSettings"][]{
+      landingVideo {
+        "url": asset -> url
+      } 
+    }
+  `);
+
+  return {
+    props: {
+      landingVideo: query[0].landingVideo,
+    },
+  };
+}
