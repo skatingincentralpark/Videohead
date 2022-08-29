@@ -36,16 +36,25 @@ const Header = () => {
             Contact
           </Link>
           <Socials>
-            <a>
+            <a
+              href="https://www.facebook.com/videoheadco-103976897860912"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <SocialLogo size="small" type="fb" onClick={closeNav} />
             </a>
-            <a>
+            <a
+              href="https://www.instagram.com/videoheadco/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <SocialLogo size="small" type="ig" onClick={closeNav} />
             </a>
-            <a>
-              <SocialLogo size="small" type="yt" onClick={closeNav} />
-            </a>
-            <a>
+            <a
+              href="https://vimeo.com/user48058060"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <SocialLogo size="small" type="vimeo" onClick={closeNav} />
             </a>
           </Socials>

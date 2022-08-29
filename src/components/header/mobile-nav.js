@@ -24,10 +24,27 @@ const MobileNav = ({ closeNav }) => {
         </Link>
       </Nav>
       <Socials>
-        <SocialLogo type="fb" onClick={closeNav} />
-        <SocialLogo type="ig" onClick={closeNav} />
-        <SocialLogo type="yt" onClick={closeNav} />
-        <SocialLogo type="vimeo" onClick={closeNav} />
+        <a
+          href="https://www.facebook.com/videoheadco-103976897860912"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <SocialLogo type="fb" onClick={closeNav} />
+        </a>
+        <a
+          href="https://www.instagram.com/videoheadco/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <SocialLogo type="ig" onClick={closeNav} />
+        </a>
+        <a
+          href="https://vimeo.com/user48058060"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <SocialLogo type="vimeo" onClick={closeNav} />
+        </a>
       </Socials>
       <p>
         About
