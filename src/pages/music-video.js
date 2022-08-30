@@ -1,4 +1,3 @@
-import Head from "next/head";
 import styled from "@emotion/styled";
 import YtLite from "../components/yt-lite";
 import VideoLightbox from "../components/video-lightbox";

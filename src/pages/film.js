@@ -1,14 +1,14 @@
-import Head from "next/head";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import Image from "next/image";
 import VideoLightboxVimeo from "../components/video-lightbox-vimeo";
+import HeadSEO from "../components/head-seo";
 
 const FilmPage = ({ videos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
-  const openLightbox = ({ videos }) => {
+  const openLightbox = (index) => {
     setSelectedVideoIndex(index);
     setLightboxOpen(true);
   };
@@ -16,11 +16,6 @@ const FilmPage = ({ videos }) => {
   return (
     <PageWrapper>
       <HeadSEO title="Film" desc="Films by Videohead" />
-      <Head>
-        <title>Commercial</title>
-        <meta name="description" content="Commercial videos by Videohead" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       {lightboxOpen && (
         <VideoLightboxVimeo
           selectedVideoIndex={selectedVideoIndex}

@@ -1,6 +1,6 @@
-import Head from "next/head";
 import styled from "@emotion/styled";
 import client from "../../client";
+import HeadSEO from "../components/head-seo";
 
 const HomePage = ({ landingVideo }) => {
   const { url } = landingVideo;

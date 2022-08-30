@@ -1,8 +1,8 @@
-import Head from "next/head";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import Image from "next/image";
 import VideoLightboxVimeo from "../components/video-lightbox-vimeo";
+import HeadSEO from "../components/head-seo";
 
 const CommercialPage = ({ videos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
