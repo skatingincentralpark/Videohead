@@ -4,6 +4,7 @@ import YtLite from "../components/yt-lite";
 import VideoLightbox from "../components/video-lightbox";
 import client from "../../client";
 import { useState } from "react";
+import HeadSEO from "../components/head-seo";
 
 const MusicVideoPage = ({ youtubeVideos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
@@ -16,11 +17,10 @@ const MusicVideoPage = ({ youtubeVideos }) => {
 
   return (
     <PageWrapper>
-      <Head>
-        <title>Music Videos</title>
-        <meta name="description" content="Music Videos page of Videohead" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <HeadSEO
+        title="Music Video"
+        desc="Collection of music videos we have helped film for local artists in Australia"
+      />
       {lightboxOpen && (
         <VideoLightbox
           youtubeVideos={youtubeVideos}

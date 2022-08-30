@@ -6,11 +6,7 @@ const HomePage = ({ landingVideo }) => {
   const { url } = landingVideo;
   return (
     <PageWrapper>
-      <Head>
-        <title>Home</title>
-        <meta name="description" content="Home page of Videohead" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <HeadSEO title="Home" desc="Landing page" />
       <FeaturedVideo>
         <video autoPlay playsInline muted loop type="video/mp4">
           <source src={url} />

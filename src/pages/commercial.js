@@ -15,11 +15,10 @@ const CommercialPage = ({ videos }) => {
 
   return (
     <PageWrapper>
-      <Head>
-        <title>Commercial</title>
-        <meta name="description" content="Commercial videos by Videohead" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <HeadSEO
+        title="Commercial"
+        desc="Collection of music videos we have helped film for local artists in Australia"
+      />
       {lightboxOpen && (
         <VideoLightboxVimeo
           selectedVideoIndex={selectedVideoIndex}

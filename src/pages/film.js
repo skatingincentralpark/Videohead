@@ -15,6 +15,7 @@ const FilmPage = ({ videos }) => {
 
   return (
     <PageWrapper>
+      <HeadSEO title="Film" desc="Films by Videohead" />
       <Head>
         <title>Commercial</title>
         <meta name="description" content="Commercial videos by Videohead" />

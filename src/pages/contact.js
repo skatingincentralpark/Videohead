@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 const ContactPage = () => {
   return (
     <ContactPageWrapper>
+      <HeadSEO title="Contact" desc="Contact Videohead " />
       <Bio>
         <div>Raghav Rampal</div>
         <div>
