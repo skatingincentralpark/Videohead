@@ -3,6 +3,11 @@ import Head from "next/head";
 const HeadSEO = ({ title, desc }) => {
   const siteTitle = `${title} - Videohead`;
 
+  const shareGraphic =
+    "https://instagram.fsyd1-1.fna.fbcdn.net/v/t51.2885-15/277776201_351319913610757_7760038692557131899_n.jpg?stp=dst-jpg_e35_s1080x1080&_nc_ht=instagram.fsyd1-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=TCqe3e3UaYkAX9ByUnu&edm=ALQROFkBAAAA&ccb=7-5&ig_cache_key=MjgwODYyMjIyMDUwMTI2MjA4Ng%3D%3D.2-ccb7-5&oh=00_AT8YNqwUG1FtMObHcH65_LXTar8VJ0pc45nFViYEb4t8gw&oe=6315C0DB&_nc_sid=30a2ef";
+
+  const favi = "/favicon.ico";
+
   return (
     <Head>
       <meta charSet="utf-8" />
@@ -11,31 +16,9 @@ const HeadSEO = ({ title, desc }) => {
       <meta name="format-detection" content="telephone=no" />
 
       <link rel="icon" href="/dummy-media/icon" sizes="any" />
-      <link
-        preload="true"
-        rel="icon"
-        type="image/svg+xml"
-        href="/favicon.ico"
-      />
-      <link
-        preload="true"
-        rel="mask-icon"
-        href="/favicon.ico"
-        color="#000000"
-      />
-      <link
-        preload="true"
-        rel="icon"
-        type="image/svg+xml"
-        href="/dummy-media/icon"
-      />
-      <link
-        preload="true"
-        rel="mask-icon"
-        href="/dummy-media/icon"
-        color="#000000"
-      />
-      <link rel="apple-touch-icon" href="/dummy-media/icon" />
+      <link preload="true" rel="icon" type="image/svg+xml" href={favi} />
+      <link preload="true" rel="mask-icon" href={favi} color="#000000" />
+      {/* <link rel="apple-touch-icon" href="/dummy-media/icon" /> */}
 
       <link rel="preconnect" href="https://videohead.vercel.app/" />
       <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="" />
@@ -57,22 +40,15 @@ const HeadSEO = ({ title, desc }) => {
         </>
       )}
 
-      <>
-        <meta
-          property="og:image"
-          content="https://media.istockphoto.com/photos/barbary-macaque-picture-id824860820?k=20&m=824860820&s=612x612&w=0&h=W8783ZGcqMfDMJoXvBAyDFcSjnOWdKqKhgLGvf-VIuU="
-        />
-        <meta
-          name="twitter:image"
-          content="https://media.istockphoto.com/photos/barbary-macaque-picture-id824860820?k=20&m=824860820&s=612x612&w=0&h=W8783ZGcqMfDMJoXvBAyDFcSjnOWdKqKhgLGvf-VIuU="
-        />
-      </>
+      {shareGraphic && (
+        <>
+          <meta property="og:image" content={shareGraphic} />
+          <meta name="twitter:image" content={shareGraphic} />
+        </>
+      )}
 
       <meta property="og:type" content="website" />
-      <meta
-        name="twitter:card"
-        content="https://media.istockphoto.com/photos/barbary-macaque-picture-id824860820?k=20&m=824860820&s=612x612&w=0&h=W8783ZGcqMfDMJoXvBAyDFcSjnOWdKqKhgLGvf-VIuU="
-      />
+      <meta name="twitter:card" content="summary_large_image" />
 
       <meta property="og:site_name" content="Videohead" />
     </Head>
