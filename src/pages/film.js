@@ -14,30 +14,32 @@ const FilmPage = ({ videos }) => {
   };
 
   return (
-    <PageWrapper>
-      <HeadSEO title="Film" desc="Films by Videohead" />
-      {lightboxOpen && (
-        <VideoLightboxVimeo
-          selectedVideoIndex={selectedVideoIndex}
-          setSelectedVideoIndex={setSelectedVideoIndex}
-          setLightboxOpen={setLightboxOpen}
-          videos={videos}
-        />
-      )}
-      <VideoWrapper>
-        {videos.map(({ id, title, thumbnail }, i) => (
-          <Thumbnail key={id} onClick={() => openLightbox(i)}>
-            <TitleWrapper>{title}</TitleWrapper>
-            <Image
-              src={thumbnail}
-              alt="Something"
-              quality={100}
-              layout="fill"
-            />
-          </Thumbnail>
-        ))}
-      </VideoWrapper>
-    </PageWrapper>
+    <>
+      <HeadSEO title="Film" />
+      <PageWrapper>
+        {lightboxOpen && (
+          <VideoLightboxVimeo
+            selectedVideoIndex={selectedVideoIndex}
+            setSelectedVideoIndex={setSelectedVideoIndex}
+            setLightboxOpen={setLightboxOpen}
+            videos={videos}
+          />
+        )}
+        <VideoWrapper>
+          {videos.map(({ id, title, thumbnail }, i) => (
+            <Thumbnail key={id} onClick={() => openLightbox(i)}>
+              <TitleWrapper>{title}</TitleWrapper>
+              <Image
+                src={thumbnail}
+                alt="Something"
+                quality={100}
+                layout="fill"
+              />
+            </Thumbnail>
+          ))}
+        </VideoWrapper>
+      </PageWrapper>
+    </>
   );
 };
 

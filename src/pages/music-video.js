@@ -15,32 +15,31 @@ const MusicVideoPage = ({ youtubeVideos }) => {
   };
 
   return (
-    <PageWrapper>
-      <HeadSEO
-        title="Music Video"
-        desc="Collection of music videos we have helped film for local artists in Australia"
-      />
-      {lightboxOpen && (
-        <VideoLightbox
-          youtubeVideos={youtubeVideos}
-          selectedVideoIndex={selectedVideoIndex}
-          setSelectedVideoIndex={setSelectedVideoIndex}
-          setLightboxOpen={setLightboxOpen}
-        />
-      )}
-      <VideoWrapper>
-        {youtubeVideos.map(({ id, title, videoId }, i) => (
-          <YtLite
-            key={id}
-            title={title}
-            videoId={videoId}
-            isThumbnail
-            onClick={() => openLightbox(i)}
-            poster="maxresdefault"
+    <>
+      <HeadSEO title="Music Video" />
+      <PageWrapper>
+        {lightboxOpen && (
+          <VideoLightbox
+            youtubeVideos={youtubeVideos}
+            selectedVideoIndex={selectedVideoIndex}
+            setSelectedVideoIndex={setSelectedVideoIndex}
+            setLightboxOpen={setLightboxOpen}
           />
-        ))}
-      </VideoWrapper>
-    </PageWrapper>
+        )}
+        <VideoWrapper>
+          {youtubeVideos.map(({ id, title, videoId }, i) => (
+            <YtLite
+              key={id}
+              title={title}
+              videoId={videoId}
+              isThumbnail
+              onClick={() => openLightbox(i)}
+              poster="maxresdefault"
+            />
+          ))}
+        </VideoWrapper>
+      </PageWrapper>
+    </>
   );
 };
 

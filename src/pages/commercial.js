@@ -14,33 +14,32 @@ const CommercialPage = ({ videos }) => {
   };
 
   return (
-    <PageWrapper>
-      <HeadSEO
-        title="Commercial"
-        desc="Collection of music videos we have helped film for local artists in Australia"
-      />
-      {lightboxOpen && (
-        <VideoLightboxVimeo
-          selectedVideoIndex={selectedVideoIndex}
-          setSelectedVideoIndex={setSelectedVideoIndex}
-          setLightboxOpen={setLightboxOpen}
-          videos={videos}
-        />
-      )}
-      <VideoWrapper>
-        {videos.map(({ id, title, thumbnail }, i) => (
-          <Thumbnail key={id} onClick={() => openLightbox(i)}>
-            <TitleWrapper>{title}</TitleWrapper>
-            <Image
-              src={thumbnail}
-              alt="Something"
-              quality={100}
-              layout="fill"
-            />
-          </Thumbnail>
-        ))}
-      </VideoWrapper>
-    </PageWrapper>
+    <>
+      <HeadSEO title="Commercial" />
+      <PageWrapper>
+        {lightboxOpen && (
+          <VideoLightboxVimeo
+            selectedVideoIndex={selectedVideoIndex}
+            setSelectedVideoIndex={setSelectedVideoIndex}
+            setLightboxOpen={setLightboxOpen}
+            videos={videos}
+          />
+        )}
+        <VideoWrapper>
+          {videos.map(({ id, title, thumbnail }, i) => (
+            <Thumbnail key={id} onClick={() => openLightbox(i)}>
+              <TitleWrapper>{title}</TitleWrapper>
+              <Image
+                src={thumbnail}
+                alt="Something"
+                quality={100}
+                layout="fill"
+              />
+            </Thumbnail>
+          ))}
+        </VideoWrapper>
+      </PageWrapper>
+    </>
   );
 };
 

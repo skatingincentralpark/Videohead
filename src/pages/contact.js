@@ -3,23 +3,24 @@ import HeadSEO from "../components/head-seo";
 
 const ContactPage = () => {
   return (
-    <ContactPageWrapper>
-      <HeadSEO title="Contact" desc="Contact Videohead " />
-      <Bio>
-        <div>Raghav Rampal</div>
-        <div>
-          Director / Founder
-          <br />
-          raghav@videohead.com.au
-          <br />
-          +61 423 371 400
-        </div>
-        <div>
-          Videohead is a video production company based in Sydney, Australia. We
-          tell stories of some of Australia&apos;s most exciting creatives
-        </div>
-      </Bio>
-      {/* <ContactFormWrapper>
+    <>
+      <HeadSEO title="Contact" />
+      <ContactPageWrapper>
+        <Bio>
+          <div>Raghav Rampal</div>
+          <div>
+            Director / Founder
+            <br />
+            raghav@videohead.com.au
+            <br />
+            +61 423 371 400
+          </div>
+          <div>
+            Videohead is a video production company based in Sydney, Australia.
+            We tell stories of some of Australia&apos;s most exciting creatives
+          </div>
+        </Bio>
+        {/* <ContactFormWrapper>
         <ContactForm>
           <input type="text" placeholder="Name" />
           <input type="email" placeholder="Email" />
@@ -28,7 +29,8 @@ const ContactPage = () => {
           <button>Submit</button>
         </ContactForm>
       </ContactFormWrapper> */}
-    </ContactPageWrapper>
+      </ContactPageWrapper>
+    </>
   );
 };
 

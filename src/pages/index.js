@@ -5,14 +5,16 @@ import HeadSEO from "../components/head-seo";
 const HomePage = ({ landingVideo }) => {
   const { url } = landingVideo;
   return (
-    <PageWrapper>
-      <HeadSEO title="Home" desc="Landing page" />
-      <FeaturedVideo>
-        <video autoPlay playsInline muted loop type="video/mp4">
-          <source src={url} />
-        </video>
-      </FeaturedVideo>
-    </PageWrapper>
+    <>
+      <HeadSEO title="Home" />
+      <PageWrapper>
+        <FeaturedVideo>
+          <video autoPlay playsInline muted loop type="video/mp4">
+            <source src={url} />
+          </video>
+        </FeaturedVideo>
+      </PageWrapper>
+    </>
   );
 };
 
