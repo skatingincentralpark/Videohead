@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import styled from "@emotion/styled";
 import Logo from "../logo";
 import MobileNav from "./mobile-nav";
@@ -61,7 +62,11 @@ const Header = () => {
           {mobNavOpen ? "Close" : "Menu"}
         </MobileToggle>
       </HeaderRight>
-      {mobNavOpen && <MobileNav closeNav={closeNav} />}
+      <LazyMotion features={domAnimation} strict>
+        <AnimatePresence exitBeforeEnter>
+          {mobNavOpen && <MobileNav closeNav={closeNav} />}
+        </AnimatePresence>
+      </LazyMotion>
     </>
   );
 };
@@ -89,7 +94,9 @@ const HeaderLeft = styled.div`
   }
   left: 0;
   z-index: 6;
-  visibility: ${({ logoHidden }) => logoHidden && "hidden"};
+  opacity: ${({ logoHidden }) => logoHidden && "0"};
+  transform: ${({ logoHidden }) => logoHidden && "translateY(-100px)"};
+  transition: opacity 0.2s, transform 1s;
 
   & > a {
     padding: var(--header-padding-left);

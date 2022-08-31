@@ -83,13 +83,13 @@ const MobileNav = ({ closeNav }) => {
         </a>
       </Socials>
       <p>
-        About
+        <strong>About</strong>
         <br />
         Videohead is a video production company based in Sydney, Australia. We
         tell stories of some of Australia&apos;s most exciting creatives
       </p>
       <p>
-        Contact
+        <strong>Contact</strong>
         <br />
         Raghav Rampal
         <br />
@@ -98,7 +98,17 @@ const MobileNav = ({ closeNav }) => {
         +61 423 371 400
         <br />
       </p>
-      <p>Site designed and developed by @skatingincentralpark</p>
+      <p>
+        Site designed and developed by
+        <a
+          href="https://www.nakedlunch.studio/about"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "underline" }}
+        >
+          @skatingincentralpark
+        </a>
+      </p>
     </StyledMobileNav>
   );
 };
