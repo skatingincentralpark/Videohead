@@ -16,7 +16,7 @@ const VideoLightboxVimeo = ({
         <Flex>
           <div style={{ height: "100%", position: "relative" }}>
             <iframe
-              src={`https://player.vimeo.com/video/${videos[selectedVideoIndex].id}?h=df5c483387`}
+              src={`https://player.vimeo.com/video/${videos[selectedVideoIndex].videoId}?h=df5c483387`}
               style={{
                 position: "absolute",
                 top: "0",

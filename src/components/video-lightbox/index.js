@@ -19,12 +19,14 @@ const VideoLightbox = ({
             title={youtubeVideos[selectedVideoIndex].title}
             videoId={youtubeVideos[selectedVideoIndex].videoId}
           />
-          <Description>
-            <h1>{youtubeVideos[selectedVideoIndex].title}</h1>
-            <PortableText
-              content={youtubeVideos[selectedVideoIndex].description}
-            />
-          </Description>
+          {youtubeVideos[selectedVideoIndex].description && (
+            <Description>
+              <h1>{youtubeVideos[selectedVideoIndex].title}</h1>
+              <PortableText
+                content={youtubeVideos[selectedVideoIndex].description}
+              />
+            </Description>
+          )}
         </Flex>
         <LightboxFilmStrip
           youtubeVideos={youtubeVideos}
