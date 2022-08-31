@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <GlobalStyles />
       <Header />
-      <LazyMotion features={domAnimation}>
+      <LazyMotion features={domAnimation} strict>
         <AnimatePresence exitBeforeEnter>
           <m.div
             key={router.pathname}
