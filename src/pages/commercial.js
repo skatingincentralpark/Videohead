@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import client from "../../client";
 import { useState } from "react";
 import Image from "next/image";
 import VideoLightboxVimeo from "../components/video-lightbox-vimeo";
@@ -90,16 +91,19 @@ const Button = styled.button`
 `;
 
 export async function getStaticProps() {
-  const sanityVideoResponse = [
-    { id: "584242527", title: "Lacoste" },
-    { id: "628845618", title: "Clean Up Australia" },
-    { id: "470152003", title: "Sweet & Sour" },
-  ];
+  const sanityQueryRes = await client.fetch(`
+  *[_type == "commercialVideo"][]{
+    "id": _id,
+    title,
+    videoId,
+    description
+  }
+`);
 
   const videos = await Promise.all(
-    sanityVideoResponse.map(async (x) => {
+    sanityQueryRes.map(async (x) => {
       const res = await fetch(
-        `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${x.id}`
+        `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${x.videoId}`
       );
 
       const data = await res.json();

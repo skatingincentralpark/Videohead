@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import client from "../../client";
 import YtLite from "../components/yt-lite";
 import VideoLightbox from "../components/video-lightbox";
-import client from "../../client";
 import { useState } from "react";
 import HeadSEO from "../components/head-seo";
 
@@ -64,7 +64,7 @@ const VideoWrapper = styled.div`
 
 export async function getStaticProps() {
   const youtubeVideos = await client.fetch(`
-    *[_type == "youtubeVideo"][]{
+    *[_type == "musicVideo"][]{
       "id": _id,
       title,
       videoId,
