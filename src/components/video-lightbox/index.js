@@ -13,7 +13,7 @@ const VideoLightbox = ({
     <>
       <CloseButton onClick={() => setLightboxOpen(false)}>Close</CloseButton>
       <Lightbox>
-        <Flex>
+        <Flex hasDesc={!!youtubeVideos[selectedVideoIndex].description}>
           <YtLite
             key={youtubeVideos[selectedVideoIndex].id}
             title={youtubeVideos[selectedVideoIndex].title}
@@ -98,6 +98,8 @@ const Flex = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: var(--gap-l) 0;
+  margin-top: ${({ hasDesc }) => !hasDesc && "var(--gap-6xl)"};
 
   & > *:first-of-type {
     height: 100%;

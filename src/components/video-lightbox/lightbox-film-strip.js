@@ -26,7 +26,7 @@ const FilmStripWrapper = styled.div`
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
-  padding: var(--gap-xs) 0;
+  padding: var(--gap-xs) var(--gap-l);
 
   & > div {
     margin-right: var(--gap-xs);
