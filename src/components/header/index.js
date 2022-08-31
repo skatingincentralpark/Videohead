@@ -13,8 +13,6 @@ const Header = () => {
 
   return (
     <>
-      {/* If nav open, hide logo, because it's large one is in nav */}
-
       <HeaderLeft logoHidden={mobNavOpen}>
         <Link href="/" onClick={closeNav}>
           <Logo />
@@ -70,7 +68,7 @@ const Header = () => {
 
 export default Header;
 
-const StyledHeader = styled.header`
+const HeaderLeft = styled.div`
   position: fixed;
   top: 0;
   mix-blend-mode: exclusion;
@@ -89,9 +87,6 @@ const StyledHeader = styled.header`
   & * {
     color: white;
   }
-`;
-
-const HeaderLeft = styled(StyledHeader)`
   left: 0;
   z-index: 6;
   visibility: ${({ logoHidden }) => logoHidden && "hidden"};
@@ -107,7 +102,25 @@ const HeaderLeft = styled(StyledHeader)`
   }
 `;
 
-const HeaderRight = styled(StyledHeader)`
+const HeaderRight = styled.header`
+  position: fixed;
+  top: 0;
+  mix-blend-mode: exclusion;
+  font-size: 1rem;
+  animation: fadeIn 2s linear;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  & * {
+    color: white;
+  }
   right: 0;
   z-index: 5;
   text-align: right;
