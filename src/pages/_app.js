@@ -4,20 +4,29 @@ import { useRouter } from "next/router";
 import Header from "../components/header";
 
 const pageTransitionAnim = {
-  show: {
-    opacity: 1,
+  initial: {
+    opacity: 0,
+    y: 300,
     transition: {
       duration: 0.4,
-      delay: 0.2,
-      ease: "linear",
+      ease: "easeOut",
       when: "beforeChildren",
     },
   },
-  hide: {
-    opacity: 0,
+  animate: {
+    opacity: 1,
+    y: 0,
     transition: {
       duration: 0.4,
-      ease: "linear",
+      ease: [0.61, 1, 0.88, 1],
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -300,
+    transition: {
+      duration: 0.4,
+      ease: "easeIn",
       when: "beforeChildren",
     },
   },
@@ -34,9 +43,9 @@ function MyApp({ Component, pageProps }) {
         <AnimatePresence exitBeforeEnter>
           <m.div
             key={router.pathname}
-            initial="hide"
-            animate="show"
-            exit="hide"
+            initial="initial"
+            animate="animate"
+            exit="exit"
             variants={pageTransitionAnim}
           >
             <Component {...pageProps} />
