@@ -1,27 +1,63 @@
 import styled from "@emotion/styled";
+import { LazyMotion, domAnimation, AnimatePresence, m } from "framer-motion";
 import Logo from "../logo";
 import SocialLogo from "../social-logo";
 import Link from "../link";
 
+const parentVariants = {
+  hidden: {
+    opacity: 0,
+    transition: {
+      staggerDirection: -1,
+      staggerChildren: 0.1,
+      when: "afterChildren",
+    },
+  },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const childVariants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
+
 const MobileNav = ({ closeNav }) => {
   return (
-    <StyledMobileNav>
+    <StyledMobileNav
+      variants={parentVariants}
+      initial="hidden"
+      animate="show"
+      exit="hidden"
+    >
       <Link href="/" onClick={closeNav}>
         <Logo />
       </Link>
       <Nav>
-        <Link href="/music-video" onClick={closeNav}>
-          Music Video
-        </Link>
-        <Link href="/commercial" onClick={closeNav}>
-          Commercial
-        </Link>
-        <Link href="/film" onClick={closeNav}>
-          Film
-        </Link>
-        <Link href="/contact" onClick={closeNav}>
-          Contact
-        </Link>
+        <ChildTransitionWrapper>
+          <Link href="/music-video" onClick={closeNav}>
+            Music Video
+          </Link>
+        </ChildTransitionWrapper>
+        <ChildTransitionWrapper>
+          <Link href="/commercial" onClick={closeNav}>
+            Commercial
+          </Link>
+        </ChildTransitionWrapper>
+        <ChildTransitionWrapper>
+          <Link href="/film" onClick={closeNav}>
+            Film
+          </Link>
+        </ChildTransitionWrapper>
+        <ChildTransitionWrapper>
+          <Link href="/contact" onClick={closeNav}>
+            Contact
+          </Link>
+        </ChildTransitionWrapper>
       </Nav>
       <Socials>
         <a
@@ -69,7 +105,7 @@ const MobileNav = ({ closeNav }) => {
 
 export default MobileNav;
 
-const StyledMobileNav = styled.div`
+const StyledMobileNav = styled(m.div)`
   width: 100%;
   height: 100%;
   background-color: black;
@@ -123,3 +159,11 @@ const Socials = styled.div`
     margin-left: var(--gap-xs);
   }
 `;
+
+const ChildTransitionWrapper = ({ children }) => {
+  return (
+    <m.div variants={childVariants} key={Math.floor(Math.random() * 100)}>
+      {children}
+    </m.div>
+  );
+};
