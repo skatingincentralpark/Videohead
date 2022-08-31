@@ -8,7 +8,7 @@ export default {
   title: "Site settings",
   type: "document",
   icon: CogIcon,
-  __experimental_actions: ["create", "update", /*'delete',*/ "publish"],
+  __experimental_actions: [/*"create",*/ "update", /*'delete',*/ "publish"],
   views: [
     S.view.component(SocialMediaView).title("Preview").icon(EyeOpenIcon),
     S.view.component(JsonView).title("JSON").icon(DocumentIcon),

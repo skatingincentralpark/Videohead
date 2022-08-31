@@ -11,11 +11,6 @@ export default () =>
     .title("Content")
     .items([
       S.listItem()
-        .title("Youtube Videos")
-        .schemaType("youtubeVideo")
-        .child(S.documentTypeList("youtubeVideo").title("Youtube Videos")),
-      S.divider(),
-      S.listItem()
         .title("Music Videos")
         .schemaType("musicVideo")
         .child(S.documentTypeList("musicVideo").title("Music Videos")),
@@ -29,8 +24,9 @@ export default () =>
         .child(
           S.documentTypeList("commercialVideo").title("Commercial Videos")
         ),
+      S.divider(),
       S.listItem()
-        .title("Settings")
+        .title("Site Settings")
         .icon(CogIcon)
         .child(
           S.document()
@@ -45,4 +41,5 @@ export default () =>
               S.view.component(JsonView).title("JSON").icon(DocumentIcon),
             ])
         ),
+      // ...S.documentTypeListItems(),
     ]);
