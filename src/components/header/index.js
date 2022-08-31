@@ -14,13 +14,13 @@ const Header = () => {
   return (
     <>
       {/* If nav open, hide logo, because it's large one is in nav */}
-      {!mobNavOpen && (
-        <HeaderLeft>
-          <Link href="/" onClick={closeNav}>
-            <Logo />
-          </Link>
-        </HeaderLeft>
-      )}
+
+      <HeaderLeft logoHidden={mobNavOpen}>
+        <Link href="/" onClick={closeNav}>
+          <Logo />
+        </Link>
+      </HeaderLeft>
+
       <HeaderRight>
         <nav>
           <Link href="/music-video" onClick={closeNav}>
@@ -94,6 +94,7 @@ const StyledHeader = styled.header`
 const HeaderLeft = styled(StyledHeader)`
   left: 0;
   z-index: 6;
+  visibility: ${({ logoHidden }) => logoHidden && "hidden"};
 
   & > a {
     padding: var(--header-padding-left);
