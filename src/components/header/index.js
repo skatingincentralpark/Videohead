@@ -96,16 +96,25 @@ const HeaderLeft = styled.div`
   z-index: 6;
   opacity: ${({ logoHidden }) => logoHidden && "0"};
   transform: ${({ logoHidden }) => logoHidden && "translateY(-100px)"};
-  transition: opacity 0.2s, transform 1s;
+  transition: opacity 0.2s;
 
   & > a {
     padding: var(--header-padding-left);
+  }
+
+  & a:hover svg {
+    fill: rgba(255, 255, 255, 0.9);
+  }
+
+  & a:active svg {
+    fill: rgba(255, 255, 255, 0.7);
   }
 
   & svg {
     width: 15rem;
     fill: white;
     cursor: pointer;
+    transition: fill 0.1s;
   }
 `;
 
@@ -146,6 +155,15 @@ const HeaderRight = styled.header`
 
     & > a {
       padding: var(--gap-l) var(--gap-s);
+      transition: color 0.1s;
+    }
+
+    & a:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    & a:active {
+      color: rgba(255, 255, 255, 0.4);
     }
   }
 `;
@@ -163,6 +181,18 @@ const Socials = styled.div`
     cursor: pointer;
   }
 
+  & > a svg {
+    transition: fill 0.1s;
+  }
+
+  & > a:hover svg {
+    fill: rgba(255, 255, 255, 0.7);
+  }
+
+  & > a:active svg {
+    fill: rgba(255, 255, 255, 0.4);
+  }
+
   & > a:last-of-type {
     margin-right: calc(var(--gap-l) - var(--gap-xxs));
   }
@@ -176,5 +206,18 @@ const MobileToggle = styled.div`
 
   @media screen and (max-width: 700px) {
     display: block;
+  }
+
+  & {
+    padding: var(--gap-l) var(--gap-s);
+    transition: color 0.1s;
+  }
+
+  &:hover {
+    fill: rgba(255, 255, 255, 0.7);
+  }
+
+  &:active {
+    color: rgba(255, 255, 255, 0.4);
   }
 `;
