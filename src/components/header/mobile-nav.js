@@ -163,6 +163,7 @@ const Socials = styled.div`
     background-color: var(--ghost-white);
     border-radius: 1rem;
     cursor: pointer;
+    max-width: 6rem;
   }
 
   & > *:not(:first-of-type) {

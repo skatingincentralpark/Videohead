@@ -96,7 +96,7 @@ const HeaderLeft = styled.div`
   z-index: 6;
   opacity: ${({ logoHidden }) => logoHidden && "0"};
   transform: ${({ logoHidden }) => logoHidden && "translateY(-100px)"};
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 1s;
 
   & > a {
     padding: var(--header-padding-left);
