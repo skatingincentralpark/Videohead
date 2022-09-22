@@ -53,7 +53,7 @@ export { default as lol51 } from "../../public/gifs/[MV]_goyo_-_Wake_Up_⧸_Offi
 export { default as lol52 } from "../../public/gifs/[MV]_goyo_-_Wake_Up_⧸_Official_Music_Video.mp4-5sec-3.mp4-1.gif-compressed.gif";
 
 export const allGifLinks = [
-  "/gifs/1300_-_Foreign_Language.mp4-5sec-2.mp4-1.gif-compressed.gif",
+  "/gifs/1300_-_Foreign_Language.mp4-5sec-1.mp4-1.gif-compressed.gif",
   "/gifs/1300_-_Foreign_Language.mp4-5sec-3.mp4-1.gif-compressed.gif",
   "/gifs/1300_-_Foreign_Language.mp4-5sec-2.mp4-1.gif-compressed.gif",
   "/gifs/1300_-_No_Caller_iD_(Official_MV).mp4-5sec-1.mp4-1.gif-compressed.gif",

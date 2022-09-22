@@ -11,6 +11,9 @@ import commercialVideo from "./commercialVideo";
 import filmVideo from "./filmVideo";
 import siteSettings from "./siteSettings";
 import link from "./link";
+import mainImage from "./mainImage";
+import category from "./category";
+import videoSource from "./videoSource";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -28,5 +31,8 @@ export default createSchema({
     siteSettings,
     // hide these
     link,
+    mainImage,
+    category,
+    videoSource,
   ]),
 });

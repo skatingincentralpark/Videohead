@@ -24,6 +24,14 @@ export default () =>
         .child(
           S.documentTypeList("commercialVideo").title("Commercial Videos")
         ),
+      S.listItem()
+        .title("Categories")
+        .schemaType("category")
+        .child(S.documentTypeList("category").title("Categories")),
+      S.listItem()
+        .title("Video Sources")
+        .schemaType("videoSource")
+        .child(S.documentTypeList("videoSource").title("Video Sources")),
       S.divider(),
       S.listItem()
         .title("Site Settings")

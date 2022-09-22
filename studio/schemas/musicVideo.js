@@ -13,13 +13,69 @@ export default {
       name: "title",
       title: "Title",
       type: "string",
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "client",
+      title: "Client",
+      type: "string",
+    },
+    {
+      name: "date",
+      title: "Date",
+      type: "date",
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "gifs",
+      title: "GIFS",
+      description:
+        "These will appear on the landing page, place a maximum of 4",
+      type: "array",
+      of: [
+        {
+          title: "Image",
+          type: "mainImage",
+        },
+      ],
+      validation: (Rule) => Rule.max(4),
+    },
+    {
+      name: "category",
+      title: "Category",
+      description: "Category of your video",
+      type: "string",
+      options: {
+        list: [
+          { title: "Music Video", value: "music-video" },
+          { title: "Film", value: "film" },
+          { title: "Commercial", value: "commercial" },
+        ],
+        layout: "radio",
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "source",
+      title: "Video Source",
+      description: "Where is this video uploaded?",
+      type: "string",
+      options: {
+        list: [
+          { title: "Youtube", value: "youtube" },
+          { title: "Vimeo", value: "vimeo" },
+        ],
+        layout: "radio",
+      },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "videoId",
-      title: "Youtube Video ID",
+      title: "Video ID",
       type: "string",
       description:
-        "When you click share, it is the ID at the end of the URL.  E.g. https://youtu.be/98yFlEQ6reQ",
+        'When you click share, it is the ID at the end of the URL.  E.g. "https://youtu.be/98yFlEQ6reQ", "https://vimeo.com/390907489"',
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "description",
