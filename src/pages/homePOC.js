@@ -117,6 +117,7 @@ const HomePOC = () => {
     <PageWrapper>
       {videos.map((v, i) => (
         <Row key={v.title}>
+          <Info line1={v.client} line2={v.title} mobile />
           <Info line1={v.client} line2={v.title} l />
           <GifGroup>
             <Image src={allGifLinks[i * 3]} />
@@ -160,19 +161,25 @@ const GifGroup = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: clamp(30rem, 30vw + 4rem, 45rem);
+  width: 100%;
+  transition: width 1s ease;
+
+  @media screen and (min-width: 700px) {
+    width: clamp(30rem, 30vw + 4rem, 45rem);
+  }
 `;
 
 const Bio = styled.div`
   font-weight: 600;
-  width: clamp(30rem, 30vw + 4rem, 45rem);
+  width: 100%;
   margin: var(--gap-l) auto 0 auto;
-  padding-bottom: var(--gap-3xl);
+  padding: 0 var(--gap-s) var(--gap-3xl) var(--gap-s);
 
   font-size: 0.9rem;
   line-height: 1.2em;
   color: var(--gray-3);
   font-weight: 300;
+  transition: width 1s ease;
 
   & > div:first-of-type {
     margin-bottom: 0.6em;
@@ -186,24 +193,34 @@ const Bio = styled.div`
     line-height: 1.4em;
     font-style: oblique;
   }
+
+  @media screen and (min-width: 700px) {
+    width: clamp(30rem, 30vw + 4rem, 45rem);
+    padding: 0 0 var(--gap-3xl) 0;
+  }
 `;
 
-const Info = ({ line1, line2, l, r }) => {
+const Info = ({ line1, line2, l, r, mobile = false }) => {
   return (
-    <InfoWrapper l={l} r={r}>
-      <div>{line1}</div>
-      <div>{line2}</div>
-    </InfoWrapper>
+    <>
+      {!mobile ? (
+        <InfoDesktop l={l} r={r}>
+          <div>{line1}</div>
+          <div>{line2}</div>
+        </InfoDesktop>
+      ) : (
+        <InfoMobile>
+          <div>{line1}</div>
+          <div>{line2}</div>
+        </InfoMobile>
+      )}
+    </>
   );
 };
 
-const InfoWrapper = styled.div`
+const InfoTypography = styled.div`
   font-size: 0.9rem;
   line-height: 1.2em;
-  text-align: ${({ r }) => (r ? "left" : "right")};
-  min-width: 10rem;
-  padding: 0 var(--gap-m);
-  display: none;
 
   & > div:first-of-type {
     font-weight: 600;
@@ -211,11 +228,36 @@ const InfoWrapper = styled.div`
   }
   & > div:last-of-type {
     font-style: oblique;
-    color: var(--gray-3);
+    color: var(--gray-2);
     font-weight: 400;
   }
+`;
+
+const InfoDesktop = styled(InfoTypography)`
+  text-align: ${({ r }) => (r ? "left" : "right")};
+  min-width: 10rem;
+  padding: 0 var(--gap-m);
+  display: none;
+
   @media screen and (min-width: 700px) {
     display: block;
+  }
+`;
+
+const InfoMobile = styled(InfoTypography)`
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  display: block;
+  padding: var(--gap-xs);
+  color: rgba(255, 255, 255, 1);
+
+  @media screen and (min-width: 700px) {
+    display: none;
+  }
+
+  & > div:last-of-type {
+    color: rgba(255, 255, 255, 1);
   }
 `;
 
