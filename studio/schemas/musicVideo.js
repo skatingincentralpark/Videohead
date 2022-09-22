@@ -24,7 +24,6 @@ export default {
       name: "date",
       title: "Date",
       type: "date",
-      validation: (Rule) => Rule.required(),
     },
     {
       name: "gifs",
