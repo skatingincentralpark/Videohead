@@ -1,156 +1,80 @@
+import client from "../../client";
 import styled from "@emotion/styled";
-import { allGifLinks } from "../components/all-gifs";
 
-const HomePOC = () => {
-  const videos = [
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-    {
-      client: "1300",
-      title: "Rockstar",
-      category: "Music Video",
-      date: "29th Aug 2022",
-    },
-  ];
-
+const HomePOC = ({ videos }) => {
   return (
     <PageWrapper>
-      {videos.map((v, i) => (
-        <Row key={v.title}>
-          <Info line1={v.client} line2={v.title} mobile />
-          <Info line1={v.client} line2={v.title} l />
-          <GifGroup>
-            <Image src={allGifLinks[i * 3]} />
-            <Image src={allGifLinks[i * 3 + 1]} />
-            <Image src={allGifLinks[i * 3 + 2]} />
-          </GifGroup>
-          <Info line1={v.category} line2={v.date} r />
-        </Row>
-      ))}
-      <Bio>
-        <div>Raghav Rampal</div>
-        <div>
-          Director / Founder
-          <br />
-          raghav@videohead.com.au
-          <br />
-          +61 423 371 400
-        </div>
-        <div>
-          Videohead is a video production company based in Sydney, Australia. We
-          tell stories of some of Australia&apos;s most exciting creatives
-        </div>
-      </Bio>
+      {videos && videos.map((v) => <VideoRow video={v} key={v.id} />)}
+      <Bio />
     </PageWrapper>
   );
 };
 
 export default HomePOC;
 
+export async function getStaticProps() {
+  const videos = await client.fetch(`
+    *[_type == "musicVideo"][]{
+      "id": _id,
+      title,
+      videoId,
+      description,
+      date,
+      category,
+      client,
+      source,
+      gifs[]{
+        caption,
+          "url": asset -> url,
+          "height": asset -> metadata.dimensions.height,
+          "width": asset -> metadata.dimensions.width,
+          "aspectRatio": asset -> metadata.dimensions.aspectRatio,
+          "lqip": asset -> metadata.lqip,
+          "palette": asset -> metadata.palette
+      },
+    }
+`);
+  return {
+    props: {
+      videos,
+    },
+  };
+}
+
 const PageWrapper = styled.div`
   padding-top: var(--gap-page-top);
   margin: auto;
 `;
+
+const VideoRow = ({ video }) => {
+  const {
+    client = "",
+    title = "",
+    category = "",
+    date = "",
+    gifs = [],
+    description = "",
+    id = 0,
+    source = "",
+    videoId = 0,
+  } = video || {};
+
+  if (!gifs) return null;
+
+  return (
+    <Row key={title}>
+      <Info line1={client} line2={title} mobile />
+      <Info line1={client} line2={title} l />
+      <GifGroup>
+        {gifs?.map((x) => (
+          <Gif image={x} key={x.url} />
+        ))}
+      </GifGroup>
+      <Info line1={category} line2={date} r />
+    </Row>
+  );
+};
+
 const Row = styled.div`
   display: flex;
   flex-direction: row;
@@ -169,7 +93,154 @@ const GifGroup = styled.div`
   }
 `;
 
-const Bio = styled.div`
+const Gif = ({ image }) => {
+  const {
+    aspectRatio = 0,
+    height = 0,
+    lqip = "",
+    palette = { dominant: { background: "" } },
+    width = 0,
+    url = "",
+    caption = "",
+  } = image || {};
+
+  return (
+    <GifWrapper
+      style={{
+        backgroundColor: palette.dominant.background,
+        aspectRatio: `${aspectRatio} / 1`,
+      }}
+    >
+      <div />
+      <img src={url} />
+    </GifWrapper>
+  );
+};
+
+const GifWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  cursor: crosshair;
+
+  & > div {
+    width: 100%;
+    height: 0;
+    background-color: magenta;
+    position: absolute;
+    z-index: 1;
+    transition: height 100ms ease;
+    bottom: 0;
+  }
+
+  &:hover div {
+    @media screen and (min-width: 700px) {
+      height: 3px;
+    }
+  }
+  &:active div {
+    height: 3px;
+    background-color: blue;
+  }
+`;
+
+const Info = ({
+  line1 = "",
+  line2 = "",
+  l = false,
+  r = false,
+  mobile = false,
+}) => {
+  const slugToText = (slug) => {
+    if (!slug) return;
+    return slug
+      .split("-")
+      .join(" ")
+      .replace(
+        /\w\S*/g,
+        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+      );
+  };
+
+  return (
+    <>
+      {!mobile ? (
+        <InfoDesktop l={l} r={r}>
+          <div>{slugToText(line1)}</div>
+          <div>{slugToText(line2)}</div>
+        </InfoDesktop>
+      ) : (
+        <InfoMobile>
+          <div>{slugToText(line1)}</div>
+          <div>{slugToText(line2)}</div>
+        </InfoMobile>
+      )}
+    </>
+  );
+};
+
+const InfoTypography = styled.div`
+  font-size: 0.9rem;
+  line-height: 1.2em;
+
+  & > div:first-of-type {
+    font-weight: 600;
+    font-style: oblique;
+  }
+
+  & > div:last-of-type {
+    font-style: oblique;
+    color: var(--gray-2);
+    font-weight: 400;
+  }
+`;
+
+const InfoDesktop = styled(InfoTypography)`
+  text-align: ${({ r }) => (r ? "left" : "right")};
+  min-width: 12rem;
+  padding: 0 var(--gap-m);
+  display: none;
+
+  @media screen and (min-width: 700px) {
+    display: block;
+  }
+`;
+
+const InfoMobile = styled(InfoTypography)`
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  display: block;
+  padding: var(--gap-xs);
+  color: rgba(255, 255, 255, 1);
+
+  @media screen and (min-width: 700px) {
+    display: none;
+  }
+
+  & > div:last-of-type {
+    color: rgba(255, 255, 255, 1);
+  }
+`;
+
+const Bio = () => {
+  return (
+    <BioWrapper>
+      <div>Raghav Rampal</div>
+      <div>
+        Director / Founder
+        <br />
+        raghav@videohead.com.au
+        <br />
+        +61 423 371 400
+      </div>
+      <div>
+        Videohead is a video production company based in Sydney, Australia. We
+        tell stories of some of Australia&apos;s most exciting creatives
+      </div>
+    </BioWrapper>
+  );
+};
+const BioWrapper = styled.div`
   font-weight: 600;
   width: 100%;
   margin: var(--gap-l) auto 0 auto;
@@ -197,100 +268,5 @@ const Bio = styled.div`
   @media screen and (min-width: 700px) {
     width: clamp(30rem, 30vw + 4rem, 45rem);
     padding: 0 0 var(--gap-3xl) 0;
-  }
-`;
-
-const Info = ({ line1, line2, l, r, mobile = false }) => {
-  return (
-    <>
-      {!mobile ? (
-        <InfoDesktop l={l} r={r}>
-          <div>{line1}</div>
-          <div>{line2}</div>
-        </InfoDesktop>
-      ) : (
-        <InfoMobile>
-          <div>{line1}</div>
-          <div>{line2}</div>
-        </InfoMobile>
-      )}
-    </>
-  );
-};
-
-const InfoTypography = styled.div`
-  font-size: 0.9rem;
-  line-height: 1.2em;
-
-  & > div:first-of-type {
-    font-weight: 600;
-    font-style: oblique;
-  }
-  & > div:last-of-type {
-    font-style: oblique;
-    color: var(--gray-2);
-    font-weight: 400;
-  }
-`;
-
-const InfoDesktop = styled(InfoTypography)`
-  text-align: ${({ r }) => (r ? "left" : "right")};
-  min-width: 10rem;
-  padding: 0 var(--gap-m);
-  display: none;
-
-  @media screen and (min-width: 700px) {
-    display: block;
-  }
-`;
-
-const InfoMobile = styled(InfoTypography)`
-  text-align: center;
-  position: absolute;
-  z-index: 1;
-  display: block;
-  padding: var(--gap-xs);
-  color: rgba(255, 255, 255, 1);
-
-  @media screen and (min-width: 700px) {
-    display: none;
-  }
-
-  & > div:last-of-type {
-    color: rgba(255, 255, 255, 1);
-  }
-`;
-
-const Image = ({ src }) => {
-  return (
-    <ImageWrapper>
-      <div />
-      <img src={src} />
-    </ImageWrapper>
-  );
-};
-
-const ImageWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  cursor: crosshair;
-
-  & > div {
-    width: 100%;
-    height: 0;
-    background-color: magenta;
-    position: absolute;
-    z-index: 1;
-    transition: height 100ms ease;
-    bottom: 0;
-  }
-  &:hover div {
-    @media screen and (min-width: 700px) {
-      height: 3px;
-    }
-  }
-  &:active div {
-    height: 3px;
-    background-color: blue;
   }
 `;
