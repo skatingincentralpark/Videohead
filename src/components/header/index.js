@@ -14,56 +14,71 @@ const Header = () => {
 
   return (
     <>
-      <LogoWrapper logoHidden={mobNavOpen}>
+      <HeaderLeft logoHidden={mobNavOpen}>
         <Link href="/" onClick={closeNav}>
           <Logo />
         </Link>
-      </LogoWrapper>
+      </HeaderLeft>
 
       <HeaderRight>
-        <Socials>
-          <a
-            href="https://www.facebook.com/videoheadco-103976897860912"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <SocialLogo size="small" type="fb" onClick={closeNav} />
-          </a>
-          <a
-            href="https://www.instagram.com/videoheadco/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <SocialLogo size="small" type="ig" onClick={closeNav} />
-          </a>
-          <a
-            href="https://vimeo.com/user48058060"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <SocialLogo size="small" type="vimeo" onClick={closeNav} />
-          </a>
-        </Socials>
+        <nav>
+          <Link href="/music-video" onClick={closeNav}>
+            Music Video
+          </Link>
+          <Link href="/commercial" onClick={closeNav}>
+            Commercial
+          </Link>
+          <Link href="/film" onClick={closeNav}>
+            Film
+          </Link>
+          <Link href="/contact" onClick={closeNav}>
+            Contact
+          </Link>
+          <Socials>
+            <a
+              href="https://www.facebook.com/videoheadco-103976897860912"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialLogo size="small" type="fb" onClick={closeNav} />
+            </a>
+            <a
+              href="https://www.instagram.com/videoheadco/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialLogo size="small" type="ig" onClick={closeNav} />
+            </a>
+            <a
+              href="https://vimeo.com/user48058060"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SocialLogo size="small" type="vimeo" onClick={closeNav} />
+            </a>
+          </Socials>
+        </nav>
+        <MobileToggle onClick={toggleNav}>
+          {mobNavOpen ? "Close" : "Menu"}
+        </MobileToggle>
       </HeaderRight>
+      <LazyMotion features={domAnimation} strict>
+        <AnimatePresence exitBeforeEnter>
+          {mobNavOpen && <MobileNav closeNav={closeNav} />}
+        </AnimatePresence>
+      </LazyMotion>
     </>
   );
 };
 
 export default Header;
 
-const LogoWrapper = styled.div`
+const HeaderLeft = styled.div`
   position: fixed;
   top: 0;
   mix-blend-mode: exclusion;
+  font-size: 1rem;
   animation: fadeIn 2s linear;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 6;
-  width: 15rem;
-
-  opacity: ${({ logoHidden }) => logoHidden && "0"};
-  transform: ${({ logoHidden }) => logoHidden && "translateY(-100px)"};
-  transition: opacity 0.2s, transform 1s;
 
   @keyframes fadeIn {
     0% {
@@ -77,6 +92,11 @@ const LogoWrapper = styled.div`
   & * {
     color: white;
   }
+  left: 0;
+  z-index: 6;
+  opacity: ${({ logoHidden }) => logoHidden && "0"};
+  transform: ${({ logoHidden }) => logoHidden && "translateY(-100px)"};
+  transition: opacity 0.2s, transform 1s;
 
   & > a {
     padding: var(--header-padding-left);
