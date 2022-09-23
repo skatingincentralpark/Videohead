@@ -4,7 +4,7 @@ import YtLite from "../yt-lite";
 import LightboxFilmStrip from "./lightbox-film-strip";
 
 const VideoLightbox = ({
-  youtubeVideos,
+  videos,
   selectedVideoIndex,
   setSelectedVideoIndex,
   setLightboxOpen,
@@ -13,23 +13,21 @@ const VideoLightbox = ({
     <>
       <CloseButton onClick={() => setLightboxOpen(false)}>Close</CloseButton>
       <Lightbox>
-        <Flex hasDesc={!!youtubeVideos[selectedVideoIndex].description}>
+        <Flex hasDesc={!!videos[selectedVideoIndex].description}>
           <YtLite
-            key={youtubeVideos[selectedVideoIndex].id}
-            title={youtubeVideos[selectedVideoIndex].title}
-            videoId={youtubeVideos[selectedVideoIndex].videoId}
+            key={videos[selectedVideoIndex].id}
+            title={videos[selectedVideoIndex].title}
+            videoId={videos[selectedVideoIndex].videoId}
           />
-          {youtubeVideos[selectedVideoIndex].description && (
+          {videos[selectedVideoIndex].description && (
             <Description>
-              <h1>{youtubeVideos[selectedVideoIndex].title}</h1>
-              <PortableText
-                content={youtubeVideos[selectedVideoIndex].description}
-              />
+              <h1>{videos[selectedVideoIndex].title}</h1>
+              <PortableText content={videos[selectedVideoIndex].description} />
             </Description>
           )}
         </Flex>
         <LightboxFilmStrip
-          youtubeVideos={youtubeVideos}
+          videos={videos}
           setSelectedVideoIndex={setSelectedVideoIndex}
         />
       </Lightbox>

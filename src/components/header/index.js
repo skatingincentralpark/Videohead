@@ -44,8 +44,8 @@ const Header = () => {
           </Link>
         </LogoWrapper>
         <NavWrapper>
-          <Link href="/music-video" onClick={closeNav}>
-            Music Video
+          <Link href="/work" onClick={closeNav}>
+            Work
           </Link>
           <Link href="/contact" onClick={closeNav}>
             Contact
@@ -104,10 +104,12 @@ const SocialWrapper = styled.div`
     }
 
     &:hover {
-      & svg {
-        fill: black;
+      @media screen and (min-width: 700px) {
+        & svg {
+          fill: black;
+        }
+        background-color: white;
       }
-      background-color: white;
     }
 
     &:active {
@@ -141,8 +143,10 @@ const NavWrapper = styled.nav`
     }
 
     &:hover {
-      background-color: white;
-      color: black;
+      @media screen and (min-width: 700px) {
+        background-color: white;
+        color: black;
+      }
     }
 
     &:active {
@@ -168,8 +172,10 @@ const MobileToggle = styled.div`
   transition: background-color 300ms ease, color 300ms ease, transform 100ms;
 
   &:hover {
-    background-color: white;
-    color: black;
+    @media screen and (min-width: 700px) {
+      background-color: white;
+      color: black;
+    }
   }
 
   &:active {

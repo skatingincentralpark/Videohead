@@ -5,7 +5,7 @@ import VideoLightbox from "../components/video-lightbox";
 import { useState } from "react";
 import HeadSEO from "../components/head-seo";
 
-const MusicVideoPage = ({ youtubeVideos }) => {
+const WorkPage = ({ youtubeVideos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -43,7 +43,7 @@ const MusicVideoPage = ({ youtubeVideos }) => {
   );
 };
 
-export default MusicVideoPage;
+export default WorkPage;
 
 const PageWrapper = styled.div`
   padding: var(--gap-6xl) var(--gap-l) var(--gap-l) var(--gap-l);

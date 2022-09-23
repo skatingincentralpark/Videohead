@@ -2,10 +2,10 @@ import React from "react";
 import YtLite from "../yt-lite";
 import styled from "@emotion/styled";
 
-const LightboxFilmStrip = ({ setSelectedVideoIndex, youtubeVideos }) => {
+const LightboxFilmStrip = ({ setSelectedVideoIndex, videos }) => {
   return (
     <FilmStripWrapper>
-      {youtubeVideos.map(({ id, title, videoId }, i) => (
+      {videos.map(({ id, title, videoId }, i) => (
         <Thumbnail key={id}>
           <YtLite
             key={id}

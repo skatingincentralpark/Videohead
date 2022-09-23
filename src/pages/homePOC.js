@@ -1,10 +1,31 @@
+import { useState } from "react";
 import client from "../../client";
 import styled from "@emotion/styled";
+import VideoLightbox from "../components/video-lightbox";
 
 const HomePOC = ({ videos }) => {
+  const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const openLightbox = (index) => {
+    setSelectedVideoIndex(index);
+    setLightboxOpen(true);
+  };
+
   return (
     <PageWrapper>
-      {videos && videos.map((v) => <VideoRow video={v} key={v.id} />)}
+      {lightboxOpen && (
+        <VideoLightbox
+          videos={videos}
+          selectedVideoIndex={selectedVideoIndex}
+          setSelectedVideoIndex={setSelectedVideoIndex}
+          setLightboxOpen={setLightboxOpen}
+        />
+      )}
+      {videos &&
+        videos.map((v, i) => (
+          <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
+        ))}
       <Bio />
     </PageWrapper>
   );
@@ -46,7 +67,7 @@ const PageWrapper = styled.div`
   margin: auto;
 `;
 
-const VideoRow = ({ video }) => {
+const VideoRow = ({ video, onClick }) => {
   const {
     client = "",
     title = "",
@@ -67,7 +88,7 @@ const VideoRow = ({ video }) => {
       <Info line1={client} line2={title} l />
       <GifGroup>
         {gifs?.map((x) => (
-          <Gif image={x} key={x.url} />
+          <Gif image={x} key={x.url} onClick={onClick} />
         ))}
       </GifGroup>
       <Info line1={category} line2={date} r />
@@ -93,7 +114,7 @@ const GifGroup = styled.div`
   }
 `;
 
-const Gif = ({ image }) => {
+const Gif = ({ image, onClick }) => {
   const {
     aspectRatio = 0,
     height = 0,
@@ -110,6 +131,7 @@ const Gif = ({ image }) => {
         backgroundColor: palette.dominant.background,
         aspectRatio: `${aspectRatio} / 1`,
       }}
+      onClick={onClick}
     >
       <div />
       <img src={url} />
