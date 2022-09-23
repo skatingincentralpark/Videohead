@@ -19,8 +19,8 @@ const HeadSEO = ({ title }) => {
       <meta name="format-detection" content="telephone=no" />
 
       <link rel="icon" href="/dummy-media/icon" sizes="any" />
-      <link preload="true" rel="icon" type="image/svg+xml" href={favi} />
-      <link preload="true" rel="mask-icon" href={favi} color="#000000" />
+      {/* <link preload="true" rel="icon" type="image/svg+xml" href={favi} />
+      <link preload="true" rel="mask-icon" href={favi} color="#000000" /> */}
       {/* <link rel="apple-touch-icon" href="/dummy-media/icon" /> */}
 
       <link rel="preconnect" href="https://videohead.vercel.app/" />
