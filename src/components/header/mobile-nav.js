@@ -123,7 +123,7 @@ const StyledMobileNav = styled(m.div)`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 4;
+  z-index: 2;
 
   color: white;
 
