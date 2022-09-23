@@ -9,9 +9,11 @@ const VideoLightbox = ({
   setSelectedVideoIndex,
   setLightboxOpen,
 }) => {
+  const closeLightbox = () => setLightboxOpen(false);
+
   return (
     <>
-      <CloseButton onClick={() => setLightboxOpen(false)}>Close</CloseButton>
+      <CloseButton onClick={closeLightbox}>Close</CloseButton>
       <Lightbox>
         <Flex hasDesc={!!videos[selectedVideoIndex].description}>
           <YtLite
@@ -31,6 +33,7 @@ const VideoLightbox = ({
           setSelectedVideoIndex={setSelectedVideoIndex}
         />
       </Lightbox>
+      <Backdrop onClick={closeLightbox} />
     </>
   );
 };
@@ -54,14 +57,10 @@ const CloseButton = styled.button`
 `;
 
 const Lightbox = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 5;
 
   margin: auto;
@@ -74,23 +73,37 @@ const Lightbox = styled.div`
   & > *:first-of-type {
     align-items: flex-end;
     margin: 0 auto;
-    width: 100%;
-    transition: width 1s ease;
+    width: calc(100vw - 2rem);
 
     @media screen and (min-width: 700px) {
-      width: clamp(45rem, 50vw + 4rem, 60rem);
+      width: clamp(calc(700px - 2rem), 50vw + 4rem, 60rem);
     }
   }
   & > *:nth-of-type(2) {
     margin: 0 auto;
-    height: 15%;
-    width: 100%;
-    transition: width 1s ease;
+    height: 8%;
+    width: calc(100vw - 2rem);
+
+    overflow-y: hidden;
+    overflow-x: scroll;
+    height: 8rem;
+    white-space: nowrap;
 
     @media screen and (min-width: 700px) {
-      width: clamp(45rem, 50vw + 4rem, 60rem);
+      width: clamp(calc(700px - 2rem), 50vw + 4rem, 60rem);
     }
   }
+`;
+
+const Backdrop = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
 `;
 
 const Description = styled.div`

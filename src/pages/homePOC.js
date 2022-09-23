@@ -2,6 +2,7 @@ import { useState } from "react";
 import client from "../../client";
 import styled from "@emotion/styled";
 import VideoLightbox from "../components/video-lightbox";
+import { slugToText } from "../lib/helpers";
 
 const HomePOC = ({ videos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
@@ -172,17 +173,6 @@ const Info = ({
   r = false,
   mobile = false,
 }) => {
-  const slugToText = (slug) => {
-    if (!slug) return;
-    return slug
-      .split("-")
-      .join(" ")
-      .replace(
-        /\w\S*/g,
-        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-      );
-  };
-
   return (
     <>
       {!mobile ? (

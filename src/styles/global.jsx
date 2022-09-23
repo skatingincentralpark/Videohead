@@ -109,11 +109,11 @@ const GlobalStyles = () => {
         color: var(--text-primary);
       }
 
-      @media screen and (min-width: 1600px) {
+      /* @media screen and (min-width: 1600px) {
         html {
           font-size: 14px;
         }
-      }
+      } */
     `,
   ];
 
