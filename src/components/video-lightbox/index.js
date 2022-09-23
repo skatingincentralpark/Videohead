@@ -56,7 +56,8 @@ const CloseButton = styled.button`
 const Lightbox = styled.div`
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
 
   position: fixed;
   top: 0;
@@ -64,18 +65,31 @@ const Lightbox = styled.div`
   z-index: 5;
 
   margin: auto;
+  padding: 1rem;
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   & > *:first-of-type {
-    flex-grow: 1;
-    height: 50%;
-    padding: 0 var(--gap-l);
+    align-items: flex-end;
+    margin: 0 auto;
+    width: 100%;
+    transition: width 1s ease;
+
+    @media screen and (min-width: 700px) {
+      width: clamp(45rem, 50vw + 4rem, 60rem);
+    }
   }
   & > *:nth-of-type(2) {
-    flex-shrink: 0;
+    margin: 0 auto;
     height: 15%;
+    width: 100%;
+    transition: width 1s ease;
+
+    @media screen and (min-width: 700px) {
+      width: clamp(45rem, 50vw + 4rem, 60rem);
+    }
   }
 `;
 

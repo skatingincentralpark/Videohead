@@ -37,14 +37,14 @@ const YtLiteWrapper = styled.div`
 
   /* play button */
   .yt-lite > .lty-playbtn {
-    width: 70px;
-    height: 46px;
+    width: 6rem;
+    height: 3.8rem;
     /* width: clamp(3rem, 2.5vw, 10rem);
     height: clamp(3rem, 2.5vw, 5rem); */
-    background-color: #212121;
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 1;
     opacity: 0.8;
-    border-radius: 14%; /* TODO: Consider replacing this with YT's actual svg. Eh. */
+    border-radius: 0.75rem; /* TODO: Consider replacing this with YT's actual svg. Eh. */
     transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
     display: ${({ isThumbnail }) => isThumbnail && "none"};
   }
