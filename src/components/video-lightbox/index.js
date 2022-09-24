@@ -81,9 +81,7 @@ const Lightbox = styled.div`
   }
   & > *:nth-of-type(2) {
     margin: 0 auto;
-    height: 8%;
     width: calc(100vw - 2rem);
-
     overflow-y: hidden;
     overflow-x: scroll;
     height: 8rem;

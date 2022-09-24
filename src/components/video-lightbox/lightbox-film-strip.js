@@ -27,6 +27,10 @@ const FilmStripWrapper = styled.div`
   overflow-x: scroll;
   white-space: nowrap;
   padding: var(--gap-xs) 0;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  height: 8rem;
+  white-space: nowrap;
 
   & > div {
     margin-right: var(--gap-xs);
@@ -89,6 +93,10 @@ const ThumbnailWrapper = styled.div`
   outline: 1px solid transparent;
   transition: outline 100ms, filter 100ms;
   height: 100%;
+
+  & > img {
+    height: 100%;
+  }
 
   & > div {
     position: absolute;
