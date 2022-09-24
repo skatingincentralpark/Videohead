@@ -1,37 +1,35 @@
 import styled from "@emotion/styled";
 import PortableText from "react-portable-text";
 import YtLite from "../yt-lite";
-import LightboxFilmStrip from "./lightbox-film-strip";
 
 const VideoLightbox = ({
-  videos,
+  videos = [],
   selectedVideoIndex,
   setSelectedVideoIndex,
   setLightboxOpen,
 }) => {
   const closeLightbox = () => setLightboxOpen(false);
+  const selecetedVideo = videos[selectedVideoIndex];
+  const { url = "", aspectRatio = 0, palette = {} } = selecetedVideo?.gifs[0];
+  const { client = "", title = "", description = [] } = selecetedVideo;
 
   return (
     <>
       <CloseButton onClick={closeLightbox}>Close</CloseButton>
       <Lightbox>
-        <Flex hasDesc={!!videos[selectedVideoIndex].description}>
-          <YtLite
-            key={videos[selectedVideoIndex].id}
-            title={videos[selectedVideoIndex].title}
-            videoId={videos[selectedVideoIndex].videoId}
-          />
-          {videos[selectedVideoIndex].description && (
-            <Description>
-              <h1>{videos[selectedVideoIndex].title}</h1>
-              <PortableText content={videos[selectedVideoIndex].description} />
-            </Description>
-          )}
-        </Flex>
-        <LightboxFilmStrip
-          videos={videos}
-          setSelectedVideoIndex={setSelectedVideoIndex}
+        <YtLite
+          key={videos[selectedVideoIndex].id}
+          title={title}
+          videoId={videos[selectedVideoIndex].videoId}
+          posterImage={url}
         />
+        <Description>
+          <div>
+            <div>{client}</div>
+            <div>{title}</div>
+            {description && <PortableText content={description} />}
+          </div>
+        </Description>
       </Lightbox>
       <Backdrop onClick={closeLightbox} />
     </>
@@ -58,45 +56,29 @@ const CloseButton = styled.button`
 
 const Lightbox = styled.div`
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   z-index: 5;
+  overflow: scroll;
+  height: 100%;
+  width: 100%;
 
   margin: auto;
-  padding: 1rem;
+  padding: var(--gap-xxl);
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 
-  & > *:first-of-type {
-    align-items: flex-end;
-    margin: 0 auto;
-    width: calc(100vw - 2rem);
-
-    @media screen and (min-width: 700px) {
-      width: clamp(calc(700px - 2rem), 50vw + 4rem, 60rem);
-    }
-  }
-  & > *:nth-of-type(2) {
-    margin: 0 auto;
-    width: calc(100vw - 2rem);
-    overflow-y: hidden;
-    overflow-x: scroll;
-    height: 8rem;
-    white-space: nowrap;
-
-    @media screen and (min-width: 700px) {
-      width: clamp(calc(700px - 2rem), 50vw + 4rem, 60rem);
-    }
+  & > div:first-of-type {
+    padding-top: 10rem;
   }
 `;
 
 const Backdrop = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 1);
   backdrop-filter: blur(5px);
   position: fixed;
   top: 0;
@@ -105,33 +87,28 @@ const Backdrop = styled.div`
 `;
 
 const Description = styled.div`
-  overflow-y: auto;
-  margin: var(--gap-l);
-  padding: var(--gap-xs);
+  padding-top: var(--gap-l);
   border-radius: var(--gap-xs);
   color: white;
-
-  @media screen and (max-width: 800px) {
-    display: none;
-  }
-`;
-
-const Flex = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  margin: var(--gap-l) 0;
-  margin-top: ${({ hasDesc }) => !hasDesc && "var(--gap-6xl)"};
 
-  & > *:first-of-type {
-    height: 100%;
+  & > div {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-  }
+    margin-right: 1rem;
 
-  & > *:nth-of-type(2) {
-    width: 500px;
-    flex-grow: 1;
-    height: calc(80% - var(--gap-l) * 2);
+    & div:first-of-type {
+      font-weight: 600;
+      font-style: oblique;
+      margin-right: var(--gap-m);
+    }
+
+    & > div:nth-of-type(2) {
+      font-style: oblique;
+      font-weight: 400;
+      margin-bottom: var(--gap-m);
+    }
   }
 `;

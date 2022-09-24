@@ -1,5 +1,4 @@
 import React from "react";
-import YtLite from "../yt-lite";
 import styled from "@emotion/styled";
 import { slugToText } from "../../lib/helpers";
 
@@ -76,13 +75,6 @@ const Thumbnail = ({ video, onClick }) => {
         <small>{slugToText(category)}</small>
       </div>
       <img src={url} />
-      {/* <YtLite
-        key={id}
-        title={title}
-        videoId={videoId}
-        isThumbnail
-        onClick={onClick}
-      /> */}
     </ThumbnailWrapper>
   );
 };

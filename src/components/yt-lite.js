@@ -1,9 +1,21 @@
 import styled from "@emotion/styled";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 
-const YtLite = ({ videoId, title, isThumbnail, onClick = null }) => {
+const YtLite = ({
+  videoId,
+  title,
+  isThumbnail,
+  onClick = null,
+  posterImage = "",
+}) => {
+  console.log(posterImage);
+
   return (
-    <YtLiteWrapper onClick={onClick} isThumbnail={isThumbnail}>
+    <YtLiteWrapper
+      onClick={onClick}
+      isThumbnail={isThumbnail}
+      backgroundImage={`url(${posterImage})`}
+    >
       {isThumbnail && <ClickBlocker />}
       <LiteYouTubeEmbed id={videoId} title={title} />
     </YtLiteWrapper>
@@ -23,10 +35,13 @@ const YtLiteWrapper = styled.div`
     background-color: #000;
     display: block;
     contain: content;
+    background-image: ${({ backgroundImage }) =>
+      backgroundImage && backgroundImage} !important;
     background-position: center center;
-    background-size: cover;
+    background-size: contain;
     cursor: pointer;
     aspect-ratio: 16 / 9;
+    aspect-ratio: 11 / 4;
   }
 
   .yt-lite > iframe {
