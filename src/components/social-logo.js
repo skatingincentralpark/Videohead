@@ -104,13 +104,13 @@ const SocialLogo = ({ type, size }) => {
 export default SocialLogo;
 
 const Svg = styled.svg`
-  fill: #fff;
+  fill: var(--primary-color);
   aspect-ratio: 1;
   width: 100%;
 `;
 
 const SvgSmall = styled.svg`
-  fill: #fff;
+  fill: var(--primary-color);
   aspect-ratio: 1;
   width: 100%;
 `;

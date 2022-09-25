@@ -97,7 +97,7 @@ const SocialWrapper = styled.div`
     height: fit-content;
     cursor: pointer;
     display: none;
-    transition: background-color 300ms ease;
+    transition: background-color 100ms ease;
 
     @media screen and (min-width: 700px) {
       display: flex;
@@ -118,7 +118,7 @@ const SocialWrapper = styled.div`
 
     & svg {
       width: 1.2rem;
-      transition: fill 300ms ease;
+      transition: fill 100ms ease;
       aspect-ratio: 1;
     }
   }
@@ -135,7 +135,7 @@ const NavWrapper = styled.nav`
     padding: 0 var(--gap-xxs);
     border-radius: 0.25rem;
     width: auto;
-    transition: background-color 300ms ease, color 300ms ease;
+    transition: background-color 100ms ease, color 100ms ease;
     display: none;
 
     @media screen and (min-width: 700px) {

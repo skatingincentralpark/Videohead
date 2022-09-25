@@ -39,19 +39,14 @@ const VideoLightbox = ({
 export default VideoLightbox;
 
 const CloseButton = styled.button`
-  color: white;
+  color: var(--primary-color);
   position: fixed;
   top: 0;
   right: 0;
-  mix-blend-mode: exclusion;
   z-index: 6;
   text-align: right;
   cursor: pointer;
   padding: var(--header-padding-right);
-
-  & * {
-    color: white;
-  }
 `;
 
 const Lightbox = styled.div`
@@ -78,8 +73,7 @@ const Lightbox = styled.div`
 const Backdrop = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 1);
-  backdrop-filter: blur(5px);
+  background-color: var(--background-color);
   position: fixed;
   top: 0;
   left: 0;
@@ -94,10 +88,14 @@ const Description = styled.div`
   width: 100%;
 
   & > div {
+    color: var(--primary-color);
     display: flex;
     flex-direction: column;
     width: 100%;
     margin-right: 1rem;
+    /* font-size: clamp(2rem, 1.25rem + 2.5vw, 3rem); */
+    /* font-size: clamp(2rem, 0.875rem + 3.75vw, 3.5rem); */
+    line-height: 1.2em;
 
     & div:first-of-type {
       font-weight: 600;

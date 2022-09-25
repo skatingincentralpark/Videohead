@@ -47,6 +47,17 @@ const cssVariables = css`
     --header-height: 6rem;
     --gap-page-top: calc(var(--header-height) + var(--gap-m));
     --border: 0.5px solid #fff;
+    // Molecules
+
+    //    Light
+    /* --primary-color: #000000;
+    --secondary-color: var(--gray-4);
+    --background-color: #ffffff; */
+
+    //    Dark
+    --primary-color: #ffffff;
+    --secondary-color: var(--gray-3);
+    --background-color: #000000;
 
     @media screen and (min-width: 650px) {
       --button-height: 2.5rem;

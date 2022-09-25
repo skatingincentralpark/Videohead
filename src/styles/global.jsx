@@ -41,14 +41,14 @@ const GlobalStyles = () => {
         height: 100%;
       }
       html {
-        background-color: #000000;
+        background-color: var(--background-color);
         font-family: var(--font-family-primary), -apple-system,
           BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
           "Open Sans", "Helvetica Neue", sans-serif;
         font-size: 12px;
         line-height: clamp(1.3em, 1.4em, 2em);
         font-weight: 300;
-        color: var(--text-primary);
+        color: var(--primary-color);
         overflow-y: scroll;
         min-height: fit-content;
       }
@@ -106,7 +106,6 @@ const GlobalStyles = () => {
 
       p {
         margin-bottom: var(--gap-s);
-        color: var(--text-primary);
       }
 
       /* @media screen and (min-width: 1600px) {

@@ -27,5 +27,5 @@ const Logo = () => {
 export default Logo;
 
 const Svg = styled.svg`
-  fill: #fff;
+  fill: var(--primary-color);
 `;
