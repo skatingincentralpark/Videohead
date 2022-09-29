@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { LazyMotion, domAnimation, AnimatePresence, m } from "framer-motion";
+import { m } from "framer-motion";
 import Logo from "../logo";
 import SocialLogo from "../social-logo";
 import Link from "../link";
@@ -7,17 +7,19 @@ import Link from "../link";
 const parentVariants = {
   hidden: {
     opacity: 0,
-    transition: {
-      staggerDirection: -1,
-      staggerChildren: 0.1,
-      when: "afterChildren",
-    },
+    transition: { duration: 0.2 },
+    // transition: {
+    //   staggerDirection: -1,
+    //   staggerChildren: 0.1,
+    //   when: "afterChildren",
+    // },
   },
   show: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+    transition: { duration: 0.2 },
+    // transition: {
+    //   staggerChildren: 0.1,
+    // },
   },
 };
 
@@ -38,11 +40,9 @@ const MobileNav = ({ closeNav }) => {
         <Logo />
       </Link>
       <Nav>
-        <ChildTransitionWrapper>
-          <Link href="/music-video" onClick={closeNav}>
-            Music Video
-          </Link>
-        </ChildTransitionWrapper>
+        <Link href="/music-video" onClick={closeNav}>
+          Music Video
+        </Link>
         {/* <ChildTransitionWrapper>
           <Link href="/commercial" onClick={closeNav}>
             Commercial
@@ -53,11 +53,9 @@ const MobileNav = ({ closeNav }) => {
             Film
           </Link>
         </ChildTransitionWrapper> */}
-        <ChildTransitionWrapper>
-          <Link href="/contact" onClick={closeNav}>
-            Contact
-          </Link>
-        </ChildTransitionWrapper>
+        <Link href="/contact" onClick={closeNav}>
+          Contact
+        </Link>
       </Nav>
       <Socials>
         <a
@@ -118,14 +116,14 @@ export default MobileNav;
 const StyledMobileNav = styled(m.div)`
   width: 100%;
   height: 100%;
-  background-color: black;
 
   position: fixed;
   top: 0;
   left: 0;
   z-index: 2;
 
-  color: white;
+  background-color: var(--background-color);
+  color: var(--primary-color);
 
   padding: 7rem var(--gap-l) 0 var(--gap-l);
 
@@ -145,11 +143,11 @@ const Nav = styled.nav`
   flex-direction: column;
 
   & > *:first-of-type {
-    border-top: var(--border);
+    border-top: 1px solid var(--primary-color);
   }
 
   & > * {
-    border-bottom: var(--border);
+    border-bottom: 1px solid var(--primary-color);
     padding: var(--gap-xs) 0;
   }
 `;
