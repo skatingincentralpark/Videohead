@@ -1,10 +1,15 @@
 import { Global, css } from "@emotion/react";
-import cssVariables from "./css-variables";
+import { cssVariables, darkVariables, lightVariables } from "./css-variables";
 import cssReset from "./css-reset";
+import { DarkModeContext } from "../lib/context";
+import { useContext } from "react";
 
 const GlobalStyles = () => {
+  const { darkMode } = useContext(DarkModeContext);
+
   const styles = [
     cssVariables,
+    darkMode ? darkVariables : lightVariables,
     cssReset,
     css`
       @font-face {

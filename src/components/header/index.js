@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import styled from "@emotion/styled";
@@ -6,6 +6,7 @@ import Logo from "../logo";
 import MobileNav from "./mobile-nav";
 import Link from "../link";
 import SocialLogo from "../social-logo";
+import { DarkModeContext } from "../../lib/context";
 
 const Header = () => {
   const [mobNavOpen, setMobNavOpen] = useState(false);
@@ -15,6 +16,8 @@ const Header = () => {
 
   const router = useRouter();
   const isHome = router.pathname === "/";
+
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
     <>
@@ -54,6 +57,9 @@ const Header = () => {
           <Link href="/contact" onClick={closeNav}>
             Contact
           </Link>
+          <button onClick={toggleDarkMode}>
+            {darkMode ? "Dark Mode" : "Light Mode"}
+          </button>
           <MobileToggle onClick={toggleNav}>
             {mobNavOpen ? "Close" : "Menu"}
           </MobileToggle>
@@ -139,13 +145,15 @@ const NavWrapper = styled.nav`
   align-items: center;
   display: flex;
 
-  & > a {
+  & > a,
+  & > button {
     margin-left: var(--gap-s);
     padding: 0 var(--gap-xxs);
     border-radius: 0.25rem;
     width: auto;
     transition: background-color 100ms ease, color 100ms ease;
     display: none;
+    cursor: pointer;
 
     @media screen and (min-width: 700px) {
       display: block;

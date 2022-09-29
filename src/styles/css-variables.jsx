@@ -50,22 +50,28 @@ const cssVariables = css`
     // Molecules
     --home-color: #ffffff;
 
-    //    Light
-    /* --primary-color: #000000;
-    --secondary-color: var(--gray-4);
-    --background-color: #ffffff;
-    --background-color-transparent: rgba(203, 203, 203, 0.7); */
-
-    //    Dark
-    --primary-color: #ffffff;
-    --secondary-color: var(--gray-3);
-    --background-color: #000000;
-    --background-color-transparent: rgba(0, 0, 0, 0.9);
-
     @media screen and (min-width: 650px) {
       --button-height: 2.5rem;
     }
   }
 `;
 
-export default cssVariables;
+const darkVariables = css`
+  :root {
+    --primary-color: #ffffff;
+    --secondary-color: var(--gray-3);
+    --background-color: #000000;
+    --background-color-transparent: rgba(0, 0, 0, 0.9);
+  }
+`;
+
+const lightVariables = css`
+  :root {
+    --primary-color: #000000;
+    --secondary-color: var(--gray-4);
+    --background-color: #ffffff;
+    --background-color-transparent: rgba(203, 203, 203, 0.7);
+  }
+`;
+
+export { cssVariables, darkVariables, lightVariables };
