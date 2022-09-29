@@ -84,11 +84,16 @@ const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   height: 6rem;
-  padding: 0 var(--gap-l);
+  padding: 0 var(--gap-s);
 
-  & * {
+  // Not mobile nav menu
+  & > div:not(:last-of-type) {
     fill: ${({ isHome }) => isHome && `var(--home-color)`};
     color: ${({ isHome }) => isHome && `var(--home-color)`};
+  }
+
+  @media screen and (min-width: 400px) {
+    padding: 0 var(--gap-l);
   }
 `;
 

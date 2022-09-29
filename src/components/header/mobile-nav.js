@@ -40,8 +40,8 @@ const MobileNav = ({ closeNav }) => {
         <Logo />
       </Link>
       <Nav>
-        <Link href="/music-video" onClick={closeNav}>
-          Music Video
+        <Link href="/work" onClick={closeNav}>
+          Work
         </Link>
         {/* <ChildTransitionWrapper>
           <Link href="/commercial" onClick={closeNav}>

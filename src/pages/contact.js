@@ -50,12 +50,12 @@ const Bio = styled.div`
   margin: 0 var(--gap-l) var(--gap-l) 0;
 
   & > div:first-of-type {
-    font-size: 2.4rem;
+    font-size: clamp(2rem, 1.4667rem + 1.6vw, 2.4rem);
     margin-bottom: 0.6em;
     color: orange;
   }
   & > div:nth-of-type(2) {
-    font-size: 1.7rem;
+    font-size: clamp(1.3rem, 0.7667rem + 1.6vw, 1.7rem);
     line-height: 1.4em;
     margin-bottom: 1em;
   }
