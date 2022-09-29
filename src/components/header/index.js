@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import styled from "@emotion/styled";
 import Logo from "../logo";
@@ -12,9 +13,12 @@ const Header = () => {
   const toggleNav = () => setMobNavOpen((x) => !x);
   const closeNav = () => setMobNavOpen(false);
 
+  const router = useRouter();
+  const isHome = router.pathname === "/";
+
   return (
     <>
-      <HeaderWrapper>
+      <HeaderWrapper isHome={isHome}>
         <SocialWrapper>
           <a
             href="https://www.facebook.com/videoheadco-103976897860912"
@@ -75,6 +79,11 @@ const HeaderWrapper = styled.header`
   top: 0;
   height: 6rem;
   padding: 0 var(--gap-l);
+
+  & * {
+    fill: ${({ isHome }) => isHome && `var(--home-color)`};
+    color: ${({ isHome }) => isHome && `var(--home-color)`};
+  }
 `;
 
 const LogoWrapper = styled.div`

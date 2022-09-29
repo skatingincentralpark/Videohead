@@ -38,7 +38,7 @@ const YtLiteWrapper = styled.div`
     background-image: ${({ backgroundImage }) =>
       backgroundImage && backgroundImage} !important;
     background-position: center center;
-    background-size: contain;
+    background-size: cover;
     cursor: pointer;
     aspect-ratio: 16 / 9;
     aspect-ratio: 11 / 4;

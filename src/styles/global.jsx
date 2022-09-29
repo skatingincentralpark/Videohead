@@ -46,7 +46,7 @@ const GlobalStyles = () => {
           BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
           "Open Sans", "Helvetica Neue", sans-serif;
         font-size: 12px;
-        line-height: clamp(1.3em, 1.4em, 2em);
+        line-height: clamp(1.3em, 1.5em, 2em);
         font-weight: 300;
         color: var(--primary-color);
         overflow-y: scroll;

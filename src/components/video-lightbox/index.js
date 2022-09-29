@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import PortableText from "react-portable-text";
 import YtLite from "../yt-lite";
+import { slugToText } from "../../lib/helpers";
+import Logo from "../logo";
 
 const VideoLightbox = ({
   videos = [],
@@ -10,12 +12,25 @@ const VideoLightbox = ({
 }) => {
   const closeLightbox = () => setLightboxOpen(false);
   const selecetedVideo = videos[selectedVideoIndex];
+
   const { url = "", aspectRatio = 0, palette = {} } = selecetedVideo?.gifs[0];
-  const { client = "", title = "", description = [] } = selecetedVideo;
+  const {
+    client = "",
+    title = "",
+    description = [],
+    date = "",
+    category = "",
+  } = selecetedVideo;
 
   return (
     <>
-      <CloseButton onClick={closeLightbox}>Close</CloseButton>
+      <HeaderWrapper>
+        <div />
+        <LogoWrapper>
+          <Logo />
+        </LogoWrapper>
+        <CloseButton onClick={closeLightbox}>Close</CloseButton>
+      </HeaderWrapper>
       <Lightbox>
         <YtLite
           key={videos[selectedVideoIndex].id}
@@ -25,10 +40,12 @@ const VideoLightbox = ({
         />
         <Description>
           <div>
-            <div>{client}</div>
-            <div>{title}</div>
-            {description && <PortableText content={description} />}
+            <div className="desc-client">{client}</div>
+            <div className="desc-title">{title}</div>
+            <div className="desc-date">15th Jan 2022</div>
+            <div className="desc-category">{slugToText(category)}</div>
           </div>
+          <div>{description && <PortableText content={description} />}</div>
         </Description>
       </Lightbox>
       <Backdrop onClick={closeLightbox} />
@@ -38,32 +55,72 @@ const VideoLightbox = ({
 
 export default VideoLightbox;
 
-const CloseButton = styled.button`
-  color: var(--primary-color);
+const HeaderWrapper = styled.div`
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 4fr 15rem 4fr;
+  width: 100%;
   position: fixed;
   top: 0;
-  right: 0;
-  z-index: 6;
+  height: 6rem;
+  padding: 0 var(--gap-l);
+`;
+
+const LogoWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+const CloseButton = styled.button`
+  color: var(--primary-color);
   text-align: right;
   cursor: pointer;
-  padding: var(--header-padding-right);
+
+  padding: 0 var(--gap-xxs);
+  border-radius: 0.25rem;
+  width: fit-content;
+  height: fit-content;
+  justify-self: end;
+  align-self: center;
+  transition: background-color 100ms ease, color 100ms ease;
+
+  &:hover {
+    @media screen and (min-width: 700px) {
+      background-color: white;
+      color: black;
+    }
+  }
+
+  &:active {
+    background-color: darkgray;
+    color: black;
+  }
 `;
 
 const Lightbox = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
-  overflow: scroll;
+  z-index: 4;
+  overflow-y: auto;
+  left: 50%;
+  transform: translateX(-50%);
   height: 100%;
   width: 100%;
+  transition: width 1s ease;
+
+  @media screen and (min-width: 1600px) {
+    width: clamp(50vw, 70vw + 4rem, 80vw);
+  }
 
   margin: auto;
-  padding: var(--gap-xxl);
+  padding: var(--gap-l);
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  border-radius: 2rem;
 
   & > div:first-of-type {
     padding-top: 10rem;
@@ -74,39 +131,33 @@ const Backdrop = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--background-color);
+  backdrop-filter: blur(8px);
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 4;
+  z-index: 3;
 `;
 
 const Description = styled.div`
   padding-top: var(--gap-l);
   border-radius: var(--gap-xs);
-  color: white;
   display: flex;
+  flex-direction: column;
   width: 100%;
+  max-width: 30rem;
 
-  & > div {
-    color: var(--primary-color);
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-right: 1rem;
-    /* font-size: clamp(2rem, 1.25rem + 2.5vw, 3rem); */
-    /* font-size: clamp(2rem, 0.875rem + 3.75vw, 3.5rem); */
-    line-height: 1.2em;
+  & > div:first-of-type {
+    margin-bottom: var(--gap-s);
+    font-weight: 400;
 
-    & div:first-of-type {
+    & .desc-client {
       font-weight: 600;
-      font-style: oblique;
-      margin-right: var(--gap-m);
     }
-
-    & > div:nth-of-type(2) {
-      font-style: oblique;
-      font-weight: 400;
-      margin-bottom: var(--gap-m);
+    & .desc-title {
+    }
+    & .desc-date {
+    }
+    & .desc-category {
     }
   }
 `;

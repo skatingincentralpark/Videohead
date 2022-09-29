@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState } from "react";
 import client from "../../client";
 import styled from "@emotion/styled";
@@ -23,6 +24,18 @@ const HomePOC = ({ videos }) => {
           setLightboxOpen={setLightboxOpen}
         />
       )}
+      {videos &&
+        videos.map((v, i) => (
+          <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
+        ))}
+      {videos &&
+        videos.map((v, i) => (
+          <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
+        ))}
+      {videos &&
+        videos.map((v, i) => (
+          <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
+        ))}
       {videos &&
         videos.map((v, i) => (
           <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
@@ -126,6 +139,12 @@ const Gif = ({ image, onClick }) => {
     caption = "",
   } = image || {};
 
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const doFadeIn = () => {
+    setImageLoaded(true);
+  };
+
   return (
     <GifWrapper
       style={{
@@ -135,7 +154,15 @@ const Gif = ({ image, onClick }) => {
       onClick={onClick}
     >
       <div />
-      <img src={url} />
+      <Image
+        src={url}
+        alt={caption}
+        layout="fill"
+        objectFit="cover"
+        key={url}
+        className={`transparent ${imageLoaded ? "hasLoaded" : ""}`}
+        onLoadingComplete={doFadeIn}
+      />
     </GifWrapper>
   );
 };
@@ -163,6 +190,17 @@ const GifWrapper = styled.div`
   &:active div {
     height: 3px;
     background-color: blue;
+  }
+  & > img {
+    height: 100%;
+  }
+
+  .transparent {
+    opacity: 0%;
+    transition: opacity 1000ms ease;
+  }
+  .hasLoaded {
+    opacity: 100%;
   }
 `;
 
