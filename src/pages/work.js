@@ -1,5 +1,6 @@
-import Image from "next/image";
+import FutureImage from "next/future/image";
 import { useState } from "react";
+import { m } from "framer-motion";
 import client from "../../client";
 import styled from "@emotion/styled";
 import VideoLightbox from "../components/video-lightbox";
@@ -96,9 +97,25 @@ const VideoRow = ({ video, onClick }) => {
 
   if (!gifs) return null;
 
+  const variants = {
+    offscreen: {
+      opacity: 0,
+    },
+    onscreen: {
+      opacity: 1,
+      transition: { duration: 0.2 },
+    },
+  };
+
   return (
-    <Row key={title}>
-      <Info line1={client} line2={title} mobile />
+    <Row
+      key={title}
+      viewport={{ once: false, amount: 0.9 }}
+      initial="offscreen"
+      whileInView="onscreen"
+      variants={variants}
+    >
+      <Info line1={client} line2={title} mobile onClick={onClick} />
       <Info line1={client} line2={title} l />
       <GifGroup>
         {gifs?.map((x) => (
@@ -110,7 +127,7 @@ const VideoRow = ({ video, onClick }) => {
   );
 };
 
-const Row = styled.div`
+const Row = styled(m.div)`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -147,19 +164,18 @@ const Gif = ({ image, onClick }) => {
 
   return (
     <GifWrapper
+      onClick={onClick}
       style={{
         backgroundColor: palette.dominant.background,
         aspectRatio: `${aspectRatio} / 1`,
       }}
-      onClick={onClick}
     >
       <div />
-      <Image
+      <FutureImage
         src={url}
         alt={caption}
-        layout="fill"
-        objectFit="cover"
-        key={url}
+        width={width}
+        height={height}
         className={`transparent ${imageLoaded ? "hasLoaded" : ""}`}
         onLoadingComplete={doFadeIn}
       />
@@ -210,6 +226,7 @@ const Info = ({
   l = false,
   r = false,
   mobile = false,
+  onClick = () => {},
 }) => {
   return (
     <>
@@ -219,7 +236,7 @@ const Info = ({
           <div>{slugToText(line2)}</div>
         </InfoDesktop>
       ) : (
-        <InfoMobile>
+        <InfoMobile onClick={onClick}>
           <div>{slugToText(line1)}</div>
           <div>{slugToText(line2)}</div>
         </InfoMobile>
@@ -262,6 +279,7 @@ const InfoMobile = styled(InfoTypography)`
   display: block;
   padding: var(--gap-xs);
   color: rgba(255, 255, 255, 1);
+  cursor: pointer;
 
   @media screen and (min-width: 700px) {
     display: none;
