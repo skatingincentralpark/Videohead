@@ -21,8 +21,8 @@ const Header = () => {
 
   return (
     <>
-      <HeaderWrapper isHome={isHome}>
-        <SocialWrapper>
+      <HeaderWrapper>
+        <SocialWrapper isHome={isHome}>
           <a
             href="https://www.facebook.com/videoheadco-103976897860912"
             target="_blank"
@@ -45,12 +45,12 @@ const Header = () => {
             <SocialLogo size="small" type="vimeo" onClick={closeNav} />
           </a>
         </SocialWrapper>
-        <LogoWrapper>
+        <LogoWrapper isHome={isHome}>
           <Link href="/" onClick={closeNav}>
             <Logo />
           </Link>
         </LogoWrapper>
-        <NavWrapper>
+        <NavWrapper isHome={isHome}>
           <Link href="/work" onClick={closeNav}>
             Work
           </Link>
@@ -86,12 +86,6 @@ const HeaderWrapper = styled.header`
   height: 6rem;
   padding: 0 var(--gap-s);
 
-  // Not mobile nav menu
-  & > div:not(:last-of-type) {
-    fill: ${({ isHome }) => isHome && `var(--home-color)`};
-    color: ${({ isHome }) => isHome && `var(--home-color)`};
-  }
-
   @media screen and (min-width: 400px) {
     padding: 0 var(--gap-l);
   }
@@ -101,6 +95,11 @@ const LogoWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+
+  & svg {
+    transition: fill 500ms;
+    fill: ${({ isHome }) => isHome && `var(--home-color)`};
+  }
 `;
 
 const SocialWrapper = styled.div`
@@ -137,6 +136,7 @@ const SocialWrapper = styled.div`
     }
 
     & svg {
+      fill: ${({ isHome }) => isHome && `var(--home-color)`};
       width: 1.2rem;
       transition: fill 100ms ease;
       aspect-ratio: 1;
@@ -149,6 +149,7 @@ const NavWrapper = styled.nav`
   justify-content: flex-end;
   align-items: center;
   display: flex;
+  color: ${({ isHome }) => isHome && `var(--home-color)`};
 
   & > a,
   & > button {
