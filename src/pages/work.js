@@ -41,7 +41,6 @@ const HomePOC = ({ videos }) => {
         videos.map((v, i) => (
           <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
         ))}
-      <Bio />
     </PageWrapper>
   );
 };

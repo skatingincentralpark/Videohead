@@ -7,42 +7,73 @@ import Link from "../link";
 const parentVariants = {
   hidden: {
     opacity: 0,
-    transition: { duration: 0.2 },
-    // transition: {
-    //   staggerDirection: -1,
-    //   staggerChildren: 0.1,
-    //   when: "afterChildren",
-    // },
+    transition: { duration: 0 },
   },
   show: {
     opacity: 1,
-    transition: { duration: 0.2 },
-    // transition: {
-    //   staggerChildren: 0.1,
-    // },
+    transition: { staggerChildren: 0.2 },
   },
+  exit: { transition: { duration: 0 } },
 };
 
-const childVariants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-};
-
-const MobileNav = ({ closeNav }) => {
+const MobileNav = ({ closeNav, toggleDarkMode }) => {
   return (
     <StyledMobileNav
       variants={parentVariants}
       initial="hidden"
       animate="show"
-      exit="hidden"
+      exit="exit"
     >
-      <Link href="/" onClick={closeNav}>
-        <Logo />
-      </Link>
       <Nav>
-        <Link href="/work" onClick={closeNav}>
-          Work
-        </Link>
+        <div>
+          <ChildTransitionWrapper>
+            <Link href="/work" onClick={closeNav}>
+              Work
+            </Link>
+          </ChildTransitionWrapper>
+          <ChildTransitionWrapper>
+            <Link href="/contact" onClick={closeNav}>
+              Contact
+            </Link>
+          </ChildTransitionWrapper>
+        </div>
+        <div>
+          <ChildTransitionWrapper>
+            <a
+              href="https://www.facebook.com/videoheadco-103976897860912"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeNav}
+            >
+              Facebook
+            </a>
+          </ChildTransitionWrapper>
+          <ChildTransitionWrapper>
+            <a
+              href="https://www.instagram.com/videoheadco/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeNav}
+            >
+              Instagram
+            </a>
+          </ChildTransitionWrapper>
+          <ChildTransitionWrapper>
+            <a
+              href="https://vimeo.com/user48058060"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeNav}
+            >
+              Vimeo
+            </a>
+          </ChildTransitionWrapper>
+          <div>
+            <ChildTransitionWrapper>
+              <small onClick={toggleDarkMode}>Dark Mode</small>
+            </ChildTransitionWrapper>
+          </div>
+        </div>
         {/* <ChildTransitionWrapper>
           <Link href="/commercial" onClick={closeNav}>
             Commercial
@@ -53,33 +84,7 @@ const MobileNav = ({ closeNav }) => {
             Film
           </Link>
         </ChildTransitionWrapper> */}
-        <Link href="/contact" onClick={closeNav}>
-          Contact
-        </Link>
       </Nav>
-      <Socials>
-        <a
-          href="https://www.facebook.com/videoheadco-103976897860912"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <SocialLogo type="fb" onClick={closeNav} />
-        </a>
-        <a
-          href="https://www.instagram.com/videoheadco/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <SocialLogo type="ig" onClick={closeNav} />
-        </a>
-        <a
-          href="https://vimeo.com/user48058060"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <SocialLogo type="vimeo" onClick={closeNav} />
-        </a>
-      </Socials>
       <p>
         <strong>About</strong>
         <br />
@@ -125,12 +130,16 @@ const StyledMobileNav = styled(m.div)`
   background-color: var(--background-color);
   color: var(--primary-color);
 
-  padding: 7rem var(--gap-l) 0 var(--gap-l);
+  padding: var(--gap-m);
 
   display: none;
 
   @media screen and (max-width: 700px) {
     display: block;
+  }
+
+  & svg {
+    width: 60%;
   }
 
   & > * {
@@ -141,35 +150,21 @@ const StyledMobileNav = styled(m.div)`
 const Nav = styled.nav`
   display: flex;
   flex-direction: column;
+  margin-top: 6rem;
 
-  & > *:first-of-type {
-    border-top: 1px solid var(--primary-color);
-  }
-
-  & > * {
-    border-bottom: 1px solid var(--primary-color);
-    padding: var(--gap-xs) 0;
-  }
-`;
-
-const Socials = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-
-  & > * {
-    background-color: var(--ghost-white);
-    border-radius: 1rem;
-    cursor: pointer;
-    max-width: 6rem;
-  }
-
-  & > *:not(:first-of-type) {
-    margin-left: var(--gap-xs);
+  & > div {
+    font-size: 1.7rem;
+    line-height: 2em;
+    margin-bottom: var(--gap-l);
   }
 `;
 
 const ChildTransitionWrapper = ({ children }) => {
+  const childVariants = {
+    hidden: { opacity: 0, x: 60 },
+    show: { opacity: 1, x: 0 },
+  };
+
   return (
     <m.div variants={childVariants} key={Math.floor(Math.random() * 100)}>
       {children}
