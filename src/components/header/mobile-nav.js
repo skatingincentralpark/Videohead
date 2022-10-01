@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
 import { m } from "framer-motion";
-import Logo from "../logo";
-import SocialLogo from "../social-logo";
 import Link from "../link";
 
 const parentVariants = {
@@ -16,7 +14,7 @@ const parentVariants = {
   exit: { transition: { duration: 0 } },
 };
 
-const MobileNav = ({ closeNav, toggleDarkMode }) => {
+const MobileNav = ({ closeNav, toggleDarkMode, darkMode }) => {
   return (
     <StyledMobileNav
       variants={parentVariants}
@@ -68,22 +66,14 @@ const MobileNav = ({ closeNav, toggleDarkMode }) => {
               Vimeo
             </a>
           </ChildTransitionWrapper>
-          <div>
+          <div style={{ marginTop: `1rem` }}>
             <ChildTransitionWrapper>
-              <small onClick={toggleDarkMode}>Dark Mode</small>
+              <small onClick={toggleDarkMode}>
+                {!darkMode ? `Dark Mode` : `Light Mode`}
+              </small>
             </ChildTransitionWrapper>
           </div>
         </div>
-        {/* <ChildTransitionWrapper>
-          <Link href="/commercial" onClick={closeNav}>
-            Commercial
-          </Link>
-        </ChildTransitionWrapper>
-        <ChildTransitionWrapper>
-          <Link href="/film" onClick={closeNav}>
-            Film
-          </Link>
-        </ChildTransitionWrapper> */}
       </Nav>
       <p>
         <strong>About</strong>
@@ -133,6 +123,8 @@ const StyledMobileNav = styled(m.div)`
   padding: var(--gap-m);
 
   display: none;
+
+  transition: background-color 500ms, color 500ms;
 
   @media screen and (max-width: 700px) {
     display: block;

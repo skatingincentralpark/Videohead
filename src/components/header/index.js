@@ -76,7 +76,7 @@ const Header = () => {
               Contact
             </Link>
             <button onClick={toggleDarkMode}>
-              {darkMode ? "Dark Mode" : "Light Mode"}
+              {!darkMode ? "Dark Mode" : "Light Mode"}
             </button>
             <MenuButton
               onClick={toggleNav}
@@ -90,7 +90,11 @@ const Header = () => {
 
         <AnimatePresence exitBeforeEnter>
           {mobNavOpen && (
-            <MobileNav closeNav={closeNav} toggleDarkMode={toggleDarkMode} />
+            <MobileNav
+              closeNav={closeNav}
+              toggleDarkMode={toggleDarkMode}
+              darkMode={darkMode}
+            />
           )}
         </AnimatePresence>
       </LazyMotion>
@@ -217,6 +221,11 @@ const NavWrapper = styled.nav`
       color: black;
     }
   }
+
+  & > button {
+    width: 6.5rem;
+    margin-left: var(--gap-xs);
+  }
 `;
 
 const MenuButton = ({
@@ -315,6 +324,9 @@ const MenuButton = ({
 
 const BurgerWrapper = styled(m.svg)`
   display: none;
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.5rem;
 
   @media screen and (max-width: 700px) {
     display: block;
