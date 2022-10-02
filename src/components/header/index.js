@@ -39,7 +39,7 @@ const Header = () => {
       <LazyMotion features={domAnimation} strict>
         <HeaderWrapper>
           <SocialWrapper $isHome={isHome} $mobNavOpen={mobNavOpen}>
-            <a
+            {/* <a
               href="https://www.facebook.com/videoheadco-103976897860912"
               target="_blank"
               rel="noopener noreferrer"
@@ -59,7 +59,7 @@ const Header = () => {
               rel="noopener noreferrer"
             >
               <SocialLogo size="small" type="vimeo" onClick={closeNav} />
-            </a>
+            </a> */}
           </SocialWrapper>
           <LogoWrapper $isHome={isHome} $mobNavOpen={mobNavOpen}>
             <m.div
@@ -73,7 +73,7 @@ const Header = () => {
             </m.div>
           </LogoWrapper>
           <NavWrapper $isHome={isHome}>
-            <Link href="/work" onClick={closeNav}>
+            {/* <Link href="/work" onClick={closeNav}>
               Work
             </Link>
             <Link href="/contact" onClick={closeNav}>
@@ -81,7 +81,7 @@ const Header = () => {
             </Link>
             <button onClick={toggleDarkMode}>
               {!darkMode ? "Dark Mode" : "Light Mode"}
-            </button>
+            </button> */}
             <MenuButton
               onClick={toggleNav}
               isOpen={mobNavOpen}
@@ -135,12 +135,6 @@ const LogoWrapper = styled(m.div, transientOptions)`
     height: 6rem;
     width: 15rem;
     transform-origin: left;
-
-    @media screen and (min-width: 700px) {
-      position: relative;
-      height: 100%;
-      width: 100%;
-    }
   }
 
   & svg {
@@ -325,7 +319,7 @@ const MenuButton = ({
 };
 
 const BurgerWrapper = styled(m.svg, transientOptions)`
-  display: none;
+  /* display: none; */
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.5rem;

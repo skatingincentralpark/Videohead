@@ -80,8 +80,13 @@ export async function getStaticProps() {
 }
 
 const PageWrapper = styled.div`
-  padding: var(--gap-page-top) 0;
+  padding-top: var(--gap-page-top);
   margin: auto;
+  transition: padding 500ms ease-out;
+
+  @media screen and (min-width: 760px) {
+    padding-top: 0;
+  }
 `;
 
 const VideoRow = ({
@@ -119,8 +124,15 @@ const VideoRow = ({
       whileInView="onscreen"
       variants={variants}
     >
-      <Info line1={client} line2={title} mobile onClick={onClick} />
-      <Info line1={client} line2={title} left />
+      <Info
+        line1={client}
+        line2={title}
+        line3={category}
+        line4={date}
+        mobile
+        onClick={onClick}
+      />
+      {/* <Info line1={client} line2={title} left /> */}
       <GifGroup>
         {gifs?.map((x) => (
           <Gif
@@ -136,7 +148,7 @@ const VideoRow = ({
           />
         ))}
       </GifGroup>
-      <Info line1={category} line2={date} r />
+      {/* <Info line1={category} line2={date} r /> */}
     </Row>
   );
 };
@@ -146,6 +158,7 @@ const Row = styled(m.div)`
   flex-direction: row;
   justify-content: center;
   margin: auto;
+  position: relative;
 `;
 const GifGroup = styled.div`
   display: flex;
@@ -155,7 +168,7 @@ const GifGroup = styled.div`
   width: 100%;
 
   @media screen and (min-width: 700px) {
-    width: clamp(30rem, 30vw + 4rem, 60rem);
+    /* width: clamp(30rem, 30vw + 4rem, 60rem); */
   }
 `;
 
@@ -255,68 +268,73 @@ const GifWrapper = styled.div`
 const Info = ({
   line1 = "",
   line2 = "",
+  line3 = "",
+  line4 = "",
   left = false,
   mobile = false,
   onClick = () => {},
 }) => {
   return (
-    <>
-      {!mobile ? (
-        <InfoDesktop $left={left}>
-          <div>{slugToText(line1)}</div>
-          <div>{slugToText(line2)}</div>
-        </InfoDesktop>
-      ) : (
-        <InfoMobile onClick={onClick}>
-          <div>{slugToText(line1)}</div>
-          <div>{slugToText(line2)}</div>
-        </InfoMobile>
-      )}
-    </>
+    <InfoMobile onClick={onClick}>
+      <div>
+        <div>{slugToText(line1)}</div>
+        <div>{slugToText(line2)}</div>
+      </div>
+      <div>
+        <span>{slugToText(line3)}</span>
+        <span>{line4 || `1 June 2022`}</span>
+      </div>
+    </InfoMobile>
   );
 };
 
 const InfoTypography = styled.div`
-  font-size: 0.9rem;
-  line-height: 1.2em;
+  font-size: 1rem;
+  line-height: 1.4em;
 
   & > div:first-of-type {
-    font-weight: 600;
-    font-style: oblique;
-  }
+    display: flex;
 
-  & > div:last-of-type {
-    font-style: oblique;
-    color: var(--secondary-color);
-    font-weight: 400;
-  }
-`;
+    @media screen and (min-width: 760px) {
+      display: block;
+    }
 
-const InfoDesktop = styled(InfoTypography, transientOptions)`
-  text-align: ${({ $left }) => ($left ? "right" : "left")};
-  min-width: 12rem;
-  padding: 0 var(--gap-m);
-  display: none;
+    & > div:first-of-type {
+      font-weight: 600;
+    }
 
-  @media screen and (min-width: 700px) {
-    display: block;
+    & > div:last-of-type {
+      font-weight: 400;
+      margin-left: var(--gap-xxs);
+
+      @media screen and (min-width: 760px) {
+        margin-left: 0;
+      }
+    }
   }
 `;
 
 const InfoMobile = styled(InfoTypography)`
   text-align: center;
   position: absolute;
+  bottom: var(--gap-xs);
   z-index: 1;
   display: block;
-  padding: var(--gap-xs);
   color: rgba(255, 255, 255, 1);
   cursor: pointer;
 
   @media screen and (min-width: 700px) {
-    display: none;
+    bottom: 1rem;
   }
 
   & > div:last-of-type {
     color: rgba(255, 255, 255, 1);
+    font-size: 0.7rem;
+    margin-top: var(--gap-xxs);
+    font-weight: 300;
+
+    & > span:last-of-type {
+      margin-left: var(--gap-xxs);
+    }
   }
 `;

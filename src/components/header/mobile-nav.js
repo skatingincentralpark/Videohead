@@ -122,13 +122,13 @@ const StyledMobileNav = styled(m.div)`
 
   padding: var(--gap-m);
 
-  display: none;
+  /* display: none; */
 
   transition: background-color 500ms, color 500ms;
 
-  @media screen and (max-width: 700px) {
+  /* @media screen and (max-width: 700px) {
     display: block;
-  }
+  } */
 
   & svg {
     width: 60%;
