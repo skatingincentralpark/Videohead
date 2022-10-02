@@ -7,7 +7,7 @@ module.exports = {
     return [
       {
         source: "/admin/:path*",
-        destination: "https://sanity-nextjs-js-boilerplate.sanity.studio",
+        destination: "https://videohead.sanity.studio",
         permanent: true,
       },
     ];
