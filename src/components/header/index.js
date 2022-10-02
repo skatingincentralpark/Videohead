@@ -8,6 +8,10 @@ import Link from "../link";
 import SocialLogo from "../social-logo";
 import { DarkModeContext } from "../../lib/context";
 
+const transientOptions = {
+  shouldForwardProp: (propName) => !propName.startsWith("$"),
+};
+
 const Header = () => {
   const [mobNavOpen, setMobNavOpen] = useState(false);
 
@@ -34,7 +38,7 @@ const Header = () => {
     <>
       <LazyMotion features={domAnimation} strict>
         <HeaderWrapper>
-          <SocialWrapper isHome={isHome} mobNavOpen={mobNavOpen}>
+          <SocialWrapper $isHome={isHome} $mobNavOpen={mobNavOpen}>
             <a
               href="https://www.facebook.com/videoheadco-103976897860912"
               target="_blank"
@@ -57,7 +61,7 @@ const Header = () => {
               <SocialLogo size="small" type="vimeo" onClick={closeNav} />
             </a>
           </SocialWrapper>
-          <LogoWrapper isHome={isHome} mobNavOpen={mobNavOpen}>
+          <LogoWrapper $isHome={isHome} $mobNavOpen={mobNavOpen}>
             <m.div
               variants={logoVariants}
               initial="initial"
@@ -68,7 +72,7 @@ const Header = () => {
               </Link>
             </m.div>
           </LogoWrapper>
-          <NavWrapper isHome={isHome}>
+          <NavWrapper $isHome={isHome}>
             <Link href="/work" onClick={closeNav}>
               Work
             </Link>
@@ -119,7 +123,7 @@ const HeaderWrapper = styled.header`
   }
 `;
 
-const LogoWrapper = styled(m.div)`
+const LogoWrapper = styled(m.div, transientOptions)`
   left: 0;
   top: 0;
 
@@ -141,12 +145,12 @@ const LogoWrapper = styled(m.div)`
 
   & svg {
     transition: fill 500ms;
-    fill: ${({ isHome, mobNavOpen }) =>
-      isHome && !mobNavOpen && `var(--home-color)`};
+    fill: ${({ $isHome, $mobNavOpen }) =>
+      $isHome && !$mobNavOpen && `var(--home-color)`};
   }
 `;
 
-const SocialWrapper = styled.div`
+const SocialWrapper = styled(`div`, transientOptions)`
   flex-direction: row;
   display: flex;
   align-items: center;
@@ -180,7 +184,7 @@ const SocialWrapper = styled.div`
     }
 
     & svg {
-      fill: ${({ isHome }) => isHome && `var(--home-color)`};
+      fill: ${({ $isHome }) => $isHome && `var(--home-color)`};
       width: 1.2rem;
       transition: fill 100ms ease;
       aspect-ratio: 1;
@@ -188,12 +192,12 @@ const SocialWrapper = styled.div`
   }
 `;
 
-const NavWrapper = styled.nav`
+const NavWrapper = styled(`nav`, transientOptions)`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   display: flex;
-  color: ${({ isHome }) => isHome && `var(--home-color)`};
+  color: ${({ $isHome }) => $isHome && `var(--home-color)`};
 
   & > a,
   & > button {
@@ -290,8 +294,6 @@ const MenuButton = ({
       preserveAspectRatio="none"
       width={width}
       height={height}
-      isHome={isHome}
-      mobNavOpen={mobNavOpen}
       {...props}
     >
       <m.line
@@ -322,7 +324,7 @@ const MenuButton = ({
   );
 };
 
-const BurgerWrapper = styled(m.svg)`
+const BurgerWrapper = styled(m.svg, transientOptions)`
   display: none;
   height: 2.5rem;
   width: 2.5rem;

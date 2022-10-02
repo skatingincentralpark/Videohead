@@ -7,7 +7,11 @@ import VideoLightbox from "../components/video-lightbox";
 import { slugToText } from "../lib/helpers";
 import HeadSEO from "../components/head-seo";
 
-const HomePOC = ({ videos }) => {
+const transientOptions = {
+  shouldForwardProp: (propName) => !propName.startsWith("$"),
+};
+
+const WorkPage = ({ videos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -30,46 +34,41 @@ const HomePOC = ({ videos }) => {
         )}
         {videos &&
           videos.map((v, i) => (
-            <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
-          ))}
-        {videos &&
-          videos.map((v, i) => (
-            <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
-          ))}
-        {videos &&
-          videos.map((v, i) => (
-            <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
-          ))}
-        {videos &&
-          videos.map((v, i) => (
-            <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
+            <VideoRow
+              video={v}
+              key={v.id}
+              onClick={() => openLightbox(i)}
+              priority={i < 8}
+            />
           ))}
       </PageWrapper>
     </>
   );
 };
 
-export default HomePOC;
+export default WorkPage;
 
 export async function getStaticProps() {
   const videos = await client.fetch(`
   *[_type == "musicVideo"][]{
-    "id": _id,
-    title,
-    videoId,
-    description,
-    date,
+      "id": _id,
+      title,
+      videoId,
+      description,
+      date,
       category,
       client,
       source,
       gifs[]{
+        "id": asset -> _id,
         caption,
-          "url": asset -> url,
-          "height": asset -> metadata.dimensions.height,
-          "width": asset -> metadata.dimensions.width,
-          "aspectRatio": asset -> metadata.dimensions.aspectRatio,
-          "lqip": asset -> metadata.lqip,
-          "palette": asset -> metadata.palette
+        "url": asset -> url,
+        "height": asset -> metadata.dimensions.height,
+        "width": asset -> metadata.dimensions.width,
+        "aspectRatio": asset -> metadata.dimensions.aspectRatio,
+        "lqip": asset -> metadata.lqip,
+        "palette": asset -> metadata.palette,
+        "crop": crop 
       },
     }
 `);
@@ -81,12 +80,12 @@ export async function getStaticProps() {
 }
 
 const PageWrapper = styled.div`
-  padding-top: var(--gap-page-top);
+  padding: var(--gap-page-top) 0;
   margin: auto;
 `;
 
-const VideoRow = ({ video, onClick }) => {
-  const {
+const VideoRow = ({
+  video: {
     client = "",
     title = "",
     category = "",
@@ -96,8 +95,10 @@ const VideoRow = ({ video, onClick }) => {
     id = 0,
     source = "",
     videoId = 0,
-  } = video || {};
-
+  },
+  priority = false,
+  onClick = () => {},
+}) => {
   if (!gifs) return null;
 
   const variants = {
@@ -106,23 +107,33 @@ const VideoRow = ({ video, onClick }) => {
     },
     onscreen: {
       opacity: 1,
-      transition: { duration: 0.2 },
+      transition: { duration: 0.4 },
     },
   };
 
   return (
     <Row
       key={title}
-      viewport={{ once: false, amount: 0.9 }}
+      viewport={{ once: true, amount: 0.2 }}
       initial="offscreen"
       whileInView="onscreen"
       variants={variants}
     >
       <Info line1={client} line2={title} mobile onClick={onClick} />
-      <Info line1={client} line2={title} l />
+      <Info line1={client} line2={title} left />
       <GifGroup>
         {gifs?.map((x) => (
-          <Gif image={x} key={x.url} onClick={onClick} />
+          <Gif
+            image={x}
+            key={x.url}
+            onClick={onClick}
+            numberOfImages={gifs.length}
+            fallbackCaption={
+              x.caption ||
+              `GIF of ${title} by ${client} - ${slugToText(category)}`
+            }
+            priority={priority}
+          />
         ))}
       </GifGroup>
       <Info line1={category} line2={date} r />
@@ -140,16 +151,17 @@ const GifGroup = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 100%;
   transition: width 1s ease;
+  width: 100%;
 
   @media screen and (min-width: 700px) {
     width: clamp(30rem, 30vw + 4rem, 60rem);
   }
 `;
 
-const Gif = ({ image, onClick }) => {
-  const {
+const Gif = ({
+  image: {
+    id = null,
     aspectRatio = 0,
     height = 0,
     lqip = "",
@@ -157,7 +169,17 @@ const Gif = ({ image, onClick }) => {
     width = 0,
     url = "",
     caption = "",
-  } = image || {};
+    crop = {},
+  },
+  priority = false,
+  onClick = () => {},
+  fallbackCaption = "",
+  numberOfImages = 1,
+}) => {
+  // Using values from Sanity's crop object, compute the resulting aspect ratio
+  const cropWidth = crop && width - crop.left * width - crop.right * width;
+  const cropHeight = crop && height - crop.top * height - crop.bottom * height;
+  const croppedAspectRatio = crop && cropWidth / cropHeight;
 
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -170,15 +192,17 @@ const Gif = ({ image, onClick }) => {
       onClick={onClick}
       style={{
         backgroundColor: palette.dominant.background,
-        aspectRatio: `${aspectRatio} / 1`,
+        aspectRatio: `${croppedAspectRatio || aspectRatio} / 1`,
       }}
+      numberOfImages={numberOfImages}
     >
       <div />
       <FutureImage
         src={url}
-        alt={caption}
+        alt={caption || fallbackCaption}
         width={width}
         height={height}
+        priority={priority}
         className={`transparent ${imageLoaded ? "hasLoaded" : ""}`}
         onLoadingComplete={doFadeIn}
       />
@@ -188,7 +212,9 @@ const Gif = ({ image, onClick }) => {
 
 const GifWrapper = styled.div`
   position: relative;
-  width: 100%;
+  max-width: ${({ numberOfImages }) =>
+    numberOfImages && `calc(100% / ${numberOfImages})`};
+  flex-grow: 1;
   cursor: crosshair;
 
   & > div {
@@ -212,6 +238,9 @@ const GifWrapper = styled.div`
   }
   & > img {
     height: 100%;
+    object-fit: cover;
+    margin: auto;
+    width: 100%;
   }
 
   .transparent {
@@ -226,15 +255,14 @@ const GifWrapper = styled.div`
 const Info = ({
   line1 = "",
   line2 = "",
-  l = false,
-  r = false,
+  left = false,
   mobile = false,
   onClick = () => {},
 }) => {
   return (
     <>
       {!mobile ? (
-        <InfoDesktop l={l} r={r}>
+        <InfoDesktop $left={left}>
           <div>{slugToText(line1)}</div>
           <div>{slugToText(line2)}</div>
         </InfoDesktop>
@@ -264,8 +292,8 @@ const InfoTypography = styled.div`
   }
 `;
 
-const InfoDesktop = styled(InfoTypography)`
-  text-align: ${({ r }) => (r ? "left" : "right")};
+const InfoDesktop = styled(InfoTypography, transientOptions)`
+  text-align: ${({ $left }) => ($left ? "right" : "left")};
   min-width: 12rem;
   padding: 0 var(--gap-m);
   display: none;
@@ -290,54 +318,5 @@ const InfoMobile = styled(InfoTypography)`
 
   & > div:last-of-type {
     color: rgba(255, 255, 255, 1);
-  }
-`;
-
-const Bio = () => {
-  return (
-    <BioWrapper>
-      <div>Raghav Rampal</div>
-      <div>
-        Director / Founder
-        <br />
-        raghav@videohead.com.au
-        <br />
-        +61 423 371 400
-      </div>
-      <div>
-        Videohead is a video production company based in Sydney, Australia. We
-        tell stories of some of Australia&apos;s most exciting creatives
-      </div>
-    </BioWrapper>
-  );
-};
-const BioWrapper = styled.div`
-  font-weight: 600;
-  width: 100%;
-  margin: var(--gap-l) auto 0 auto;
-  padding: 0 var(--gap-s) var(--gap-3xl) var(--gap-s);
-
-  font-size: 0.9rem;
-  line-height: 1.2em;
-  color: var(--secondary-color);
-  font-weight: 300;
-  transition: width 1s ease;
-
-  & > div:first-of-type {
-    margin-bottom: 0.6em;
-  }
-  & > div:nth-of-type(2) {
-    line-height: 1.4em;
-    margin-bottom: 1em;
-  }
-  & > div:nth-of-type(3) {
-    font-weight: 400;
-    line-height: 1.4em;
-    font-style: oblique;
-  }
-
-  @media screen and (min-width: 700px) {
-    width: clamp(30rem, 30vw + 4rem, 60rem);
-    padding: 0 0 var(--gap-3xl) 0;
   }
 `;
