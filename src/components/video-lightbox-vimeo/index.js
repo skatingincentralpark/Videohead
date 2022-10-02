@@ -1,7 +1,5 @@
 import Script from "next/script";
 import styled from "@emotion/styled";
-// import PortableText from "react-portable-text";
-// import LightboxFilmStrip from "./lightbox-film-strip";
 
 const VideoLightboxVimeo = ({
   videos,
