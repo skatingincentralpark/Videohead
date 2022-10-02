@@ -5,6 +5,7 @@ import client from "../../client";
 import styled from "@emotion/styled";
 import VideoLightbox from "../components/video-lightbox";
 import { slugToText } from "../lib/helpers";
+import HeadSEO from "../components/head-seo";
 
 const HomePOC = ({ videos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
@@ -16,32 +17,35 @@ const HomePOC = ({ videos }) => {
   };
 
   return (
-    <PageWrapper>
-      {lightboxOpen && (
-        <VideoLightbox
-          videos={videos}
-          selectedVideoIndex={selectedVideoIndex}
-          setSelectedVideoIndex={setSelectedVideoIndex}
-          setLightboxOpen={setLightboxOpen}
-        />
-      )}
-      {videos &&
-        videos.map((v, i) => (
-          <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
-        ))}
-      {videos &&
-        videos.map((v, i) => (
-          <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
-        ))}
-      {videos &&
-        videos.map((v, i) => (
-          <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
-        ))}
-      {videos &&
-        videos.map((v, i) => (
-          <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
-        ))}
-    </PageWrapper>
+    <>
+      <HeadSEO title="Work" />
+      <PageWrapper>
+        {lightboxOpen && (
+          <VideoLightbox
+            videos={videos}
+            selectedVideoIndex={selectedVideoIndex}
+            setSelectedVideoIndex={setSelectedVideoIndex}
+            setLightboxOpen={setLightboxOpen}
+          />
+        )}
+        {videos &&
+          videos.map((v, i) => (
+            <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
+          ))}
+        {videos &&
+          videos.map((v, i) => (
+            <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
+          ))}
+        {videos &&
+          videos.map((v, i) => (
+            <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
+          ))}
+        {videos &&
+          videos.map((v, i) => (
+            <VideoRow video={v} key={v.id} onClick={() => openLightbox(i)} />
+          ))}
+      </PageWrapper>
+    </>
   );
 };
 
@@ -49,12 +53,12 @@ export default HomePOC;
 
 export async function getStaticProps() {
   const videos = await client.fetch(`
-    *[_type == "musicVideo"][]{
-      "id": _id,
-      title,
-      videoId,
-      description,
-      date,
+  *[_type == "musicVideo"][]{
+    "id": _id,
+    title,
+    videoId,
+    description,
+    date,
       category,
       client,
       source,
