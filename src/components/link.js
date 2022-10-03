@@ -3,9 +3,11 @@ import styled from "@emotion/styled";
 
 const Link = ({ children, href, onClick, ...rest }) => {
   return (
-    <NextLink href={href} scroll={false}>
-      <StyledLink onClick={onClick}>{children}</StyledLink>
-    </NextLink>
+    <StyledLink onClick={onClick} {...rest}>
+      <NextLink href={href} scroll={false}>
+        {children}
+      </NextLink>
+    </StyledLink>
   );
 };
 

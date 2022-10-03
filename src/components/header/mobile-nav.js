@@ -68,9 +68,9 @@ const MobileNav = ({ closeNav, toggleDarkMode, darkMode }) => {
           </ChildTransitionWrapper>
           <div style={{ marginTop: `1rem` }}>
             <ChildTransitionWrapper>
-              <small onClick={toggleDarkMode}>
+              <DarkModeBtn onClick={toggleDarkMode}>
                 {!darkMode ? `Dark Mode` : `Light Mode`}
-              </small>
+              </DarkModeBtn>
             </ChildTransitionWrapper>
           </div>
         </div>
@@ -122,13 +122,7 @@ const StyledMobileNav = styled(m.div)`
 
   padding: var(--gap-m);
 
-  /* display: none; */
-
   transition: background-color 500ms, color 500ms;
-
-  /* @media screen and (max-width: 700px) {
-    display: block;
-  } */
 
   & svg {
     width: 60%;
@@ -143,12 +137,18 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   margin-top: 6rem;
+  user-select: none;
 
   & > div {
     font-size: 1.7rem;
     line-height: 2em;
     margin-bottom: var(--gap-l);
   }
+`;
+
+const DarkModeBtn = styled.button`
+  font-size: 1.4rem;
+  cursor: pointer;
 `;
 
 const ChildTransitionWrapper = ({ children }) => {

@@ -193,7 +193,7 @@ const NavWrapper = styled(`nav`, transientOptions)`
   display: flex;
   color: ${({ $isHome }) => $isHome && `var(--home-color)`};
 
-  & > a,
+  /* & > a,
   & > button {
     margin-left: var(--gap-s);
     padding: 0 var(--gap-xxs);
@@ -223,7 +223,7 @@ const NavWrapper = styled(`nav`, transientOptions)`
   & > button {
     width: 6.5rem;
     margin-left: var(--gap-xs);
-  }
+  } */
 `;
 
 const MenuButton = ({
@@ -236,6 +236,7 @@ const MenuButton = ({
   lineProps = null,
   isHome = false,
   mobNavOpen = false,
+  onClick = () => {},
   ...props
 }) => {
   const variant = isOpen ? "opened" : "closed";
@@ -282,47 +283,51 @@ const MenuButton = ({
   const unitWidth = (unitHeight * width) / height;
 
   return (
-    <BurgerWrapper
-      viewBox={`0 0 ${unitWidth} ${unitHeight}`}
-      overflow="visible"
-      preserveAspectRatio="none"
-      width={width}
-      height={height}
-      {...props}
-    >
-      <m.line
-        x1="0"
-        x2={unitWidth}
-        y1="0"
-        y2="0"
-        variants={top}
-        {...lineProps}
-      />
-      <m.line
-        x1="0"
-        x2={unitWidth}
-        y1="2"
-        y2="2"
-        variants={center}
-        {...lineProps}
-      />
-      <m.line
-        x1="0"
-        x2={unitWidth}
-        y1="4"
-        y2="4"
-        variants={bottom}
-        {...lineProps}
-      />
+    <BurgerWrapper onClick={onClick}>
+      <m.svg
+        viewBox={`0 0 ${unitWidth} ${unitHeight}`}
+        overflow="visible"
+        preserveAspectRatio="none"
+        width={width}
+        height={height}
+        {...props}
+      >
+        <m.line
+          x1="0"
+          x2={unitWidth}
+          y1="0"
+          y2="0"
+          variants={top}
+          {...lineProps}
+        />
+        <m.line
+          x1="0"
+          x2={unitWidth}
+          y1="2"
+          y2="2"
+          variants={center}
+          {...lineProps}
+        />
+        <m.line
+          x1="0"
+          x2={unitWidth}
+          y1="4"
+          y2="4"
+          variants={bottom}
+          {...lineProps}
+        />
+      </m.svg>
     </BurgerWrapper>
   );
 };
 
-const BurgerWrapper = styled(m.svg, transientOptions)`
-  /* display: none; */
+const BurgerWrapper = styled(`button`, transientOptions)`
   height: 2.5rem;
   width: 2.5rem;
-  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media screen and (max-width: 700px) {
     display: block;
