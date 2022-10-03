@@ -332,4 +332,8 @@ const BurgerWrapper = styled(`button`, transientOptions)`
   @media screen and (max-width: 700px) {
     display: block;
   }
+
+  & > svg {
+    padding: 0.2rem;
+  }
 `;
