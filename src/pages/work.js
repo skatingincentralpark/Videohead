@@ -294,6 +294,7 @@ const InfoTypography = styled.div`
 
   & > div:first-of-type {
     display: flex;
+    justify-content: center;
 
     @media screen and (min-width: 760px) {
       display: block;
@@ -317,21 +318,24 @@ const InfoTypography = styled.div`
 const InfoMobile = styled(InfoTypography)`
   text-align: center;
   position: absolute;
-  bottom: var(--gap-xs);
+  bottom: var(--gap-xxs);
   z-index: 1;
   display: block;
   color: rgba(255, 255, 255, 1);
   cursor: pointer;
 
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 760px) {
     bottom: 1rem;
   }
 
   & > div:last-of-type {
     color: rgba(255, 255, 255, 1);
     font-size: 0.7rem;
-    margin-top: var(--gap-xxs);
     font-weight: 300;
+
+    @media screen and (min-width: 760px) {
+      margin-top: var(--gap-xxs);
+    }
 
     & > span:last-of-type {
       margin-left: var(--gap-xxs);
