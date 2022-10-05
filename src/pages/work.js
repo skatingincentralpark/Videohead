@@ -38,7 +38,7 @@ const WorkPage = ({ videos }) => {
               video={v}
               key={v.id}
               onClick={() => openLightbox(i)}
-              priority={i < 3}
+              priority={i < 1}
             />
           ))}
       </PageWrapper>
