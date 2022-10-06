@@ -70,6 +70,18 @@ const PlayPauseButton = styled.button`
   left: 0;
   width: 100%;
   height: 8rem;
+  opacity: 0;
+
+  animation: example 0.3s ease 0.4s forwards;
+
+  @keyframes example {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 export async function getStaticProps() {
