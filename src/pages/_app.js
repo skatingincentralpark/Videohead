@@ -68,7 +68,7 @@ function MyApp({ Component, pageProps }) {
       <GlobalStyles />
       <Header />
       <LazyMotion features={domAnimation} strict>
-        <AnimatePresence exitBeforeEnter>
+        <AnimatePresence exitBeforeEnter initial={false}>
           <m.div
             key={router.pathname}
             initial="initial"

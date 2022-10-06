@@ -22,13 +22,13 @@ const HomePage = ({ landingVideo }) => {
     <>
       <HeadSEO title="Home" />
       <PageWrapper>
-        <PlayPauseButton onClick={handlePlayVideo}>
-          {isPlaying ? "Pause" : "Play"}
-        </PlayPauseButton>
         <FeaturedVideo>
           <video autoPlay playsInline muted loop type="video/mp4" ref={ref}>
             <source src={url} />
           </video>
+          <PlayPauseButton onClick={handlePlayVideo}>
+            {isPlaying ? "Pause" : "Play"}
+          </PlayPauseButton>
         </FeaturedVideo>
       </PageWrapper>
     </>
@@ -65,23 +65,11 @@ const FeaturedVideo = styled.div`
 `;
 
 const PlayPauseButton = styled.button`
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 8rem;
-  opacity: 0;
-
-  animation: example 0.3s ease 0.4s forwards;
-
-  @keyframes example {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
 `;
 
 export async function getStaticProps() {
