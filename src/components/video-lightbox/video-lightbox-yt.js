@@ -4,7 +4,7 @@ import YtLite from "../yt-lite";
 import { slugToText } from "../../lib/helpers";
 import Logo from "../logo";
 
-const VideoLightbox = ({
+const VideoLightboxYt = ({
   videos = [],
   selectedVideoIndex,
   setSelectedVideoIndex,
@@ -31,6 +31,7 @@ const VideoLightbox = ({
         </LogoWrapper>
         <CloseButton onClick={closeLightbox}>Close</CloseButton>
       </HeaderWrapper>
+
       <Lightbox>
         <YtLite
           key={videos[selectedVideoIndex].id}
@@ -42,7 +43,7 @@ const VideoLightbox = ({
           <div>
             <div className="desc-client">{client}</div>
             <div className="desc-title">{title}</div>
-            <div className="desc-date">15th Jan 2022</div>
+            <div className="desc-date">{date}</div>
             <div className="desc-category">{slugToText(category)}</div>
           </div>
           <div>{description && <PortableText content={description} />}</div>
@@ -53,7 +54,7 @@ const VideoLightbox = ({
   );
 };
 
-export default VideoLightbox;
+export default VideoLightboxYt;
 
 const HeaderWrapper = styled.div`
   z-index: 5;

@@ -3,9 +3,9 @@ import { useState } from "react";
 import { m } from "framer-motion";
 import client from "../../client";
 import styled from "@emotion/styled";
-import VideoLightbox from "../components/video-lightbox";
 import { slugToText } from "../lib/helpers";
 import HeadSEO from "../components/head-seo";
+import LightboxSwitcher from "../components/video-lightbox/lightbox-switcher";
 
 const transientOptions = {
   shouldForwardProp: (propName) => !propName.startsWith("$"),
@@ -25,7 +25,8 @@ const WorkPage = ({ videos }) => {
       <HeadSEO title="Work" />
       <PageWrapper>
         {lightboxOpen && (
-          <VideoLightbox
+          <LightboxSwitcher
+            type={videos[selectedVideoIndex]?.source}
             videos={videos}
             selectedVideoIndex={selectedVideoIndex}
             setSelectedVideoIndex={setSelectedVideoIndex}
