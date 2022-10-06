@@ -1,15 +1,32 @@
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import client from "../../client";
 import HeadSEO from "../components/head-seo";
 
 const HomePage = ({ landingVideo }) => {
   const { url } = landingVideo;
+  const ref = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(ref.current?.paused || true);
+
+  const handlePlayVideo = () => {
+    if (ref.current.paused) {
+      ref.current.play();
+      setIsPlaying(true);
+    } else {
+      ref.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
   return (
     <>
       <HeadSEO title="Home" />
       <PageWrapper>
+        <PlayPauseButton onClick={handlePlayVideo}>
+          {isPlaying ? "Pause" : "Play"}
+        </PlayPauseButton>
         <FeaturedVideo>
-          <video autoPlay playsInline muted loop type="video/mp4">
+          <video autoPlay playsInline muted loop type="video/mp4" ref={ref}>
             <source src={url} />
           </video>
         </FeaturedVideo>
@@ -45,6 +62,14 @@ const FeaturedVideo = styled.div`
     object-fit: cover;
     box-sizing: border-box;
   }
+`;
+
+const PlayPauseButton = styled.button`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8rem;
 `;
 
 export async function getStaticProps() {
