@@ -284,7 +284,7 @@ const Info = ({
 
 const InfoTypography = styled.div`
   font-size: 0.9rem;
-  line-height: 1.2em;
+  line-height: 1.3em;
 
   & > div:first-of-type {
     font-weight: 600;
@@ -300,7 +300,7 @@ const InfoTypography = styled.div`
 
 const InfoDesktop = styled(InfoTypography, transientOptions)`
   text-align: ${({ $left }) => ($left ? "right" : "left")};
-  min-width: 12rem;
+  width: 12rem;
   padding: 0 var(--gap-m);
   display: none;
 
