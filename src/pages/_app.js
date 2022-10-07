@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { LazyMotion, domAnimation, AnimatePresence, m } from "framer-motion";
 import GlobalStyles from "../styles/global";
 import { useRouter } from "next/router";
@@ -69,7 +70,7 @@ function MyApp({ Component, pageProps }) {
       <Header />
       <LazyMotion features={domAnimation} strict>
         <AnimatePresence exitBeforeEnter initial={false}>
-          <m.div
+          <PageTransitionWrapper
             key={router.pathname}
             initial="initial"
             animate="animate"
@@ -77,11 +78,16 @@ function MyApp({ Component, pageProps }) {
             variants={pageTransitionAnim}
           >
             <Component {...pageProps} />
-          </m.div>
+          </PageTransitionWrapper>
         </AnimatePresence>
       </LazyMotion>
     </DarkModeProvider>
   );
 }
+
+const PageTransitionWrapper = styled(m.div)`
+  height: 100%;
+  width: 100%;
+`;
 
 export default MyApp;

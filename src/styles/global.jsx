@@ -42,9 +42,15 @@ const GlobalStyles = () => {
       }
 
       html,
-      body {
+      body,
+      body > div:first-of-type {
         height: 100%;
       }
+
+      body {
+        min-height: 100%;
+      }
+
       html {
         background-color: var(--background-color);
         font-family: var(--font-family-primary), -apple-system,

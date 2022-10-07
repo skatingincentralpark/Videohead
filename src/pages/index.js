@@ -22,13 +22,13 @@ const HomePage = ({ landingVideo }) => {
     <>
       <HeadSEO title="Home" />
       <PageWrapper>
+        <PlayPauseButton onClick={handlePlayVideo}>
+          {isPlaying ? "Pause" : "Play"}
+        </PlayPauseButton>
         <FeaturedVideo>
           <video autoPlay playsInline muted loop type="video/mp4" ref={ref}>
             <source src={url} />
           </video>
-          <PlayPauseButton onClick={handlePlayVideo}>
-            {isPlaying ? "Pause" : "Play"}
-          </PlayPauseButton>
         </FeaturedVideo>
       </PageWrapper>
     </>
@@ -39,7 +39,7 @@ export default HomePage;
 
 const PageWrapper = styled.div`
   padding: var(--gap-3xl);
-  height: 100%;
+  height: fit-content;
 `;
 
 const FeaturedVideo = styled.div`
@@ -65,7 +65,7 @@ const FeaturedVideo = styled.div`
 `;
 
 const PlayPauseButton = styled.button`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
