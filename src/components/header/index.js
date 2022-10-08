@@ -138,6 +138,7 @@ const LogoWrapper = styled(m.div, transientOptions)`
   }
 
   & svg {
+    height: 100%;
     transition: fill 500ms;
     fill: ${({ $isHome, $mobNavOpen }) =>
       $isHome && !$mobNavOpen && `var(--home-color)`};
