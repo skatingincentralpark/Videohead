@@ -1,11 +1,12 @@
 import FutureImage from "next/future/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { m } from "framer-motion";
 import client from "../../client";
 import styled from "@emotion/styled";
 import { slugToText } from "../lib/helpers";
 import HeadSEO from "../components/head-seo";
 import LightboxSwitcher from "../components/video-lightbox/lightbox-switcher";
+import { useMediaQuery } from "react-responsive";
 
 const transientOptions = {
   shouldForwardProp: (propName) => !propName.startsWith("$"),
@@ -19,6 +20,8 @@ const WorkPage = ({ videos }) => {
     setSelectedVideoIndex(index);
     setLightboxOpen(true);
   };
+
+  const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
 
   return (
     <>
@@ -39,7 +42,8 @@ const WorkPage = ({ videos }) => {
               video={v}
               key={v.id}
               onClick={() => openLightbox(i)}
-              priority={i < 7}
+              priority={i < 3}
+              isMobile={isMobile}
             />
           ))}
       </PageWrapper>
@@ -81,12 +85,11 @@ export async function getStaticProps() {
 }
 
 const PageWrapper = styled.div`
-  padding: var(--gap-page-top) 0;
   margin: auto;
   transition: padding 500ms ease-out;
 
   @media screen and (min-width: 760px) {
-    /* padding-top: 0; */
+    padding: var(--gap-page-top) 0;
   }
 `;
 
@@ -104,7 +107,14 @@ const VideoRow = ({
   },
   priority = false,
   onClick = () => {},
+  isMobile = false,
 }) => {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   if (!gifs) return null;
 
   const variants = {
@@ -127,21 +137,41 @@ const VideoRow = ({
     >
       <Info line1={client} line2={title} mobile onClick={onClick} />
       <Info line1={client} line2={title} left onClick={onClick} />
-      <GifGroup>
-        {gifs?.map((x) => (
-          <Gif
-            image={x}
-            key={x.url}
-            onClick={onClick}
-            numberOfImages={gifs.length}
-            fallbackCaption={
-              x.caption ||
-              `GIF of ${title} by ${client} - ${slugToText(category)}`
-            }
-            priority={priority}
-          />
-        ))}
-      </GifGroup>
+      {hydrated && (
+        <GifGroup>
+          {/* if desktop, render all gifs, otherwise, render first only */}
+          {!isMobile
+            ? gifs?.map((x, i) => (
+                <Gif
+                  image={x}
+                  key={x.url}
+                  onClick={onClick}
+                  numberOfImages={gifs.length}
+                  fallbackCaption={
+                    x.caption ||
+                    `GIF of ${title} by ${client} - ${slugToText(category)}`
+                  }
+                  priority={priority}
+                />
+              ))
+            : gifs?.map((x, i) => {
+                if (i === 0)
+                  return (
+                    <Gif
+                      image={x}
+                      key={x.url}
+                      onClick={onClick}
+                      numberOfImages={gifs.length}
+                      fallbackCaption={
+                        x.caption ||
+                        `GIF of ${title} by ${client} - ${slugToText(category)}`
+                      }
+                      priority={priority}
+                    />
+                  );
+              })}
+        </GifGroup>
+      )}
       <Info line1={category} line2={date} onClick={onClick} />
     </Row>
   );
@@ -219,10 +249,14 @@ const Gif = ({
 
 const GifWrapper = styled.div`
   position: relative;
-  max-width: ${({ numberOfImages }) =>
-    numberOfImages && `calc(100% / ${numberOfImages})`};
+  max-width: 100%;
   flex-grow: 1;
   cursor: crosshair;
+
+  @media screen and (min-width: 700px) {
+    max-width: ${({ numberOfImages }) =>
+      numberOfImages && `calc(100% / ${numberOfImages})`};
+  }
 
   & > div {
     width: 100%;
