@@ -347,6 +347,7 @@ const InfoDesktop = styled(InfoTypography, transientOptions)`
 const InfoMobile = styled(InfoTypography)`
   text-align: center;
   position: absolute;
+  bottom: 0;
   z-index: 1;
   display: block;
   padding: var(--gap-xs);

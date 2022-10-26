@@ -117,6 +117,7 @@ const HeaderWrapper = styled.header`
   top: 0;
   height: 6rem;
   padding: 0 var(--gap-s);
+  backdrop-filter: blur(5px);
 
   @media screen and (min-width: 400px) {
     padding: 0 var(--gap-l);
