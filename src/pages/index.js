@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import client from "../../client";
 import HeadSEO from "../components/head-seo";
 
-const HomePage = ({ landingVideo }) => {
-  const { url } = landingVideo;
+const HomePage = ({ landingVideoCloudinary }) => {
+  const { url } = landingVideoCloudinary;
   const ref = useRef(null);
   const [isPlaying, setIsPlaying] = useState(ref.current?.paused || true);
 
@@ -75,15 +75,17 @@ const PlayPauseButton = styled.button`
 export async function getStaticProps() {
   const query = await client.fetch(`
     *[_type == "siteSettings"][]{
-      landingVideo {
-        "url": asset -> url
-      } 
+      landingVideoCloudinary {
+        url,
+        height,
+        width
+      }
     }
   `);
 
   return {
     props: {
-      landingVideo: query[0].landingVideo,
+      landingVideoCloudinary: query[0].landingVideoCloudinary,
     },
   };
 }
