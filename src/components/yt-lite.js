@@ -8,8 +8,6 @@ const YtLite = ({
   onClick = null,
   posterImage = "",
 }) => {
-  console.log(posterImage);
-
   return (
     <YtLiteWrapper
       onClick={onClick}

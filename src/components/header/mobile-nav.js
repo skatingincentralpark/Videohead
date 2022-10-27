@@ -86,7 +86,7 @@ const MobileNav = ({ closeNav, toggleDarkMode, darkMode }) => {
         <br />
         Raghav Rampal
         <br />
-        raghav@videohead.com.au
+        <a href="mailto: raghav@videohead.com.au">raghav@videohead.com.au</a>
         <br />
         +61 423 371 400
         <br />

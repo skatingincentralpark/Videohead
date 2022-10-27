@@ -11,7 +11,9 @@ const ContactPage = () => {
           <div>
             Director / Founder
             <br />
-            raghav@videohead.com.au
+            <a href="mailto: raghav@videohead.com.au">
+              raghav@videohead.com.au
+            </a>
             <br />
             +61 423 371 400
           </div>

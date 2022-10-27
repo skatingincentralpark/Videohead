@@ -5,7 +5,6 @@ import styled from "@emotion/styled";
 import Logo from "../logo";
 import MobileNav from "./mobile-nav";
 import Link from "../link";
-import SocialLogo from "../social-logo";
 import { DarkModeContext } from "../../lib/context";
 
 const transientOptions = {
@@ -120,7 +119,7 @@ const HeaderWrapper = styled.header`
   backdrop-filter: blur(5px);
 
   @media screen and (min-width: 400px) {
-    padding: 0 var(--gap-l);
+    padding: 0 var(--gap-s) 0 var(--gap-l);
   }
 `;
 
@@ -324,8 +323,8 @@ const MenuButton = ({
 };
 
 const BurgerWrapper = styled(`button`, transientOptions)`
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 5rem;
+  width: 5rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -334,7 +333,6 @@ const BurgerWrapper = styled(`button`, transientOptions)`
   @media screen and (max-width: 700px) {
     display: block;
   }
-
   & > svg {
     padding: 0.2rem;
   }

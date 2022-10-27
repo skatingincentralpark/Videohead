@@ -21,10 +21,7 @@ const HomePage = ({ landingVideoCloudinary }) => {
   return (
     <>
       <HeadSEO title="Home" />
-      <PageWrapper>
-        <PlayPauseButton onClick={handlePlayVideo}>
-          {isPlaying ? "Pause" : "Play"}
-        </PlayPauseButton>
+      <PageWrapper onClick={handlePlayVideo}>
         <FeaturedVideo>
           <video autoPlay playsInline muted loop type="video/mp4" ref={ref}>
             <source src={url} />
@@ -39,7 +36,12 @@ export default HomePage;
 
 const PageWrapper = styled.div`
   padding: var(--gap-3xl);
-  height: fit-content;
+  height: 100%;
+  transition: transform 0.2s;
+
+  &:active {
+    transform: scale(0.98);
+  }
 `;
 
 const FeaturedVideo = styled.div`
