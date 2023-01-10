@@ -64,6 +64,7 @@ export async function getStaticProps() {
       category,
       client,
       source,
+      award,
       gifs[]{
         "id": asset -> _id,
         caption,
@@ -104,6 +105,7 @@ const VideoRow = ({
     id = 0,
     source = "",
     videoId = 0,
+    award = {},
   },
   priority = false,
   onClick = () => {},
@@ -127,6 +129,9 @@ const VideoRow = ({
     },
   };
 
+  const awardText = award?.won && "Award Won";
+  const awardUrl = award?.won && award?.url;
+
   return (
     <Row
       key={title}
@@ -135,8 +140,22 @@ const VideoRow = ({
       whileInView="onscreen"
       variants={variants}
     >
-      <Info line1={client} line2={title} mobile onClick={onClick} />
-      <Info line1={client} line2={title} left onClick={onClick} />
+      <Info
+        line1={client}
+        line2={title}
+        line3={awardText}
+        awardUrl={awardUrl}
+        mobile
+        onClick={onClick}
+      />
+      <Info
+        line1={client}
+        line2={title}
+        line3={awardText}
+        awardUrl={awardUrl}
+        left
+        onClick={onClick}
+      />
       {hydrated && (
         <GifGroup>
           {/* if desktop, render all gifs, otherwise, render first only */}
@@ -296,6 +315,8 @@ const GifWrapper = styled.div`
 const Info = ({
   line1 = "",
   line2 = "",
+  line3 = "",
+  awardUrl = "",
   left = false,
   mobile = false,
   onClick = () => {},
@@ -306,11 +327,25 @@ const Info = ({
         <InfoDesktop $left={left}>
           <div>{slugToText(line1)}</div>
           <div>{slugToText(line2)}</div>
+          {line3 && (
+            <AwardWonText>
+              <a href={awardUrl} target="_blank" rel="noopener noreferrer">
+                {slugToText(line3)}
+              </a>
+            </AwardWonText>
+          )}
         </InfoDesktop>
       ) : (
         <InfoMobile onClick={onClick}>
           <div>{slugToText(line1)}</div>
           <div>{slugToText(line2)}</div>
+          {line3 && (
+            <AwardWonText>
+              <a href={awardUrl} target="_blank" rel="noopener noreferrer">
+                {slugToText(line3)}
+              </a>
+            </AwardWonText>
+          )}
         </InfoMobile>
       )}
     </>
@@ -360,5 +395,18 @@ const InfoMobile = styled(InfoTypography)`
 
   & > div:last-of-type {
     color: rgba(255, 255, 255, 1);
+  }
+`;
+
+const AwardWonText = styled.div`
+  background-color: red;
+  width: fit-content;
+  margin-left: auto;
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem;
+  white-space: nowrap;
+
+  a {
+    color: white;
   }
 `;

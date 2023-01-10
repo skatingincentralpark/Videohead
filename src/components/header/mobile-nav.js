@@ -78,8 +78,16 @@ const MobileNav = ({ closeNav, toggleDarkMode, darkMode }) => {
       <p>
         <strong>About</strong>
         <br />
-        Videohead is a video production company based in Sydney, Australia. We
-        tell stories of some of Australia&apos;s most exciting creatives
+        Videohead is an{" "}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.abc.net.au/triplej/programs/jawards-2022/australian-music-video-of-the-year-2022-j-awards-nominees/101596352"
+        >
+          award winning
+        </a>{" "}
+        video production company based in Sydney, Australia. We tell stories of
+        some of Australia&apos;s most exciting creatives
       </p>
       <p>
         <strong>Contact</strong>
