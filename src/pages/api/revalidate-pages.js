@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
     await res.revalidate(`/raghavrampal`);
     await res.revalidate(`/work`);
-    return res.json(`${defaultMessage}  Updated /raghavrampal`);
+    return res.json(`${defaultMessage}`);
     // switch (category) {
     //   case "personal":
     //     await res.revalidate(`/raghavrampal`);
