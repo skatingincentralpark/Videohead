@@ -34,14 +34,17 @@ export default async function handler(req, res) {
       message: `Revalidated "${type}" with slug "${slug}."`,
     };
 
-    switch (category) {
-      case "personal":
-        await res.revalidate(`/raghavrampal`);
-        return res.json(`${defaultMessage}  Updated /raghavrampal`);
-      default:
-        await res.revalidate(`/work`);
-        return res.json(`${defaultMessage} Updated /work`);
-    }
+    await res.revalidate(`/raghavrampal`);
+    await res.revalidate(`/work`);
+    return res.json(`${defaultMessage}  Updated /raghavrampal`);
+    // switch (category) {
+    //   case "personal":
+    //     await res.revalidate(`/raghavrampal`);
+    //     return res.json(`${defaultMessage}  Updated /raghavrampal`);
+    //   default:
+    //     await res.revalidate(`/work`);
+    //     return res.json(`${defaultMessage} Updated /work`);
+    // }
   } catch (error) {
     res.status(500).json({ message: "Something went Wrong!" });
   }
