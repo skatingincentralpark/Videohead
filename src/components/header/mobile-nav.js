@@ -14,6 +14,12 @@ const parentVariants = {
   exit: { transition: { duration: 0 } },
 };
 
+const links = [
+  { href: "/work", title: "Work" },
+  { href: "/raghavrampal", title: "Raghav Rampal" },
+  { href: "/contact", title: "Contact" },
+];
+
 const MobileNav = ({ closeNav, toggleDarkMode, darkMode }) => {
   return (
     <StyledMobileNav
@@ -24,16 +30,13 @@ const MobileNav = ({ closeNav, toggleDarkMode, darkMode }) => {
     >
       <Nav>
         <div>
-          <ChildTransitionWrapper>
-            <Link href="/work" onClick={closeNav}>
-              Work
-            </Link>
-          </ChildTransitionWrapper>
-          <ChildTransitionWrapper>
-            <Link href="/contact" onClick={closeNav}>
-              Contact
-            </Link>
-          </ChildTransitionWrapper>
+          {links.map((l) => (
+            <ChildTransitionWrapper key={l.href}>
+              <Link href={l.href} onClick={closeNav}>
+                {l.title}
+              </Link>
+            </ChildTransitionWrapper>
+          ))}
         </div>
         <div>
           <ChildTransitionWrapper>

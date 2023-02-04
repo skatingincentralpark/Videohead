@@ -6,11 +6,7 @@ import LightboxSwitcher from "../components/video-lightbox/lightbox-switcher";
 import { useMediaQuery } from "react-responsive";
 import VideoRow from "../components/video-row";
 
-const transientOptions = {
-  shouldForwardProp: (propName) => !propName.startsWith("$"),
-};
-
-const WorkPage = ({ videos }) => {
+const PersonalWork = ({ videos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -44,16 +40,19 @@ const WorkPage = ({ videos }) => {
               isMobile={isMobile}
             />
           ))}
+        {!videos.length && (
+          <div style={{ width: "100%", textAlign: "center" }}>Coming soon</div>
+        )}
       </PageWrapper>
     </>
   );
 };
 
-export default WorkPage;
+export default PersonalWork;
 
 export async function getStaticProps() {
   const videos = await client.fetch(`
-  *[_type == "video" && category != "personal"][] | order(order asc){
+  *[_type == "video" && category == "personal"][] | order(order asc){
       "id": _id,
       title,
       videoId,

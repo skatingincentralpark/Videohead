@@ -37,29 +37,10 @@ const Header = () => {
     <>
       <LazyMotion features={domAnimation} strict>
         <HeaderWrapper>
-          <SocialWrapper $isHome={isHome} $mobNavOpen={mobNavOpen}>
-            {/* <a
-              href="https://www.facebook.com/videoheadco-103976897860912"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <SocialLogo size="small" type="fb" onClick={closeNav} />
-            </a>
-            <a
-              href="https://www.instagram.com/videoheadco/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <SocialLogo size="small" type="ig" onClick={closeNav} />
-            </a>
-            <a
-              href="https://vimeo.com/user48058060"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <SocialLogo size="small" type="vimeo" onClick={closeNav} />
-            </a> */}
-          </SocialWrapper>
+          <SocialWrapper
+            $isHome={isHome}
+            $mobNavOpen={mobNavOpen}
+          ></SocialWrapper>
           <LogoWrapper $isHome={isHome} $mobNavOpen={mobNavOpen}>
             <m.div
               variants={logoVariants}
@@ -72,15 +53,6 @@ const Header = () => {
             </m.div>
           </LogoWrapper>
           <NavWrapper $isHome={isHome}>
-            {/* <Link href="/work" onClick={closeNav}>
-              Work
-            </Link>
-            <Link href="/contact" onClick={closeNav}>
-              Contact
-            </Link>
-            <button onClick={toggleDarkMode}>
-              {!darkMode ? "Dark Mode" : "Light Mode"}
-            </button> */}
             <MenuButton
               onClick={toggleNav}
               isOpen={mobNavOpen}
