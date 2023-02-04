@@ -11,6 +11,7 @@
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@sanity/client": "^3.4.1",
+    "@sanity/webhook": "^2.0.0",
     "config": "^3.3.6",
     "framer-motion": "^6.3.16",
     "next": "^12.3.1",
