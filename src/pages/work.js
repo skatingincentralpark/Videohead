@@ -53,7 +53,7 @@ export default WorkPage;
 
 export async function getStaticProps() {
   const videos = await client.fetch(`
-  *[_type == "video" && category != "personal"][] | order(order asc){
+  *[_type == "video" && category != "personal"][] | order(orderRank asc){
       "id": _id,
       title,
       videoId,
