@@ -52,7 +52,7 @@ export default PersonalWork;
 
 export async function getStaticProps() {
   const videos = await client.fetch(`
-  *[_type == "video" && category == "personal"][] | order(orderRank asc){
+  *[_type == "video" && pagesToShowOn.raghavrampal][] | order(orderRank asc){
       "id": _id,
       title,
       videoId,
@@ -61,7 +61,11 @@ export async function getStaticProps() {
       category,
       client,
       source,
-      award,
+      award {
+        url,
+        won,
+        title
+      },
       gifs[]{
         "id": asset -> _id,
         caption,

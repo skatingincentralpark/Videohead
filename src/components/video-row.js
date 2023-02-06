@@ -43,7 +43,7 @@ const VideoRow = ({
     },
   };
 
-  const awardText = award?.won && "Award Won";
+  const awardText = award?.title && award?.title;
   const awardUrl = award?.won && award?.url;
 
   return (
@@ -127,7 +127,7 @@ const GifGroup = styled.div`
   width: 100%;
 
   @media screen and (min-width: 700px) {
-    width: clamp(30rem, 50vw + 4rem, 80rem);
+    /* width: clamp(30rem, 80vw + 4rem, 100rem); */
   }
 `;
 
@@ -286,7 +286,8 @@ const InfoTypography = styled.div`
 
 const InfoDesktop = styled(InfoTypography, transientOptions)`
   text-align: ${({ $left }) => ($left ? "right" : "left")};
-  width: 12rem;
+  width: 14rem;
+  min-width: 12rem;
   padding: 0 var(--gap-m);
   display: none;
 
@@ -318,9 +319,8 @@ const AwardWonText = styled.div`
   background-color: red;
   width: fit-content;
   margin-left: auto;
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.5rem;
   margin-top: 0.5rem;
-  white-space: nowrap;
 
   a {
     color: white;

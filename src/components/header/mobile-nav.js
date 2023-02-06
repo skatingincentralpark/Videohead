@@ -16,7 +16,6 @@ const parentVariants = {
 
 const links = [
   { href: "/work", title: "Work" },
-  { href: "/raghavrampal", title: "Raghav Rampal" },
   { href: "/contact", title: "Contact" },
 ];
 
