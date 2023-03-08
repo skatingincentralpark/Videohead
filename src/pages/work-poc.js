@@ -24,19 +24,16 @@ const WorkPoc = ({ videos }) => {
     clips: [...x.previewClips.map((x) => x.asset.url)],
   }));
 
-  console.log(videos);
-  console.log(videosArr);
-
   return (
     <div style={{ marginTop: "8rem" }}>
-      {videosArr.map((x) => (
-        <VideoRowPoc video={x} />
+      {videosArr.map((x, i) => (
+        <VideoRowPoc video={x} key={i} />
       ))}
-      {videosArr.map((x) => (
-        <VideoRowPoc video={x} />
+      {videosArr.map((x, i) => (
+        <VideoRowPoc video={x} key={`second-${i}`} />
       ))}
-      {videosArr.map((x) => (
-        <VideoRowPoc video={x} />
+      {videosArr.map((x, i) => (
+        <VideoRowPoc video={x} key={`third-${i}`} />
       ))}
     </div>
   );
