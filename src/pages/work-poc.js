@@ -1,7 +1,8 @@
 import React from "react";
+import client from "../../client";
 import VideoRowPoc from "../components/video-row-poc";
 
-const WorkPoc = () => {
+const WorkPoc = ({ videos }) => {
   const videoObj = {
     client: "1300",
     title: "Smashmouth",
@@ -18,26 +19,42 @@ const WorkPoc = () => {
     videoId: 0,
     award: {},
   };
+  const videosArr = videos.map((x) => ({
+    ...videoObj,
+    clips: [...x.previewClips.map((x) => x.asset.url)],
+  }));
+
+  console.log(videos);
+  console.log(videosArr);
 
   return (
     <div style={{ marginTop: "8rem" }}>
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
-      <VideoRowPoc video={videoObj} />
+      {videosArr.map((x) => (
+        <VideoRowPoc video={x} />
+      ))}
+      {videosArr.map((x) => (
+        <VideoRowPoc video={x} />
+      ))}
+      {videosArr.map((x) => (
+        <VideoRowPoc video={x} />
+      ))}
     </div>
   );
 };
 
 export default WorkPoc;
+
+export async function getStaticProps() {
+  const videos = await client.fetch(`
+  *[_type == "videoPoc"]{
+    previewClips[]{
+      asset -> { url }
+    }
+  }
+`);
+  return {
+    props: {
+      videos,
+    },
+  };
+}
