@@ -3,29 +3,32 @@ import { useState, useEffect } from "react";
 import { m } from "framer-motion";
 import { slugToText } from "../lib/helpers";
 import styled from "@emotion/styled";
+import { InfoProps, VideoRowPocProps } from "../types/types";
 
 const transientOptions = {
-  shouldForwardProp: (propName) => !propName.startsWith("$"),
+  shouldForwardProp: (propName: string) => !propName.startsWith("$"),
 };
 
 const VideoRowPoc = ({
   video: {
-    client = "",
-    title = "",
-    category = "",
-    date = "",
-    clips = [],
-    description = "",
-    id = 0,
-    source = "",
-    videoId = 0,
-    award = {},
+    client,
+    title,
+    category,
+    date,
+    clips,
+    description,
+    id,
+    source,
+    videoId,
+    award,
   },
+  onClick,
   priority = false,
-  onClick = () => {},
   isMobile = false,
-}) => {
+}: VideoRowPocProps) => {
+  const [canPlay, setCanPlay] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+
   useEffect(() => {
     setHydrated(true);
   }, []);
@@ -42,8 +45,8 @@ const VideoRowPoc = ({
     },
   };
 
-  const awardText = award?.title && award?.title;
-  const awardUrl = award?.won && award?.url;
+  const awardText = award?.title;
+  const awardUrl = award?.url;
 
   return (
     <Row
@@ -72,15 +75,19 @@ const VideoRowPoc = ({
       {hydrated && (
         <GifGroup>
           {clips?.map((x, i) => (
-            <video
+            <Video
               key={`clip-${i}`}
-              style={{ minWidth: 0 }}
+              style={{
+                minWidth: 0,
+                aspectRatio: canPlay ? `initial` : `16 / 9`,
+              }}
               autoPlay
               playsInline
               muted
               loop
               src={x}
-            ></video>
+              onCanPlay={() => setCanPlay(true)}
+            ></Video>
           ))}
         </GifGroup>
       )}
@@ -109,113 +116,19 @@ const GifGroup = styled.div`
     width: clamp(30rem, 80vw + 4rem, 100rem);
   }
 `;
-
-const Gif = ({
-  image: {
-    id = null,
-    aspectRatio = 0,
-    height = 0,
-    lqip = "",
-    palette = { dominant: { background: "" } },
-    width = 0,
-    url = "",
-    caption = "",
-    crop = {},
-  },
-  priority = false,
-  onClick = () => {},
-  fallbackCaption = "",
-  numberOfImages = 1,
-}) => {
-  // Using values from Sanity's crop object, compute the resulting aspect ratio
-  const cropWidth = crop && width - crop.left * width - crop.right * width;
-  const cropHeight = crop && height - crop.top * height - crop.bottom * height;
-  const croppedAspectRatio = crop && cropWidth / cropHeight;
-
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  const doFadeIn = () => {
-    setImageLoaded(true);
-  };
-
-  return (
-    <GifWrapper
-      onClick={onClick}
-      style={{
-        backgroundColor: palette.dominant.background,
-        aspectRatio: `${croppedAspectRatio || aspectRatio} / 1`,
-      }}
-      numberOfImages={numberOfImages}
-    >
-      <div />
-      <FutureImage
-        src={url}
-        alt={caption || fallbackCaption}
-        width={width}
-        height={height}
-        priority={priority}
-        className={`transparent ${imageLoaded ? "hasLoaded" : ""}`}
-        onLoadingComplete={doFadeIn}
-      />
-    </GifWrapper>
-  );
-};
-
-const GifWrapper = styled.div`
-  position: relative;
-  max-width: 100%;
-  flex-grow: 1;
-  cursor: crosshair;
-
-  @media screen and (min-width: 700px) {
-    max-width: ${({ numberOfImages }) =>
-      numberOfImages && `calc(100% / ${numberOfImages})`};
-  }
-
-  & > div {
-    width: 100%;
-    height: 0;
-    background-color: magenta;
-    position: absolute;
-    z-index: 1;
-    transition: height 100ms ease;
-    bottom: 0;
-  }
-
-  &:hover div {
-    @media screen and (min-width: 700px) {
-      height: 3px;
-    }
-  }
-  &:active div {
-    height: 3px;
-    background-color: blue;
-  }
-  & > img {
-    height: 100%;
-    object-fit: cover;
-    margin: auto;
-    width: 100%;
-  }
-
-  .transparent {
-    opacity: 0%;
-    transition: opacity 1000ms ease;
-  }
-  .hasLoaded {
-    opacity: 100%;
-  }
+const Video = styled.video`
+  height: 100%;
 `;
 
 const Info = ({
-  line1 = "",
-  line2 = "",
-  line3 = "",
-  awardUrl = "",
+  line1,
+  line2,
+  line3,
+  awardUrl,
   left = false,
-  mobile = false,
-  onClick = () => {},
-}) => {
+  mobile,
+  onClick,
+}: InfoProps) => {
   return (
     <>
       {!mobile ? (
@@ -263,7 +176,10 @@ const InfoTypography = styled.div`
   }
 `;
 
-const InfoDesktop = styled(InfoTypography, transientOptions)`
+interface IDProps {
+  $left: boolean;
+}
+const InfoDesktop = styled(InfoTypography, transientOptions)<IDProps>`
   text-align: ${({ $left }) => ($left ? "right" : "left")};
   width: 14rem;
   min-width: 12rem;

@@ -2,13 +2,41 @@ import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import client from "../../client";
 import HeadSEO from "../components/head-seo";
+import { GetStaticProps } from "next";
 
-const HomePage = ({ landingVideoCloudinary }) => {
-  const { url } = landingVideoCloudinary;
-  const ref = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(ref.current?.paused || true);
+export interface Props {
+  landingVideo: { asset: Asset; caption: string };
+}
+
+export interface Asset {
+  _createdAt: Date;
+  _id: string;
+  _rev: string;
+  _type: string;
+  _updatedAt: Date;
+  assetId: string;
+  extension: string;
+  mimeType: string;
+  originalFilename: string;
+  path: string;
+  sha1hash: string;
+  size: number;
+  uploadId: string;
+  url: string;
+}
+
+const HomePage = ({ landingVideo }: Props) => {
+  const {
+    asset: { url },
+  } = landingVideo;
+  const ref = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(
+    ref.current?.paused || true
+  );
 
   const handlePlayVideo = () => {
+    if (!ref.current) return;
+
     if (ref.current.paused) {
       ref.current.play();
       setIsPlaying(true);
@@ -23,7 +51,7 @@ const HomePage = ({ landingVideoCloudinary }) => {
       <HeadSEO title="Home" />
       <PageWrapper onClick={handlePlayVideo}>
         <FeaturedVideo>
-          <video autoPlay playsInline muted loop type="video/mp4" ref={ref}>
+          <video autoPlay playsInline muted loop ref={ref}>
             <source src={url} />
           </video>
         </FeaturedVideo>
@@ -74,20 +102,19 @@ const PlayPauseButton = styled.button`
   height: 8rem;
 `;
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const query = await client.fetch(`
-    *[_type == "siteSettings"][]{
-      landingVideoCloudinary {
-        url,
-        height,
-        width
+    *[_type == "siteSettings"]{
+      landingVideo {
+        caption,     
+        asset ->
       }
     }
   `);
 
   return {
     props: {
-      landingVideoCloudinary: query[0].landingVideoCloudinary,
+      landingVideo: query[0].landingVideo,
     },
   };
-}
+};

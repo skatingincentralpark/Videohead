@@ -1,25 +1,27 @@
 import React from "react";
 import client from "../../client";
 import VideoRowPoc from "../components/video-row-poc";
+import { SingleWork } from "../types/types";
 
-const WorkPoc = ({ videos }) => {
+const WorkPoc = ({ work }: { work: SingleWork[] }) => {
   const videoObj = {
     client: "1300",
     title: "Smashmouth",
     category: "Music Video",
     date: "11/06/22",
-    clips: [
-      "/videos/smash-1.mp4",
-      "/videos/smash-2.mp4",
-      "/videos/smash-3.mp4",
-    ],
+    clips: [],
     description: "",
     id: 0,
     source: "",
     videoId: 0,
-    award: {},
+    award: {
+      title: "",
+      won: false,
+      url: "",
+    },
   };
-  const videosArr = videos.map((x) => ({
+
+  const videosArr = work.map((x) => ({
     ...videoObj,
     clips: [...x.previewClips.map((x) => x.asset.url)],
   }));
@@ -29,12 +31,6 @@ const WorkPoc = ({ videos }) => {
       {videosArr.map((x, i) => (
         <VideoRowPoc video={x} key={i} />
       ))}
-      {videosArr.map((x, i) => (
-        <VideoRowPoc video={x} key={`second-${i}`} />
-      ))}
-      {videosArr.map((x, i) => (
-        <VideoRowPoc video={x} key={`third-${i}`} />
-      ))}
     </div>
   );
 };
@@ -42,7 +38,7 @@ const WorkPoc = ({ videos }) => {
 export default WorkPoc;
 
 export async function getStaticProps() {
-  const videos = await client.fetch(`
+  const work = await client.fetch(`
   *[_type == "videoPoc"]{
     previewClips[]{
       asset -> { url }
@@ -51,7 +47,7 @@ export async function getStaticProps() {
 `);
   return {
     props: {
-      videos,
+      work,
     },
   };
 }
