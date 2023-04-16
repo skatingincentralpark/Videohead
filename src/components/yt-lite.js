@@ -28,6 +28,8 @@ const YtLiteWrapper = styled.div`
   justify-content: center;
   position: relative;
   cursor: pointer;
+  width: 80%;
+  margin: auto;
 
   .yt-lite {
     background-color: #000;
@@ -39,7 +41,6 @@ const YtLiteWrapper = styled.div`
     background-size: cover;
     cursor: pointer;
     aspect-ratio: 16 / 9;
-    aspect-ratio: 11 / 4;
   }
 
   .yt-lite > iframe {

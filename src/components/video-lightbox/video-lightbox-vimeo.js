@@ -148,12 +148,12 @@ const VimeoWrapper = styled.div`
 `;
 
 const Description = styled.div`
-  padding-top: var(--gap-l);
+  padding-top: var(--gap-3xl);
   border-radius: var(--gap-xs);
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 30rem;
+  text-align: center;
 
   & > div:first-of-type {
     margin-bottom: var(--gap-s);
