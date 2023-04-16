@@ -11,6 +11,8 @@ const transientOptions = {
 };
 
 const WorkPage = ({ videos }) => {
+  console.log(videos.length);
+  console.log(videos.map((x) => x.title));
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -53,7 +55,7 @@ export default WorkPage;
 
 export async function getStaticProps() {
   const videos = await client.fetch(`
-  *[_type == "video" && pagesToShowOn.videohead][] | order(orderRank asc){
+  *[_type == "video"][] | order(orderRank asc){
       "id": _id,
       title,
       videoId,

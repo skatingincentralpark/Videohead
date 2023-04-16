@@ -4,6 +4,8 @@ import VideoRowPoc from "../components/video-row-poc";
 import { SingleWork } from "../types/types";
 
 const WorkPoc = ({ work }: { work: SingleWork[] }) => {
+  console.log(work.length);
+  console.log(work);
   const videoObj = {
     client: "1300",
     title: "Smashmouth",
@@ -21,16 +23,16 @@ const WorkPoc = ({ work }: { work: SingleWork[] }) => {
     },
   };
 
-  const videosArr = work.map((x) => ({
-    ...videoObj,
-    clips: [...x.previewClips.map((x) => x.asset.url)],
-  }));
+  // const videosArr = work.map((x) => ({
+  //   ...videoObj,
+  //   clips: [...x.previewClips.map((x) => x.asset.url)],
+  // }));
 
   return (
     <div style={{ marginTop: "8rem" }}>
-      {videosArr.map((x, i) => (
+      {/* {videosArr.map((x, i) => (
         <VideoRowPoc video={x} key={i} />
-      ))}
+      ))} */}
     </div>
   );
 };
@@ -39,7 +41,8 @@ export default WorkPoc;
 
 export async function getStaticProps() {
   const work = await client.fetch(`
-  *[_type == "videoPoc"]{
+  *[_type == "videoPoc"] | order(orderRank asc){
+    title,
     previewClips[]{
       asset -> { url }
     }
