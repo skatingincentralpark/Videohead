@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import client from "../../client";
 import styled from "@emotion/styled";
 import HeadSEO from "../components/head-seo";
 import LightboxSwitcher from "../components/video-lightbox/lightbox-switcher";
 import { useMediaQuery } from "react-responsive";
 import VideoRow from "../components/video-row";
+import { useInView } from "react-intersection-observer";
+import useDebounce from "../hooks/useDebounce";
 
 const transientOptions = {
   shouldForwardProp: (propName) => !propName.startsWith("$"),
@@ -13,6 +15,7 @@ const transientOptions = {
 const WorkPage = ({ videos }) => {
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [amountOfProjectsToRender, setAmountOfProjectsToRender] = useState(5);
 
   const openLightbox = (index) => {
     setSelectedVideoIndex(index);
@@ -20,11 +23,37 @@ const WorkPage = ({ videos }) => {
   };
 
   const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
+  const { ref, inView } = useInView({
+    rootMargin: "100px",
+  });
+
+  const debouncedHandleReachBottom = useDebounce(() => {
+    if (videos.length <= amountOfProjectsToRender) return;
+    void setAmountOfProjectsToRender(amountOfProjectsToRender + 5);
+  }, 400);
+
+  useEffect(() => {
+    if (inView) debouncedHandleReachBottom();
+  }, [inView]);
+
+  const projectsToRender = videos.slice(0, amountOfProjectsToRender);
 
   return (
     <>
       <HeadSEO title="Work" />
       <PageWrapper>
+        <div
+          style={{
+            zIndex: 100,
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "300px",
+            background: "red",
+          }}
+        >
+          {inView ? "in view" : "not in view"}
+        </div>
         {lightboxOpen && (
           <LightboxSwitcher
             type={videos[selectedVideoIndex]?.source}
@@ -34,8 +63,8 @@ const WorkPage = ({ videos }) => {
             setLightboxOpen={setLightboxOpen}
           />
         )}
-        {videos &&
-          videos.map((v, i) => (
+        {projectsToRender &&
+          projectsToRender.map((v, i) => (
             <VideoRow
               video={v}
               key={v.id}
@@ -44,6 +73,7 @@ const WorkPage = ({ videos }) => {
               isMobile={isMobile}
             />
           ))}
+        <div aria-hidden ref={ref} />
       </PageWrapper>
     </>
   );
