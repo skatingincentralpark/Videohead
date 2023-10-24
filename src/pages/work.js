@@ -42,18 +42,6 @@ const WorkPage = ({ videos }) => {
     <>
       <HeadSEO title="Work" />
       <PageWrapper>
-        <div
-          style={{
-            zIndex: 100,
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "300px",
-            background: "red",
-          }}
-        >
-          {inView ? "in view" : "not in view"}
-        </div>
         {lightboxOpen && (
           <LightboxSwitcher
             type={videos[selectedVideoIndex]?.source}
@@ -106,7 +94,7 @@ export async function getStaticProps() {
         "aspectRatio": asset -> metadata.dimensions.aspectRatio,
         "lqip": asset -> metadata.lqip,
         "palette": asset -> metadata.palette,
-        "crop": crop 
+        "crop": crop
       },
     }
 `);
